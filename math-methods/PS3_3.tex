@@ -1,0 +1,55 @@
+%% LyX 2.2.1 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[12pt,english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\geometry{verbose,lmargin=1in,rmargin=1in}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{babel}
+\begin{document}
+\begin{enumerate}
+\item contraction mapping
+\item McCall Model
+\item consumption plan
+\begin{enumerate}
+\item First let us set up the Lagrangian.
+
+$\mathcal{L}=E_{0}\sum_{t=0}^{\infty}\beta^{t}\{\frac{c_{t}^{1-\sigma}}{1-\sigma}+\lambda_{t}(x_{t}-c_{t}+y_{t}-x_{t+1})+\mu_{t}(x_{t}-c_{t})\}$ 
+
+The first order conditions are
+\begin{enumerate}
+\item $c_{t}$: $c_{t}^{-\sigma}-\lambda_{t}-\mu_{t}=0$
+\item $x_{t+1}$: $-\lambda_{t}+\beta E_{t}\lambda_{t+1}+\beta E_{t}\mu_{t+1}=0$
+\item $\mu_{t}(x_{t}-c_{t})=0$ and $\mu_{t+1}(x_{t+1}-c_{t+1})=0$; $\mu_{t}\geq0,\mu_{t+1}\geq0$
+\end{enumerate}
+If $\mu_{t}>0$ and $\mu_{t+1}>0$, $x_{t}=c_{t}$ and $x_{t+1}=c_{t+1}$.
+If $\mu_{t}=0$ and $\mu_{t+1}=0$, we have $c_{t}^{-\sigma}=\beta E_{t}c_{t+1}^{-\sigma}$.
+If $\mu_{t}>0$ and $\mu_{t+1}=0$, $c_{t}=x_{t}$. If $\mu_{t}=0$
+and $\mu_{t+1}>0$. $c_{t}<x_{t}$. If $\mu_{t}>0$ and $\mu_{t+1}=0$,
+then $c_{t}=x_{t}$. If $\mu_{t}=0$ and $\mu_{t+1}>0$, then $c_{t}^{-\sigma}=\beta E_{t}c_{t+1}^{-\sigma}+\beta E_{t}\mu_{t+1}$.
+$\beta E_{t}c_{t+1}^{-\sigma}<c_{t}^{-\sigma}<x_{t}^{-\sigma}$. Therefore,
+$c_{t}^{-\sigma}=max\{x_{t}^{-\sigma},\beta E_{t}c_{t+1}^{-\sigma}\}$.
+\item property of $p(x)$. 
+\item Using Blackwell's Lemma, we check
+\begin{enumerate}
+\item Monotonicity
+
+Suppose $p(\cdot)\geq g(\cdot)$, then $\beta\int p(x-p(x)^{-1/\sigma}+y)dF(y)\geq\beta\int g(x-p(x)^{-1/\sigma}+y)dF(y)$.
+If $T(p)=x^{-\sigma}$, then $T(g)=x^{-\sigma}$. Therefore, $T(p)\geq T(g)$.If
+$T(p)=\beta\int p(x-p(x)^{-1/\sigma}+y)dF(y)\geq x^{-\sigma}$, hence
+we have $T(p)\geq T(g)$ immediately by the assumption that $p(\cdot)\geq g(\cdot)$. 
+\item Discounting
+
+$T(p(x)+\alpha)=max\{x^{-\sigma},\beta\int[p(x-p(x)^{-1/\sigma}+y)+\alpha]dF(y)\}=max\{x^{-\sigma},\beta\int p(x-p(x)^{-1/\sigma}+y)dF(y)+\alpha\beta\}$since
+$\alpha\int dF(y)=\alpha$.
+
+And $T(p(x))+\delta\alpha$. Pick any $1>\delta\geq\beta$. $T(p(x)+\alpha)\leq T(p(x))+\alpha\beta<T(p(x))+\delta\alpha$.
+\end{enumerate}
+\end{enumerate}
+\end{enumerate}
+
+\end{document}
