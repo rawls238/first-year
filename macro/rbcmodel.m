@@ -89,7 +89,7 @@
  xlabel('Quarters')
  hold off
  legend('k','c','y','n','i','a')
- saveas(gcf,'rbcmodelgraph1','psc2')
+ saveas(gcf,'rbcmodelgraph1_high_rho','psc2')
 %% Simulated Time Series
  clear s z
  sigmae = 0.01;
@@ -106,8 +106,7 @@
  sim_y_series = yss*exp(z(1:200,1)).*x(1:200);
  sim_c_series = css*exp(z(1:200,2)).*x(1:200);
  sim_n_series = nss*exp(z(1:200,4));
- sim_k_series = (sim_y_series ./ (x(1:200) .* sim_n_series).^alfa).^(1-alfa);
- sim_wage_2 = sim_c_series + nss/(1-nss) * sim_n_series;
+ sim_wage = sim_c_series + nss/(1-nss) * sim_n_series;
  sim_a_series = A * exp(s(1:200,2));
  solow_residual = log(sim_a_series) + alfa*log(x(1:200));
  %% Plot simulated series
@@ -123,7 +122,6 @@
  hold off
  legend('c','y','n','i')
  saveas(gcf,'rbcmodelgraph2','psc2')
- close all
  
 %% Compute Population Moments Analytically
  [m,m] = size(G);

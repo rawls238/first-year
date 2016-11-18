@@ -173,3 +173,14 @@
  legend('c','y','n','i')
  saveas(gcf,'growthmodelgraph4','psc2')
  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
