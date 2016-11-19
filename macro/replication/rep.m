@@ -13,6 +13,7 @@
  delta = 0.025;
  J = 4;
  A = [.906 .088; .088 .906];
+ rho = sum(A(1,:));
  yss = 1;    % Output is normalized to 1
  zss = yss * ((1 - beta) / (beta * sigma))^(1/(-v - 1));
  kss_denom = 1 + delta * beta + delta * beta^2 + delta * beta^3 + (delta - 1) * beta^4;
@@ -24,7 +25,7 @@
  
  tmp = sigma * yss^v * zss^-v;
  pi_c_c = gamma * mu - 1;
- pi_c_n = gamma * (mu - 1) * nss / (nss - 1);
+ pi_c_n = gamma * (1 - mu) * nss / (nss - 1);
  pi_n_c = gamma * mu;
  pi_n_n = (nss / (nss - 1)) * (gamma * (1 - mu) - 1);
  zita_k = theta * (1 - tmp);
