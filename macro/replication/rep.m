@@ -16,7 +16,7 @@
  yss = 1;    % Output is normalized to 1
  zss = yss * ((1 - beta) / (beta * sigma))^(1/(-v - 1));
  kss_denom = 1 + delta * beta + delta * beta^2 + delta * beta^3 + (delta - 1) * beta^4;
- kss = ((4 * beta^4) / kss_denom) * yss^(v+1) * ((yss)^(-v) - sigma * (zss)^(-v));
+ kss = (theta * (4 * beta^4) / kss_denom) * yss^(v+1) * ((yss)^(-v) - sigma * (zss)^(-v));
  nss_first_term = ((1 - theta) * (yss)^(v+1)*((yss)^(-v) - sigma*(zss)^(-v)))^(-1);
  nss_second_term = (1 - 1/mu) * (yss - delta * kss);
  nss = (nss_first_term * nss_second_term + 1)^-1;
