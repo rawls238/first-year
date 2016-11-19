@@ -22,6 +22,24 @@
  nss = (nss_first_term * nss_second_term)^-1;
  css = yss - delta * kss;
  
+ tmp = sigma * yss^v * zss^-v;
+ pi_c_c = gamma * mu - 1;
+ pi_c_n = gamma * (1 - mu) * nss / (nss - 1);
+ pi_n_c = gamma * mu;
+ pi_n_n = (nss / (nss - 1)) * (gamma * (1 - mu) - 1);
+ zita_k = theta * (1 - tmp);
+ zita_n = (1 - theta) * (1 - tmp);
+ zita_z = tmp;
+ tau_k_k = (v + 1) * theta * (1 - tmp) - v * theta - 1;
+ tau_k_n = (v + 1) * (1 - theta) * (1 - tmp) + v * (theta - 1);
+ tau_k_z = (v + 1) * tmp;
+ tau_n_z = tau_k_z;
+ tau_n_k = (v + 1) * theta * (1 - tmp) - v * theta;
+ tau_n_n = (v + 1) * (1 - theta) * (1 - tmp) + v * (theta - 1) - 1;
+ tau_z_k = (v + 1) * theta * (1 - tmp);
+ tau_z_n = (v + 1) * (1 - theta) * (1 - tmp);
+ tau_z_z = (v + 1) * tmp - v - 1;
+ 
  % Model Solution
  % The Linearized System is of the form
  % 
