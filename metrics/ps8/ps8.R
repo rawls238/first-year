@@ -29,6 +29,7 @@ XX <- solve(t(X)%*%X)
 n <- length(invest_data$I)
 V_hat <- vcovHC(model1,type=c("HC0"))
 std_errors <- sqrt(diag(V_hat))
+print(std_errors)
 ci <- matrix(nrow = length(coefficients), ncol=2)
 ci[,1] <- coefficients - 1.96 * std_errors
 ci[,2] <- coefficients + 1.96 * std_errors
