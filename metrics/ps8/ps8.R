@@ -14,11 +14,6 @@ min_distance <- function(beta_hat, mat, R, c) {
   return (beta_hat - mat %*% R %*% mid %*% constraint)
 }
 
-calculate_v <- function(X, XX, e, n, k) {
-  mid_term <- t(X) %*%diag(e^2)%*% X
-  return(n/(n-k)*XX %*% mid_term %*% XX)
-}
-
 #8.3
 invest_data <- read.table("/Users/garidor/Desktop/first-year/metrics/ps8/invest.dat")
 invest_data <- dplyr::rename(invest_data, I = V1, Q = V2, C = V3, D = V4);
@@ -88,21 +83,20 @@ V_hat_ols <- vcovHC(model3,type=c("HC0"))
 #8.4.c
 X <- cbind(matrix(1,n,1), log_q, log_pl, log_pk, log_pf)
 XX <- solve(t(X) %*% X)
-k <- 4
-constraint <- c(0, 0, 1, 1, 1)
+k <- 5
+constraint <- as.matrix(c(0, 0, 1, 1, 1))
 c_val <- c(1)
 cls_est <- matrix(ncol=2, nrow=length(model3$coefficients))
 cls_est[,1] <- min_distance(model3$coefficients, XX, constraint, c_val)
-e_tilda <- log_tc - X %*% as.matrix(cls_est[, 1])
-cls_est[, 2] <- sqrt(diag(calculate_v(X, XX, as.vector(e_tilda), n, k)))
+tmp <- diag(k) - XX %*% constraint %*% solve(t(constraint) %*% XX %*% constraint) %*% t(constraint)
+cls_est[,2] <- sqrt(diag(tmp %*% V_hat_ols %*% t(tmp)))
 print("CLS estimates and standard errors 8.4.c")
 print(cls_est)
 
 #8.4.d
 emd_est <- matrix(ncol=2, nrow=length(model3$coefficients))
-V_hat <- calculate_v(X, XX, as.vector(model3$residuals), n, k)
 emd_est[,1] <- min_distance(model3$coefficients, V_hat_ols, constraint, c_val)
-covar_matrix <- V_hat_ols - V_hat_ols %*% constraint %*% solve(t(constraint) %*% V_hat %*% constraint) %*% t(constraint) %*% V_hat_ols
+covar_matrix <- V_hat_ols - V_hat_ols %*% constraint %*% solve(t(constraint) %*% V_hat_ols %*% constraint) %*% t(constraint) %*% V_hat_ols
 emd_est[,2] <- sqrt(diag(covar_matrix))
 print("EMD estimates and standard errors 8.4.d")
 print(emd_est)
