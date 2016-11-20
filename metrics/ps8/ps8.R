@@ -103,7 +103,8 @@ print(emd_est)
 
 #8.4.e
 wald_stat <- calculate_wald_stat(constraint, V_hat_ols, c_val, model3$coefficients)
-cat("Wald stat for 8.4.e is ", wald_stat, "\n")
+cv <- qchisq(0.95, df=3)
+cat("Wald stat for 8.4.e is ", wald_stat, " with critical value ", cv, "\n")
 
 #8.4.f
 min_distance_stat <- t(as.matrix(model3$coefficients) - emd_est[, 1]) %*% solve(V_hat_ols) %*% (model3$coefficients - emd_est[, 1])
