@@ -68,7 +68,6 @@ Kt=1; Kt1=2; Kt2=3; Kt3=4; lambdat=5; lambdat1=6; lambdat2=7; lambdat3=8;
 Zt=9;Zt1=10;Zt2=11;Zt3=12;
 
 Ct=1;Ct1=2;Ct2=3;Ct3=4;
-%Nt=5;Nt1=6;Nt2=7;Nt3=8;
 
 
 % Fx(eqn, Kt) has same index as Fxp(eqn, Kt) which corresponds to Kt and
@@ -138,6 +137,42 @@ Fxp(eqn,Kt3) = -1 * (triangle / (triangle + 1 - delta) * tau_k_k - ((M * tau_n_k
 eqn = 4;
 Fxp(eqn,lambdat)  = -1;
 Fx(eqn,lambdat)  = rho;
+
+eqn = 5;
+Fxp(eqn,Kt)=1;
+
+eqn = 6;
+Fxp(eqn,Kt1)=1;
+
+eqn = 7;
+Fxp(eqn,Kt2)=1;
+
+eqn = 8;
+Fxp(eqn, lambdat) = 1;
+
+eqn = 9;
+Fxp(eqn, lambdat1) = 1;
+
+eqn = 10;
+Fxp(eqn, lambdat2) = 1;
+
+eqn = 11;
+Fxp(eqn,Zt) = 1;
+
+eqn = 12;
+Fxp(eqn,Zt1) = 1;
+
+eqn = 13;
+Fxp(eqn,Zt2) = 1;
+
+eqn = 14;
+Fyp(eqn, Ct) = 1;
+
+eqn = 15;
+Fyp(eqn, Ct1) = 1;
+
+eqn = 16;
+Fyp(eqn, Ct2) = 1;
 
 
 At = [-Fxp -Fyp]; Bt = [Fx Fy];
