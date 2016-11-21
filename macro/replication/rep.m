@@ -66,13 +66,15 @@
  % where y are the controls and x are the states
 Kt=1; Kt1=2; Kt2=3; Kt3=4; lambdat=5; lambdat1=6; lambdat2=7; lambdat3=8;
 Zt=9;Zt1=10;Zt2=11;Zt3=12;
+
 Ct=1;Ct1=2;Ct2=3;Ct3=4;
-Nt=5;Nt1=6;Nt2=7;Nt3=8;
+%Nt=5;Nt1=6;Nt2=7;Nt3=8;
+
 
 % Fx(eqn, Kt) has same index as Fxp(eqn, Kt) which corresponds to Kt and
 % Kt+1
-Fy=zeros(5,8);  Fx=zeros(5,12); 
-Fyp=zeros(5,8); Fxp=zeros(5,12);
+Fy=zeros(5,4);  Fx=zeros(5,12);
+Fyp=zeros(5,4); Fxp=zeros(5,12);
 
 %1. Resource Constraint (equation 4)
 eqn = 1;
@@ -97,27 +99,39 @@ Fxp(eqn,Zt) = tmp * tau_n_z * (tau_n_n - 1) - (1 - beta) * tau_z_z;
 Fx(eqn, lambdat) = xi_c_l * G * (tau_n_lambda / (tau_n_n - 1));
 Fxp(eqn, lambdat) =  -1 * (1 - beta) * tau_z_lambda + tmp * tau_n_lambda / (tau_n_n - 1);
 
-%3. Equation for n_hat
-eqn = 3;
-Fy(eqn,Ct) = -1;
-Fy(eqn,Nt) = tau_n_n - 1;
-Fx(eqn,Zt) = tau_n_z;
-Fx(eqn,lambdat) = tau_n_lambda;
-Fx(eqn,Kt) = tau_n_k;
+%%3. Equation for n_hat
+%eqn = 3;
+%Fy(eqn,Ct) = -1;
+%y(eqn,Nt) = tau_n_n - 1;
+%Fx(eqn,Zt) = tau_n_z;
+%Fx(eqn,lambdat) = tau_n_lambda;
+%Fx(eqn,Kt) = tau_n_k;
 
 % Euler equation (eq. 1)
 eqn = 4;
-Fy(eqn,Nt)=H;
-Fy(eqn,Nt1) = H * beta * delta;
-Fy(eqn,Nt2) = H * beta^2 * delta;
-Fy(eqn,Nt3) = H * beta^3 * delta;
-Fy(eqn,Ct) = D * xi_c_c;
-Fy(eqn,Ct1) = D * xi_c_c * beta * delta;
-Fy(eqn,Ct2) = D * xi_c_c * beta^2 * delta;
-Fy(eqn,Ct3) = D * xi_c_c * beta^3 * delta;
+%Fy(eqn,Nt)=H;
+%Fy(eqn,Nt1) = H * beta * delta;
+%Fy(eqn,Nt2) = H * beta^2 * delta;
+%Fy(eqn,Nt3) = H * beta^3 * delta;
+Fy(eqn,Ct) = (H / (tau_n_n - 1)) + D * xi_c_c;
+Fy(eqn,Ct1) = (H * beta * delta / (tau_n_n - 1)) + D * xi_c_c * beta * delta;
+Fy(eqn,Ct2) = (H * beta^2 * delta / (tau_n_n - 1)) + D * xi_c_c * beta^2 * delta;
+Fy(eqn,Ct3) = (H * beta^3 * delta / (tau_n_n - 1)) + D * xi_c_c * beta^3 * delta;
 Fyp(eqn,Ct3) = -1* (M / (tau_n_n - 1) + xi_c_c);
+Fx(eqn,Zt) = -1 * (H * tau_n_z / (tau_n_n - 1));
+Fx(eqn,Zt1) = -1 * (H * beta * delta * tau_n_z / (tau_n_n - 1));
+Fx(eqn,Zt2) = -1 * (H * beta^2 * delta * tau_n_z / (tau_n_n - 1));
+Fx(eqn,Zt3) = -1 * (H * beta^3 * delta * tau_n_z / (tau_n_n - 1));
 Fxp(eqn,Zt3) = -1 * (triangle / (triangle + 1 - delta) * tau_k_z - (M*tau_n_z) / (tau_n_n - 1));
+Fx(eqn,lambdat) = -1 * (H * tau_n_lambda / (tau_n_n - 1));
+Fx(eqn,lambdat1) = -1 * (H * beta * delta * tau_n_lambda / (tau_n_n - 1));
+Fx(eqn,lambdat2) = -1 * (H * beta^2 * delta * tau_n_lambda / (tau_n_n - 1));
+Fx(eqn,lambdat3) = -1 * (H * beta^3 * delta * tau_n_lambda / (tau_n_n - 1));
 Fxp(eqn,lambdat3) = -1 * (triangle / (triangle + 1 - delta) * tau_k_lambda - ((M * tau_n_lambda) / (tau_n_n - 1)));
+Fx(eqn,Kt) = -1 * (H * tau_n_k / (tau_n_n - 1));
+Fx(eqn,Kt1) = -1 * (H * beta * delta * tau_n_k / (tau_n_n - 1));
+Fx(eqn,Kt2) = -1 * (H * beta^2 * delta * tau_n_k / (tau_n_n - 1));
+Fx(eqn,Kt3) = -1 * (H * beta^3 * delta * tau_n_k / (tau_n_n - 1));
 Fxp(eqn,Kt3) = -1 * (triangle / (triangle + 1 - delta) * tau_k_k - ((M * tau_n_k) / (tau_n_n - 1)));
 
 % Technology process
