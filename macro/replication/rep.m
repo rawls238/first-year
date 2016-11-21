@@ -29,7 +29,7 @@
  square = ((1 - beta) / (beta * sigma))^(v + v^2);
  B = (square - sigma)^-1;
  E = (B^-1 + sigma)^(-1/v);
- G = nss / 1 - nss;
+ G = nss / (1 - nss);
  
  tmp = sigma * yss^v * zss^-v;
  xi_c_c = gamma * (1 - mu);
@@ -73,8 +73,8 @@ Ct=1;Ct1=2;Ct2=3;Ct3=4;
 
 % Fx(eqn, Kt) has same index as Fxp(eqn, Kt) which corresponds to Kt and
 % Kt+1
-Fy=zeros(5,4);  Fx=zeros(5,12);
-Fyp=zeros(5,4); Fxp=zeros(5,12);
+Fy=zeros(16,4);  Fx=zeros(16,12);
+Fyp=zeros(16,4); Fxp=zeros(16,12);
 
 %1. Resource Constraint (equation 4)
 eqn = 1;
@@ -108,7 +108,7 @@ Fxp(eqn, lambdat) =  -1 * (1 - beta) * tau_z_lambda + tmp * tau_n_lambda / (tau_
 %Fx(eqn,Kt) = tau_n_k;
 
 % Euler equation (eq. 1)
-eqn = 4;
+eqn = 3;
 %Fy(eqn,Nt)=H;
 %Fy(eqn,Nt1) = H * beta * delta;
 %Fy(eqn,Nt2) = H * beta^2 * delta;
@@ -135,7 +135,7 @@ Fx(eqn,Kt3) = -1 * (H * beta^3 * delta * tau_n_k / (tau_n_n - 1));
 Fxp(eqn,Kt3) = -1 * (triangle / (triangle + 1 - delta) * tau_k_k - ((M * tau_n_k) / (tau_n_n - 1)));
 
 % Technology process
-eqn = 5;
+eqn = 4;
 Fxp(eqn,lambdat)  = -1;
 Fx(eqn,lambdat)  = rho;
 
