@@ -23,7 +23,8 @@
  nss_second_term = (1/mu - 1) * (yss - delta * kss);
  nss = (nss_first_term * nss_second_term + 1)^-1;
  css = yss - delta * kss;
- triangle = (delta * (1 + beta + beta^2 + beta^3) / 4 * beta^4) - (1 - delta);
+ 
+ triangle = (delta * (1 + beta + beta^2 + beta^3) / (4 * beta^4)) - (1 - delta);
  D = (4 * triangle * beta^4 + (1 - delta) * (4 * beta^4 + 1))^-1;
  sc = css / yss;
  square = ((1 - beta) / (beta * sigma))^(v + v^2);
@@ -57,81 +58,70 @@
  H = -D*xi_c_l*G;
  M = tau_k_n * triangle / (triangle + 1 - delta) - xi_c_l * G;
 
- 
+ RHS_flag = -1;
  % Model Solution
  % The Linearized System is of the form
  % 
  % Fyp*Ey(t+1)+Fxp x(t+1)+Fy*y(t)+Fx*x(t)=0
  % 
  % where y are the controls and x are the states
-Kt=1; Kt1=2; Kt2=3; Kt3=4; lambdat=5; lambdat1=6; lambdat2=7; lambdat3=8;
-Zt=9;Zt1=10;Zt2=11;Zt3=12;
+Kt=1; Kt1=2; Kt2=3; Kt3=4;
+lambdat=5; lambdat1=6; lambdat2=7; lambdat3=8;
 
 Ct=1;Ct1=2;Ct2=3;Ct3=4;
+Zt=5;Zt1=6;Zt2=7;Zt3=8;
 
 
 % Fx(eqn, Kt) has same index as Fxp(eqn, Kt) which corresponds to Kt and
 % Kt+1
-Fy=zeros(16,4);  Fx=zeros(16,12);
-Fyp=zeros(16,4); Fxp=zeros(16,12);
+Fy=zeros(16,8);  Fx=zeros(16,8);
+Fyp=zeros(16,8); Fxp=zeros(16,8);
 
 %1. Resource Constraint (equation 4)
 eqn = 1;
 Fy(eqn,Ct) = sc - zita_n*(1 / (tau_n_n - 1)); 
-Fx(eqn,Kt) = -1 * 0.25*(1 - delta) * (1 - sc) / delta + zita_n*(tau_n_k / (tau_n_n - 1));
+Fx(eqn,Kt) = 0.25*(1 - delta) * (1 - sc) / delta - zita_k + zita_n*(tau_n_k / (tau_n_n - 1));
 Fx(eqn,Kt1)  = 0.25*(1- sc);
 Fx(eqn,Kt2)  = 0.25*(1-sc);
 Fx(eqn,Kt3)  = 0.25*(1-sc);
-Fxp(eqn,Kt3) = 0.25 * (1-sc) / delta;
-Fx(eqn,lambdat) = -1 * zita_lambda + zita_n * tau_n_lambda / (tau_n_n - 1); 
+Fxp(eqn,Kt3) = RHS_flag * -0.25 * (1-sc) / delta;
+Fx(eqn,lambdat) = RHS_flag * (zita_lambda + zita_n * tau_n_lambda / (tau_n_n - 1));
 Fx(eqn,Zt) = zita_n * tau_n_z / (tau_n_n - 1) - zita_z;
 
 %2. Inventory equation (equation 3)
 eqn = 2;
 tmp = (1 - beta) * tau_z_n - xi_c_l * G;
 Fy(eqn,Ct) = xi_c_c - xi_c_l * G * 1 / (tau_n_n - 1);
-Fyp(eqn,Ct) = -1 * (xi_c_c - (tmp * (tau_n_n - 1)));
+Fyp(eqn,Ct) = RHS_flag * (xi_c_c + (tmp * (tau_n_n - 1)));
 Fx(eqn,Kt) = xi_c_l * G * tau_n_k / (tau_n_n - 1) + tmp * tau_n_k / (tau_n_n - 1);
-Fxp(eqn,Kt) =  -1 * (1 - beta) * tau_z_k;
+Fxp(eqn,Kt) = RHS_flag * (1 - beta) * tau_z_k;
 Fx(eqn,Zt) = xi_c_l * G * tau_n_z / (tau_n_n - 1);
-Fxp(eqn,Zt) = tmp * tau_n_z * (tau_n_n - 1) - (1 - beta) * tau_z_z;
+Fxp(eqn,Zt) = RHS_flag * ((tmp * tau_n_z / (tau_n_n - 1)) + ((1 - beta) * tau_z_z));
 Fx(eqn, lambdat) = xi_c_l * G * (tau_n_lambda / (tau_n_n - 1));
-Fxp(eqn, lambdat) =  -1 * (1 - beta) * tau_z_lambda + tmp * tau_n_lambda / (tau_n_n - 1);
-
-%%3. Equation for n_hat
-%eqn = 3;
-%Fy(eqn,Ct) = -1;
-%y(eqn,Nt) = tau_n_n - 1;
-%Fx(eqn,Zt) = tau_n_z;
-%Fx(eqn,lambdat) = tau_n_lambda;
-%Fx(eqn,Kt) = tau_n_k;
+Fxp(eqn, lambdat) =  RHS_flag * ((1 - beta) * tau_z_lambda - tmp * tau_n_lambda / (tau_n_n - 1));
 
 % Euler equation (eq. 1)
 eqn = 3;
-%Fy(eqn,Nt)=H;
-%Fy(eqn,Nt1) = H * beta * delta;
-%Fy(eqn,Nt2) = H * beta^2 * delta;
-%Fy(eqn,Nt3) = H * beta^3 * delta;
 Fy(eqn,Ct) = (H / (tau_n_n - 1)) + D * xi_c_c;
 Fy(eqn,Ct1) = (H * beta * delta / (tau_n_n - 1)) + D * xi_c_c * beta * delta;
 Fy(eqn,Ct2) = (H * beta^2 * delta / (tau_n_n - 1)) + D * xi_c_c * beta^2 * delta;
 Fy(eqn,Ct3) = (H * beta^3 * delta / (tau_n_n - 1)) + D * xi_c_c * beta^3 * delta;
-Fyp(eqn,Ct3) = -1* (M / (tau_n_n - 1) + xi_c_c);
-Fx(eqn,Zt) = -1 * (H * tau_n_z / (tau_n_n - 1));
-Fx(eqn,Zt1) = -1 * (H * beta * delta * tau_n_z / (tau_n_n - 1));
-Fx(eqn,Zt2) = -1 * (H * beta^2 * delta * tau_n_z / (tau_n_n - 1));
-Fx(eqn,Zt3) = -1 * (H * beta^3 * delta * tau_n_z / (tau_n_n - 1));
-Fxp(eqn,Zt3) = -1 * (triangle / (triangle + 1 - delta) * tau_k_z - (M*tau_n_z) / (tau_n_n - 1));
-Fx(eqn,lambdat) = -1 * (H * tau_n_lambda / (tau_n_n - 1));
-Fx(eqn,lambdat1) = -1 * (H * beta * delta * tau_n_lambda / (tau_n_n - 1));
-Fx(eqn,lambdat2) = -1 * (H * beta^2 * delta * tau_n_lambda / (tau_n_n - 1));
-Fx(eqn,lambdat3) = -1 * (H * beta^3 * delta * tau_n_lambda / (tau_n_n - 1));
-Fxp(eqn,lambdat3) = -1 * (triangle / (triangle + 1 - delta) * tau_k_lambda - ((M * tau_n_lambda) / (tau_n_n - 1)));
-Fx(eqn,Kt) = -1 * (H * tau_n_k / (tau_n_n - 1));
-Fx(eqn,Kt1) = -1 * (H * beta * delta * tau_n_k / (tau_n_n - 1));
-Fx(eqn,Kt2) = -1 * (H * beta^2 * delta * tau_n_k / (tau_n_n - 1));
-Fx(eqn,Kt3) = -1 * (H * beta^3 * delta * tau_n_k / (tau_n_n - 1));
-Fxp(eqn,Kt3) = -1 * (triangle / (triangle + 1 - delta) * tau_k_k - ((M * tau_n_k) / (tau_n_n - 1)));
+Fyp(eqn,Ct3) = RHS_flag * (M / (tau_n_n - 1) + xi_c_c);
+Fy(eqn,Zt) =  (H * tau_n_z / (tau_n_n - 1));
+Fy(eqn,Zt1) =  (H * beta * delta * tau_n_z / (tau_n_n - 1));
+Fy(eqn,Zt2) =  (H * beta^2 * delta * tau_n_z / (tau_n_n - 1));
+Fy(eqn,Zt3) =  (H * beta^3 * delta * tau_n_z / (tau_n_n - 1));
+Fyp(eqn,Zt3) = RHS_flag * (triangle / (triangle + 1 - delta) * tau_k_z - (M*tau_n_z) / (tau_n_n - 1));
+Fx(eqn,lambdat) = (H * tau_n_lambda / (tau_n_n - 1));
+Fx(eqn,lambdat1) = (H * beta * delta * tau_n_lambda / (tau_n_n - 1));
+Fx(eqn,lambdat2) = (H * beta^2 * delta * tau_n_lambda / (tau_n_n - 1));
+Fx(eqn,lambdat3) = (H * beta^3 * delta * tau_n_lambda / (tau_n_n - 1));
+Fxp(eqn,lambdat3) = RHS_flag * (triangle / (triangle + 1 - delta) * tau_k_lambda - ((M * tau_n_lambda) / (tau_n_n - 1)));
+Fx(eqn,Kt) = (H * tau_n_k / (tau_n_n - 1));
+Fx(eqn,Kt1) = (H * beta * delta * tau_n_k / (tau_n_n - 1));
+Fx(eqn,Kt2) = (H * beta^2 * delta * tau_n_k / (tau_n_n - 1));
+Fx(eqn,Kt3) = (H * beta^3 * delta * tau_n_k / (tau_n_n - 1));
+Fxp(eqn,Kt3) = RHS_flag * (triangle / (triangle + 1 - delta) * tau_k_k - ((M * tau_n_k) / (tau_n_n - 1)));
 
 % Technology process
 eqn = 4;
@@ -139,45 +129,53 @@ Fxp(eqn,lambdat)  = -1;
 Fx(eqn,lambdat)  = rho;
 
 eqn = 5;
-Fxp(eqn,Kt)=1;
+Fx(eqn,Kt) = 1;
+Fxp(eqn,Kt) = RHS_flag;
 
 eqn = 6;
-Fxp(eqn,Kt1)=1;
+Fx(eqn,Kt1) = 1;
+Fxp(eqn,Kt1) = RHS_flag;
 
 eqn = 7;
-Fxp(eqn,Kt2)=1;
+Fx(eqn,Kt2) = 1;
+Fxp(eqn,Kt2) = RHS_flag;
 
 eqn = 8;
-Fxp(eqn, lambdat) = 1;
+Fx(eqn, lambdat) = 1;
+Fxp(eqn, lambdat) = RHS_flag;
 
 eqn = 9;
-Fxp(eqn, lambdat1) = 1;
+Fx(eqn, lambdat1) = 1;
+Fxp(eqn, lambdat1) = RHS_flag;
 
 eqn = 10;
-Fxp(eqn, lambdat2) = 1;
+Fx(eqn, lambdat2) = 1;
+Fxp(eqn, lambdat2) = RHS_flag;
 
 eqn = 11;
-Fxp(eqn,Zt) = 1;
+Fy(eqn, Zt) = 1;
+Fyp(eqn,Zt) = RHS_flag;
 
 eqn = 12;
-Fxp(eqn,Zt1) = 1;
+Fy(eqn, Zt1) = 1;
+Fyp(eqn,Zt1) = RHS_flag;
 
 eqn = 13;
-Fxp(eqn,Zt2) = 1;
+Fy(eqn, Zt2) = 1;
+Fyp(eqn,Zt2) = RHS_flag;
 
 eqn = 14;
-Fyp(eqn, Ct) = 1;
+Fy(eqn, Ct) = 1;
+Fyp(eqn, Ct) = RHS_flag;
 
 eqn = 15;
-Fyp(eqn, Ct1) = 1;
+Fy(eqn, Ct1) = 1;
+Fyp(eqn, Ct1) = RHS_flag;
 
 eqn = 16;
-Fyp(eqn, Ct2) = 1;
+Fx(eqn, Ct2) = 1;
+Fyp(eqn, Ct2) = RHS_flag;
 
 
 At = [-Fxp -Fyp]; Bt = [Fx Fy];
-[H,G]=solab(At,Bt,size(Fx,2));
-
-
- 
- 
+[H,G]=solab(At,Bt,size(Fx,2)); 
