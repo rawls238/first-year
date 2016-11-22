@@ -37,8 +37,8 @@
  xi_c_l = gamma - gamma * mu;
  xi_l_c = gamma * mu;
  xi_l_l = -1 + gamma - gamma * mu;
- xi_n_n = xi_l_l * (nss / (1 - nss));
- xi_c_n = gamma * (1 - mu) * nss / (1 - nss);
+ xi_n_n = xi_l_l * (nss / (nss - 1));
+ xi_c_n = gamma * (1 - mu) * nss / (nss - 1);
  xi_n_c = gamma * mu;
  zita_k = theta * (1 - tmp);
  zita_n = (1 - theta) * (1 - tmp);
@@ -106,7 +106,7 @@ Fx(eqn,lambdat) = RHS_flag * (zita_lambda + zita_n * tau_n_lambda / (tau_n_n - 1
 Fx(eqn,Zt) = zita_n * tau_n_z / (tau_n_n - 1) - zita_z;
 
 Fyy(eqn,Ct) = 4 * (zita_n * (xi_c_c - xi_n_c) * yss - s * css);
-Fxx(eqn,Kt) = 4 * yss * (zita_k * s + zita_n * tau_n_k + (1 - delta) * s * kss);
+Fxx(eqn,Kt) = 4 * yss * (zita_k * s + zita_n * tau_n_k) + (1 - delta) * s * kss;
 Fxxp(eqn,Kt) = RHS_flag * delta * s * kss;
 Fxxp(eqn,Kt1) = RHS_flag * delta * s * kss;
 Fxxp(eqn,Kt2) = RHS_flag * delta * s * kss;
@@ -178,7 +178,7 @@ Fxx(eqn, Kt) = p_k;
 Fxx(eqn, Kt1) = delta * beta * p_k;
 Fxx(eqn, Kt2) = delta * beta^2 * p_k;
 Fxx(eqn, Kt3) = delta * beta^3 * p_k;
-Fxxp(eqn, Kt3) = RHS_flag * (m * xi_c_n * tau_n_z + (m + (delta - 1) * beta^4) * (tau_k_n * tau_n_z + s * tau_k_z));
+Fxxp(eqn, Kt3) = RHS_flag * (m * xi_c_n * tau_n_k + (m + (delta - 1) * beta^4) * (tau_k_n * tau_n_k + s * tau_k_k));
 
 % Technology process
 eqn = 4;
