@@ -189,49 +189,85 @@ eqn = 5;
 Fx(eqn,Kt1) = 1;
 Fxp(eqn,Kt) = RHS_flag;
 
+Fxx(eqn,Kt1) = 1;
+Fxxp(eqn,Kt) = RHS_flag;
+
 eqn = 6;
 Fx(eqn,Kt2) = 1;
 Fxp(eqn,Kt1) = RHS_flag;
+
+Fxx(eqn,Kt2) = 1;
+Fxxp(eqn,Kt1) = RHS_flag;
 
 eqn = 7;
 Fx(eqn,Kt3) = 1;
 Fxp(eqn,Kt2) = RHS_flag;
 
+Fxx(eqn,Kt3) = 1;
+Fxxp(eqn,Kt2) = RHS_flag;
+
 eqn = 8;
 Fx(eqn, lambdat1) = 1;
 Fxp(eqn, lambdat) = RHS_flag;
+
+Fxx(eqn, lambdat1) = 1;
+Fxxp(eqn, lambdat) = RHS_flag;
 
 eqn = 9;
 Fx(eqn, lambdat2) = 1;
 Fxp(eqn, lambdat1) = RHS_flag;
 
+Fxx(eqn, lambdat2) = 1;
+Fxxp(eqn, lambdat1) = RHS_flag;
+
 eqn = 10;
 Fx(eqn, lambdat3) = 1;
 Fxp(eqn, lambdat2) = RHS_flag;
+
+Fxx(eqn, lambdat3) = 1;
+Fxxp(eqn, lambdat2) = RHS_flag;
 
 eqn = 11;
 Fy(eqn, Zt1) = 1;
 Fyp(eqn,Zt) = RHS_flag;
 
+Fyy(eqn, Zt1) = 1;
+Fyyp(eqn,Zt) = RHS_flag;
+
 eqn = 12;
 Fy(eqn, Zt2) = 1;
 Fyp(eqn,Zt1) = RHS_flag;
+
+Fyy(eqn, Zt2) = 1;
+Fyyp(eqn,Zt1) = RHS_flag;
 
 eqn = 13;
 Fy(eqn, Zt3) = 1;
 Fyp(eqn,Zt2) = RHS_flag;
 
+Fyy(eqn, Zt3) = 1;
+Fyyp(eqn,Zt2) = RHS_flag;
+
 eqn = 14;
 Fy(eqn, Ct1) = 1;
 Fyp(eqn, Ct) = RHS_flag;
+
+Fyy(eqn, Ct1) = 1;
+Fyyp(eqn, Ct) = RHS_flag;
 
 eqn = 15;
 Fy(eqn, Ct2) = 1;
 Fyp(eqn, Ct1) = RHS_flag;
 
+Fyy(eqn, Ct2) = 1;
+Fyyp(eqn, Ct1) = RHS_flag;
+
 eqn = 16;
 Fy(eqn, Ct3) = 1;
 Fyp(eqn, Ct2) = RHS_flag;
+
+Fyy(eqn, Ct3) = 1;
+Fyyp(eqn, Ct2) = RHS_flag;
 
 
 At = [-Fxp -Fyp]; Bt = [Fx Fy];
