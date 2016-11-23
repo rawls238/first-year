@@ -103,7 +103,7 @@ Fx(eqn,Kt2)  = 0.25*(1-sc);
 Fx(eqn,Kt3)  = 0.25*(1-sc);
 Fxp(eqn,Kt3) = RHS_flag * -0.25 * (1-sc) / delta;
 Fx(eqn,lambdat) = RHS_flag * (zita_lambda + zita_n * tau_n_lambda / (tau_n_n - 1));
-Fx(eqn,Zt) = zita_n * tau_n_z / (tau_n_n - 1) - zita_z;
+Fy(eqn,Zt) = zita_n * tau_n_z / (tau_n_n - 1) - zita_z;
 
 Fyy(eqn,Ct) = 4 * (zita_n * (xi_c_c - xi_n_c) * yss - s * css);
 Fxx(eqn,Kt) = 4 * yss * (zita_k * s + zita_n * tau_n_k) + (1 - delta) * s * kss;
