@@ -85,6 +85,7 @@ Fx(eqn,Z) = yss * (zita_z * s + zita_n * tau_n_z);
 
 
 %2. Inventory FOC
+eqn = 2;
 Fy(eqn,C) = q_c;
 Fyp(eqn,C) = RHS_flag * (q_c + (1 - beta) * tau_z_n * (xi_c_c - xi_n_c));
 Fx(eqn,lambda) = p_lambda;
