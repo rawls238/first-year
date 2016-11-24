@@ -53,7 +53,7 @@
  tau_n_lambda = (v+1)*(1 - (sigma)*(yss)^v*(zss)^(-v)) - v;
  tau_k_lambda = (v+1)*(1 - (sigma)*(yss)^v*(zss)^(-v)) - v; 
  
- m = 1 + delta * beta;
+ m = 1;
  s = xi_n_n - xi_c_n - tau_n_n;
  p_c = xi_c_c + xi_c_n * (xi_c_c - xi_n_c);
  q_c = xi_c_c * (xi_n_n - tau_n_n) - xi_c_n * xi_n_c;
@@ -79,7 +79,7 @@ Fyp=zeros(4,2); Fxp=zeros(4,2);
 eqn = 1;
 Fy(eqn,C) = (zita_n * (xi_c_c - xi_n_c) * yss - s * css);
 Fx(eqn,K) = yss * (zita_k * s + zita_n * tau_n_k) + (1 - delta) * s * kss;
-Fxp(eqn,K) = RHS_flag * delta * s * kss;
+Fxp(eqn,K) = RHS_flag * s * kss;
 Fx(eqn, lambda) = yss * (zita_lambda * s + zita_n * tau_n_lambda);
 Fx(eqn,Z) = yss * (zita_z * s + zita_n * tau_n_z);
 
