@@ -39,7 +39,7 @@
  zita_k = theta * (1 - tmp);
  zita_n = (1 - theta) * (1 - tmp);
  zita_z = tmp;
- zita_lambda = 1 - sigma * (yss)^v * (zss)^(-v);
+ zita_lambda = 1 - tmp;
  tau_k_k = (v + 1) * theta * (1 - tmp) - v * theta - 1;
  tau_k_n = (v + 1) * (1 - theta) * (1 - tmp) + v * (theta - 1);
  tau_k_z = (v + 1) * tmp;
@@ -67,13 +67,13 @@
  % Fyp*Ey(t+1)+Fxp x(t+1)+Fy*y(t)+Fx*x(t)=0
  % 
  % where y are the controls and x are the states
-K=1; lambda=2; 
-C=1; Z=2;
+K=1; lambda=2; Z=3;
+C=1;
 
 RHS_flag = -1;
 
-Fy=zeros(4,2);  Fx=zeros(4,2); 
-Fyp=zeros(4,2); Fxp=zeros(4,2);
+Fy=zeros(4,1);  Fx=zeros(4,3);
+Fyp=zeros(4,1); Fxp=zeros(4,3);
 
 %1. Resource Constraint (equation 4)
 eqn = 1;
@@ -89,10 +89,10 @@ eqn = 2;
 Fy(eqn,C) = q_c;
 Fyp(eqn,C) = RHS_flag * (q_c + (1 - beta) * tau_z_n * (xi_c_c - xi_n_c));
 Fx(eqn,lambda) = p_lambda;
-Fx(eqn,K) = p_k;
-Fx(eqn,Z) = p_z;
 Fxp(eqn,lambda) = RHS_flag * (xi_c_n * tau_n_lambda + (1 - beta) * (tau_z_n * tau_n_lambda + s * tau_z_lambda));
+Fx(eqn,K) = p_k;
 Fxp(eqn, K) = RHS_flag * (xi_c_n * tau_n_k + (1 - beta) * (tau_z_n * tau_n_k + s * tau_z_k));
+Fx(eqn,Z) = p_z;
 Fxp(eqn, Z) = RHS_flag * (xi_c_n * tau_n_z + (1 - beta) * (tau_z_n * tau_n_z + s * tau_z_z));
  
 %3. Euler
@@ -100,7 +100,7 @@ eqn = 3;
 Fy(eqn, C) = p_c;
 Fyp(eqn, C) = RHS_flag * (m * q_c + tau_k_n * (xi_c_c - xi_n_c) * (m + (delta - 1) * beta));
 Fx(eqn, lambda) = p_lambda;
-Fyp(eqn, lambda) = RHS_flag * (m * xi_c_n * tau_n_lambda + (m + (delta - 1) * beta) * (tau_k_n * tau_n_lambda + s * tau_k_lambda));
+Fxp(eqn, lambda) = RHS_flag * (m * xi_c_n * tau_n_lambda + (m + (delta - 1) * beta) * (tau_k_n * tau_n_lambda + s * tau_k_lambda));
 Fx(eqn, Z) = p_z;
 Fxp(eqn, Z) = RHS_flag * (m * xi_c_n * tau_n_z + (m + (delta - 1) * beta) * (tau_k_n * tau_n_z + s * tau_k_z));
 Fx(eqn, K) = p_k;
