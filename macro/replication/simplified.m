@@ -69,7 +69,7 @@
  % where y are the controls and x are the states
 
 num_countries = 2;
-country_offset = 4;
+country_offset = 3;
 state_keys = {'K', 'lambda', 'Z'};
 state_vals = [1, 2, 3];
 state_offset = length(state_vals);
@@ -79,7 +79,7 @@ control_offset = length(control_vals);
 val_offset = [state_vals length(state_vals) + control_vals];
 vars = containers.Map([state_keys control_keys], val_offset);
 total_vals = [state_vals control_vals];
-total_eqs = num_countries * country_offset;
+total_eqs = num_countries * country_offset + 2;
 total_controls = num_countries * control_offset;
 total_states = num_countries * state_offset;
 
@@ -95,8 +95,6 @@ for i=1:num_countries
     end
 end
 
-
-
 Fy=zeros(total_eqs,total_controls);  Fx=zeros(total_eqs,total_states);
 Fyp=zeros(total_eqs,total_controls); Fxp=zeros(total_eqs,total_states);
 
@@ -109,17 +107,8 @@ K = var_offset(country_num, vars('K'));
 lambda = var_offset(country_num, vars('lambda'));
 Z = var_offset(country_num, vars('Z'));
 
-%1. Resource Constraint (equation 4)
-eqn = 1 + (country_num - 1) * country_offset;
-Fy(eqn,C) = (zita_n * (xi_c_c - xi_n_c) * yss - s * css);
-Fx(eqn,K) = yss * (zita_k * s + zita_n * tau_n_k) + (1 - delta) * s * kss;
-Fxp(eqn,K) = RHS_flag * s * kss;
-Fx(eqn, lambda) = yss * (zita_lambda * s + zita_n * tau_n_lambda);
-Fx(eqn,Z) = yss * (zita_z * s + zita_n * tau_n_z);
-
-
 %2. Inventory FOC
-eqn = 2 +  (country_num - 1) * country_offset;
+eqn = 1 + (country_num - 1) * country_offset;
 Fy(eqn,C) = q_c;
 Fyp(eqn,C) = RHS_flag * (q_c + (1 - beta) * tau_z_n * (xi_c_c - xi_n_c));
 Fx(eqn,lambda) = p_lambda;
@@ -130,7 +119,7 @@ Fx(eqn,Z) = p_z;
 Fxp(eqn, Z) = RHS_flag * (xi_c_n * tau_n_z + (1 - beta) * (tau_z_n * tau_n_z + s * tau_z_z));
  
 %3. Euler
-eqn = 3 +  (country_num - 1) * country_offset;
+eqn = 2 + (country_num - 1) * country_offset;
 Fy(eqn, C) = p_c;
 Fyp(eqn, C) = RHS_flag * (m * q_c + tau_k_n * (xi_c_c - xi_n_c) * (m + (delta - 1) * beta));
 Fx(eqn, lambda) = p_lambda;
@@ -139,13 +128,51 @@ Fx(eqn, Z) = p_z;
 Fxp(eqn, Z) = RHS_flag * (m * xi_c_n * tau_n_z + (m + (delta - 1) * beta) * (tau_k_n * tau_n_z + s * tau_k_z));
 Fx(eqn, K) = p_k;
 Fxp(eqn, K) = RHS_flag * (m * xi_c_n * tau_n_k + (m + (delta - 1) * beta) * (tau_k_n * tau_n_k + s * tau_k_k));
-
-%6. Technology process
-eqn = 4 +  (country_num - 1) * country_offset;
-Fxp(eqn,lambda)  = RHS_flag;
-Fx(eqn,lambda)  = rho;
 end
 
+C_h = var_offset(1, vars('C'));
+C_f = var_offset(2, vars('C'));
+K_h = var_offset(1, vars('K'));
+K_f = var_offset(2, vars('K'));
+lambda_h = var_offset(1, vars('lambda'));
+lambda_f = var_offset(2, vars('lambda'));
+Z_h = var_offset(1, vars('Z'));
+Z_f = var_offset(2, vars('Z'));
+
+eqn = 5;
+Fxp(eqn,lambda_h)  = RHS_flag;
+Fx(eqn,lambda_h)  = A(1, 1);
+Fx(eqn,lambda_f) = A(1, 2);
+
+
+eqn = 6;
+Fxp(eqn,lambda_f) = RHS_flag;
+Fx(eqn,lambda_h) = A(2, 1);
+Fx(eqn,lambda_f) = A(2, 2);
+
+%1. Marginal Utility eq
+eqn = 7;
+Fy(eqn,C_h) = q_c;
+Fx(eqn,lambda_h) = p_lambda;
+Fx(eqn,K_h) = p_k;
+Fx(eqn,Z_h) = p_z;
+Fy(eqn,C_f) = RHS_flag * q_c;
+Fx(eqn,lambda_f) = RHS_flag * p_lambda;
+Fx(eqn,K_f) = RHS_flag * p_k;
+Fx(eqn,Z_f) = RHS_flag * p_z;
+
+%Resource constraint
+eqn = 8;
+Fxp(eqn,K_h) = RHS_flag * s * kss;
+Fxp(eqn,K_f) = RHS_flag * s * kss;
+Fy(eqn,C_h) = (zita_n * (xi_c_c - xi_n_c) * yss - s * css);
+Fy(eqn,C_f) = (zita_n * (xi_c_c - xi_n_c) * yss - s * css);
+Fx(eqn,K_h) = yss * (zita_k * s + zita_n * tau_n_k) + (1 - delta) * s * kss;
+Fx(eqn,K_f) = yss * (zita_k * s + zita_n * tau_n_k) + (1 - delta) * s * kss;
+Fx(eqn, lambda_h) = yss * (zita_lambda * s + zita_n * tau_n_lambda);
+Fx(eqn, lambda_f) = yss * (zita_lambda * s + zita_n * tau_n_lambda);
+Fx(eqn,Z_h) = yss * (zita_z * s + zita_n * tau_n_z);
+Fx(eqn,Z_f) = yss * (zita_z * s + zita_n * tau_n_z);
 
 At = [-Fxp -Fyp]; Bt = [Fx Fy];
 [H,G]=solab(At,Bt,size(Fx,2));
