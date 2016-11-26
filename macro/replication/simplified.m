@@ -69,7 +69,7 @@
  % where y are the controls and x are the states
 
 num_countries = 2;
-country_offset = 3;
+country_offset = 2;
 state_keys = {'K', 'lambda', 'Z'};
 state_vals = [1, 2, 3];
 state_offset = length(state_vals);
@@ -79,7 +79,7 @@ control_offset = length(control_vals);
 val_offset = [state_vals length(state_vals) + control_vals];
 vars = containers.Map([state_keys control_keys], val_offset);
 total_vals = [state_vals control_vals];
-total_eqs = num_countries * country_offset + 2;
+total_eqs = num_countries * country_offset + 4;
 total_controls = num_countries * control_offset;
 total_states = num_countries * state_offset;
 
