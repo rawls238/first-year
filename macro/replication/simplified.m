@@ -21,7 +21,7 @@
  % Steady state
  yss = 1;    % Output is normalized to 1
  zss = yss * ((1 - beta) / (beta * sigma))^(1/(-v - 1));
- kss_denom = 1 + (delta - 1)*beta
+ kss_denom = 1 + (delta - 1)*beta;
  kss = (theta * beta / kss_denom) * yss^(v+1) * ((yss)^(-v) - sigma * (zss)^(-v));
  nss_first_term = ((1 - theta) * (yss)^(v+1)*((yss)^(-v) - sigma*(zss)^(-v)))^(-1);
  nss_second_term = (1/mu - 1) * (yss - delta * kss);
@@ -67,16 +67,50 @@
  % Fyp*Ey(t+1)+Fxp x(t+1)+Fy*y(t)+Fx*x(t)=0
  % 
  % where y are the controls and x are the states
-K=1; lambda=2; Z=3;
-C=1;
+
+num_countries = 2;
+country_offset = 4;
+state_keys = {'K', 'lambda', 'Z'};
+state_vals = [1, 2, 3];
+state_offset = length(state_vals);
+control_keys = {'C'};
+control_vals = [1];
+control_offset = length(control_vals);
+val_offset = [state_vals length(state_vals) + control_vals];
+vars = containers.Map([state_keys control_keys], val_offset);
+total_vals = [state_vals control_vals];
+total_eqs = num_countries * country_offset;
+total_controls = num_countries * control_offset;
+total_states = num_countries * state_offset;
+
+var_offset = zeros(num_countries, length(total_vals));
+for i=1:num_countries
+    for j=1:length(state_vals)
+        var_offset(i, j) = state_offset * (i - 1) + state_vals(j);
+    end
+    start = length(state_vals) + 1;
+    done = length(state_vals) + length(control_vals);
+    for j=start:done
+        var_offset(i, j) = control_offset * (i - 1) + control_vals(j-length(state_vals));
+    end
+end
+
+
+
+Fy=zeros(total_eqs,total_controls);  Fx=zeros(total_eqs,total_states);
+Fyp=zeros(total_eqs,total_controls); Fxp=zeros(total_eqs,total_states);
 
 RHS_flag = -1;
 
-Fy=zeros(4,1);  Fx=zeros(4,3);
-Fyp=zeros(4,1); Fxp=zeros(4,3);
+for country_num=1:num_countries
+    
+C = var_offset(country_num, vars('C'));
+K = var_offset(country_num, vars('K'));
+lambda = var_offset(country_num, vars('lambda'));
+Z = var_offset(country_num, vars('Z'));
 
 %1. Resource Constraint (equation 4)
-eqn = 1;
+eqn = 1 + (country_num - 1) * country_offset;
 Fy(eqn,C) = (zita_n * (xi_c_c - xi_n_c) * yss - s * css);
 Fx(eqn,K) = yss * (zita_k * s + zita_n * tau_n_k) + (1 - delta) * s * kss;
 Fxp(eqn,K) = RHS_flag * s * kss;
@@ -85,7 +119,7 @@ Fx(eqn,Z) = yss * (zita_z * s + zita_n * tau_n_z);
 
 
 %2. Inventory FOC
-eqn = 2;
+eqn = 2 +  (country_num - 1) * country_offset;
 Fy(eqn,C) = q_c;
 Fyp(eqn,C) = RHS_flag * (q_c + (1 - beta) * tau_z_n * (xi_c_c - xi_n_c));
 Fx(eqn,lambda) = p_lambda;
@@ -96,7 +130,7 @@ Fx(eqn,Z) = p_z;
 Fxp(eqn, Z) = RHS_flag * (xi_c_n * tau_n_z + (1 - beta) * (tau_z_n * tau_n_z + s * tau_z_z));
  
 %3. Euler
-eqn = 3;
+eqn = 3 +  (country_num - 1) * country_offset;
 Fy(eqn, C) = p_c;
 Fyp(eqn, C) = RHS_flag * (m * q_c + tau_k_n * (xi_c_c - xi_n_c) * (m + (delta - 1) * beta));
 Fx(eqn, lambda) = p_lambda;
@@ -107,9 +141,10 @@ Fx(eqn, K) = p_k;
 Fxp(eqn, K) = RHS_flag * (m * xi_c_n * tau_n_k + (m + (delta - 1) * beta) * (tau_k_n * tau_n_k + s * tau_k_k));
 
 %6. Technology process
-eqn = 4;
+eqn = 4 +  (country_num - 1) * country_offset;
 Fxp(eqn,lambda)  = RHS_flag;
 Fx(eqn,lambda)  = rho;
+end
 
 
 At = [-Fxp -Fyp]; Bt = [Fx Fy];
