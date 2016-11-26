@@ -16,8 +16,6 @@
  delta = 0.025;
  J = 4;
  A = [.906 .088; .088 .906];
- rho = sum(A(1,:));
- 
  % Steady state
  yss = 1;    % Output is normalized to 1
  zss = yss * ((1 - beta) / (beta * sigma))^(1/(-v - 1));
@@ -70,7 +68,7 @@
 
 num_countries = 2;
 country_offset = 2;
-state_keys = {'K', 'lambda', 'Z'};
+state_keys = {'K', 'Z', 'lambda'};
 state_vals = [1, 2, 3];
 state_offset = length(state_vals);
 control_keys = {'C'};
@@ -176,3 +174,53 @@ Fx(eqn,Z_f) = yss * (zita_z * s + zita_n * tau_n_z);
 
 At = [-Fxp -Fyp]; Bt = [Fx Fy];
 [H,G]=solab(At,Bt,size(Fx,2));
+
+%% Impulse responses
+ shock(:,1) = [1;1;1;1;1;1];
+ x(1,1) =  1;
+ for i=1:100
+    shock(:,i+1) = G*shock(:,i);
+ end
+
+z = (H*shock)';
+shock = shock';
+
+lambda_h = shock(:,3);
+lambda_f = shock(:,6);
+k_h = shock(:,1);
+k_f = shock(:,4);
+c_h = z(:,1);
+c_f= z(:, 2);
+z_h = shock(:,2);
+z_f = shock(:,5);
+
+i_h = zeros(100);
+i_f = zeros(100);
+for i=1:99
+    i_h = k_h(i+1) + (1 - delta) * k_h(i);
+    i_f = k_f(i+1) + (1 - delta) * k_f(i);
+end
+
+%y_h = ...
+%nx_h = y_h - c..
+
+ % Plot Impulse Responses
+plot(c_h,'-d','MarkerSize',3,'Color',[0,0,0])
+hold on 
+plot(i_h,'-^','MarkerSize',3,'Color',[0.5, 0.5, 0])
+hold off
+ylabel('Percent Deviations')
+xlabel('Quarters')
+legend('c', 'i');
+saveas(gcf,'home','psc2')
+
+plot(c_f,'-d','MarkerSize',3,'Color',[0.9, 0, 0])
+hold on
+plot(i_f,'-^','MarkerSize',3)
+hold on
+hold off
+ylabel('Percent Deviations')
+xlabel('Quarters')
+legend('c', 'i');
+saveas(gcf,'foreign','psc2')
+
