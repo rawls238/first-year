@@ -177,7 +177,6 @@ At = [-Fxp -Fyp]; Bt = [Fx Fy];
 
 %% Impulse responses
  shock(:,1) = [1;1;1;1;1;1];
- x(1,1) =  1;
  for i=1:100
     shock(:,i+1) = G*shock(:,i);
  end
@@ -223,4 +222,3 @@ ylabel('Percent Deviations')
 xlabel('Quarters')
 legend('c', 'i');
 saveas(gcf,'foreign','psc2')
-
