@@ -49,14 +49,14 @@ clear all;
  tau_k_lambda = (v+1)*(1 - (sigma)*(yss)^v*(zss)^(-v)) - v; 
 
 num_countries = 2;
-country_offset = 4;
-state_keys = {'Kt', 'Zt', 'lambdat', 'Kt1', 'Kt2', 'Kt3', 'Zt1', 'Zt2', 'Zt3', 'lambdat1'};
+country_offset = 22;
+state_keys = {'Kt', 'Kt1', 'Kt2', 'Kt3', 'Zt', 'Zt1', 'Zt2', 'Zt3', 'lambdat', 'lambdat1'};
 state_vals = zeros(1, length(state_keys));
 for i=1:length(state_keys)
     state_vals(i) = i;
 end
 state_offset = length(state_vals);
-control_keys = {'Ct', 'Ct1', 'Ct2', 'Ct3', 'Yt', 'Yt1', 'Yt2', 'Yt3', 'Nt1', 'Nt2', 'Nt3', 'lambdat2', 'lambdat3'};
+control_keys = {'Ct', 'Ct1', 'Ct2', 'Ct3', 'Yt', 'Yt1', 'Yt2', 'Yt3', 'Nt', 'Nt1', 'Nt2', 'Nt3', 'lambdat2', 'lambdat3'};
 control_vals = zeros(1, length(control_keys));
 for i=1:length(control_keys)
     control_vals(i) = i;
@@ -87,75 +87,154 @@ Fyp=zeros(total_eqs,total_controls); Fxp=zeros(total_eqs,total_states);
 
 RHS_flag = -1;
 
+m = 1 + delta * beta + delta * beta^2 + delta * beta^3;
+m_inv = 1 / m;
+
 for country_num=1:num_countries
+    Ct = var_offset(country_num, vars('Ct'));
+    Kt = var_offset(country_num, vars('Kt'));
+    lambdat = var_offset(country_num, vars('lambdat'));
+    Zt = var_offset(country_num, vars('Zt'));
+    Nt = var_offset(country_num, vars('Nt'));
+    Yt = var_offset(country_num, vars('Yt'));
+
+    Ct1 = var_offset(country_num, vars('Ct1'));
+    Kt1 = var_offset(country_num, vars('Kt1'));
+    lambdat1 = var_offset(country_num, vars('lambdat1'));
+    Zt1 = var_offset(country_num, vars('Zt1'));
+    Nt1 = var_offset(country_num, vars('Nt1'));
+    Yt1 = var_offset(country_num, vars('Yt1'));
+
+    Ct2 = var_offset(country_num, vars('Ct2'));
+    Kt2 = var_offset(country_num, vars('Kt2'));
+    lambdat2 = var_offset(country_num, vars('lambdat2'));
+    Zt2 = var_offset(country_num, vars('Zt2'));
+    Nt2 = var_offset(country_num, vars('Nt2'));
+    Yt2 = var_offset(country_num, vars('Yt2'));
+
+    Ct3 = var_offset(country_num, vars('Ct3'));
+    Kt3 = var_offset(country_num, vars('Kt3'));
+    lambdat3 = var_offset(country_num, vars('lambdat3'));
+    Zt3 = var_offset(country_num, vars('Zt3'));
+    Nt3 = var_offset(country_num, vars('Nt3'));
+    Yt3 = var_offset(country_num, vars('Yt3'));
+
+    offset = (country_num - 1) * country_offset;
+    %1. Inventory FOC
+    eqn = 1 + offset;
+    Fy(eqn,Ct) = xi_c_c;
+    Fy(eqn,Nt) = xi_c_n;
+    Fyp(eqn,Ct) = xi_c_c;
+    Fyp(eqn,Nt) = xi_c_n;
+    Fxp(eqn,lambdat) = RHS_flag * (1 - beta) * tau_z_lambda;
+    Fxp(eqn,Kt) = RHS_flag * (1 - beta) * tau_z_k;
+    Fxp(eqn,Zt) = RHS_flag * (1 - beta) * tau_z_z;
+    Fyp(eqn,Nt) = RHS_flag * (1 - beta) * tau_z_n;
+
+    %2. Euler
+    eqn = 2 + offset;
+    Fyp(eqn, Ct3) = RHS_flag * (xi_c_c - (m_inv * (delta - 1) * beta^4 * xi_c_c));
+    Fyp(eqn, Nt3) = RHS_flag * (xi_c_n - (m_inv * (delta - 1) * beta^4 * xi_c_n));
+    Fyp(eqn, lambdat3) = RHS_flag * tau_k_lambda;
+    Fxp(eqn, Kt3) = RHS_flag * tau_k_k;
+    Fxp(eqn, Zt3) = RHS_flag * tau_k_z;
+    Fy(eqn, Ct) = m_inv * xi_c_c;
+    Fy(eqn, Nt) = m_inv * xi_c_n;
+    Fy(eqn, Ct1) = m_inv * xi_c_c * delta * beta;
+    Fy(eqn, Nt1) = m_inv * xi_c_n * delta * beta;
+    Fy(eqn, Ct2) = m_inv * xi_c_c * delta * beta^2;
+    Fy(eqn, Nt2) = m_inv * xi_c_n * delta * beta^2;
+    Fy(eqn, Ct3) = m_inv * xi_c_c * delta * beta^3;
+    Fy(eqn, Nt3) = m_inv * xi_c_n * delta * beta^3;
+
+    %3. Production Function
+    eqn = 3 + offset;
+    Fy(eqn,Yt) = RHS_flag;
+    Fx(eqn,lambdat) = zita_lambda;
+    Fy(eqn,Nt) = zita_n;
+    Fx(eqn,Kt) = zita_k;
+    Fx(eqn,Zt) = zita_z;
+
+    %4. Labor
+    eqn = 4 + offset;
+    Fy(eqn, Ct) = xi_n_c - xi_c_c;
+    Fy(eqn, Nt) = xi_n_n - xi_c_n;
+    Fx(eqn, lambdat) = RHS_flag * tau_n_lambda;
+    Fx(eqn, Kt) = RHS_flag * tau_n_k;
+    Fy(eqn, Nt) = tau_n_n;
+    Fx(eqn, Zt) = tau_n_z;
     
-Ct = var_offset(country_num, vars('Ct'));
-Kt = var_offset(country_num, vars('Kt'));
-lambdat = var_offset(country_num, vars('lambdat'));
-Zt = var_offset(country_num, vars('Zt'));
-Nt = var_offset(country_num, vars('Nt'));
-Yt = var_offset(country_num, vars('Yt'));
+    eqn = 5 + offset;
+    Fx(eqn,Kt1) = 1;
+    Fxp(eqn,Kt) = RHS_flag;
 
-Ct1 = var_offset(country_num, vars('Ct1'));
-Kt1 = var_offset(country_num, vars('Kt1'));
-lambdat1 = var_offset(country_num, vars('lambdat1'));
-Zt1 = var_offset(country_num, vars('Zt1'));
-Nt1 = var_offset(country_num, vars('Nt1'));
-Yt1 = var_offset(country_num, vars('Yt1'));
+    eqn = 6 + offset;
+    Fx(eqn,Kt2) = 1;
+    Fxp(eqn,Kt1) = RHS_flag;
 
-Ct2 = var_offset(country_num, vars('Ct2'));
-Kt2 = var_offset(country_num, vars('Kt2'));
-lambdat2 = var_offset(country_num, vars('lambdat2'));
-Zt2 = var_offset(country_num, vars('Zt2'));
-Nt2 = var_offset(country_num, vars('Nt2'));
-Yt2 = var_offset(country_num, vars('Yt2'));
+    eqn = 7 + offset;
+    Fx(eqn,Kt3) = 1;
+    Fxp(eqn,Kt2) = RHS_flag;
 
-Ct3 = var_offset(country_num, vars('Ct3'));
-Kt3 = var_offset(country_num, vars('Kt3'));
-lambdat3 = var_offset(country_num, vars('lambdat3'));
-Zt3 = var_offset(country_num, vars('Zt3'));
-Nt3 = var_offset(country_num, vars('Nt3'));
-Yt3 = var_offset(country_num, vars('Yt3'));
+    eqn = 8 + offset;
+    Fx(eqn, lambdat1) = 1;
+    Fxp(eqn, lambdat) = RHS_flag;
 
+    eqn = 9 + offset;
+    Fy(eqn, lambdat2) = 1;
+    Fxp(eqn, lambdat1) = RHS_flag;
 
-%2. Inventory FOC
-eqn = 1 + (country_num - 1) * country_offset;
-Fy(eqn,C) = xi_c_c;
-Fy(eqn,N) = xi_c_n;
-Fyp(eqn,C) = xi_c_c;
-Fyp(eqn,N) = xi_c_n;
-Fxp(eqn,lambda) = RHS_flag * (1 - beta) * tau_z_lambda;
-Fxp(eqn,K) = RHS_flag * (1 - beta) * tau_z_k;
-Fxp(eqn,Z) = RHS_flag * (1 - beta) * tau_z_z;
-Fyp(eqn,N) = RHS_flag * (1 - beta) * tau_z_n;
+    eqn = 10 + offset;
+    Fy(eqn, lambdat3) = 1;
+    Fyp(eqn, lambdat2) = RHS_flag;
 
-%3. Euler
-mid = 1 / (1 + (delta - 1) * beta);
-eqn = 2 + (country_num - 1) * country_offset;
-Fyp(eqn, C) = RHS_flag * (xi_c_c - mid * (delta - 1) * beta * xi_c_c);
-Fyp(eqn, N) = RHS_flag * (xi_c_n - mid * (delta - 1) * beta * xi_c_n);
-Fxp(eqn, lambda) = RHS_flag * tau_k_lambda;
-Fxp(eqn, K) = RHS_flag * tau_k_k;
-Fxp(eqn, Z) = RHS_flag * tau_k_z;
-Fy(eqn, C) = mid * xi_c_c;
-Fy(eqn, N) = mid * xi_c_n;
+    eqn = 11 + offset;
+    Fx(eqn, Zt1) = 1;
+    Fxp(eqn,Zt) = RHS_flag;
 
-%Production Function
-eqn = 3 + (country_num - 1) * country_offset;
-Fy(eqn,Y) = RHS_flag;
-Fx(eqn,lambda) = zita_lambda;
-Fy(eqn,N) = zita_n;
-Fx(eqn,K) = zita_k;
-Fx(eqn,Z) = zita_z;
+    eqn = 12 + offset;
+    Fx(eqn, Zt2) = 1;
+    Fxp(eqn,Zt1) = RHS_flag;
 
-% Labor
-eqn = 4 + (country_num - 1) * country_offset;
-Fy(eqn, C) = xi_n_c - xi_c_c;
-Fy(eqn, N) = xi_n_n - xi_c_n;
-Fx(eqn, lambda) = RHS_flag * tau_n_lambda;
-Fx(eqn, K) = RHS_flag * tau_n_k;
-Fy(eqn, N) = tau_n_n;
-Fx(eqn, Z) = tau_n_z;
+    eqn = 13 + offset;
+    Fx(eqn, Zt3) = 1;
+    Fxp(eqn,Zt2) = RHS_flag;
+
+    eqn = 14 + offset;
+    Fy(eqn, Ct1) = 1;
+    Fyp(eqn, Ct) = RHS_flag;
+
+    eqn = 15 + offset;
+    Fy(eqn, Ct2) = 1;
+    Fyp(eqn, Ct1) = RHS_flag;
+
+    eqn = 16 + offset;
+    Fy(eqn, Ct3) = 1;
+    Fyp(eqn, Ct2) = RHS_flag;
+    
+    eqn = 17 + offset;
+    Fy(eqn, Yt1) = 1;
+    Fyp(eqn, Yt) = RHS_flag;
+
+    eqn = 18 + offset;
+    Fy(eqn, Yt2) = 1;
+    Fyp(eqn, Yt1) = RHS_flag;
+
+    eqn = 19 + offset;
+    Fy(eqn, Yt3) = 1;
+    Fyp(eqn, Yt2) = RHS_flag;
+    
+    eqn = 20 + offset;
+    Fy(eqn, Nt1) = 1;
+    Fyp(eqn, Nt) = RHS_flag;
+
+    eqn = 21 + offset;
+    Fy(eqn, Nt2) = 1;
+    Fyp(eqn, Nt1) = RHS_flag;
+
+    eqn = 22 + offset;
+    Fy(eqn, Nt3) = 1;
+    Fyp(eqn, Nt2) = RHS_flag;
 end
 
 Ct_h = var_offset(1, vars('Ct'));
@@ -184,37 +263,35 @@ Yt1_f = var_offset(2, vars('Yt1'));
 Nt1_h = var_offset(1, vars('Nt1'));
 Nt1_f = var_offset(2, vars('Nt1'));
 
-
 Kt2_h = var_offset(1, vars('Kt2'));
 Kt2_f = var_offset(2, vars('Kt2'));
 
 Kt3_h = var_offset(1, vars('Kt3'));
 Kt3_f = var_offset(2, vars('Kt3'));
 
+eqn = 45;
+Fxp(eqn,lambdat_h)  = RHS_flag;
+Fx(eqn,lambdat_h)  = A(1, 1);
+Fx(eqn,lambdat_f) = A(1, 2);
 
-eqn = 9;
-Fxp(eqn,lambda_h)  = RHS_flag;
-Fx(eqn,lambda_h)  = A(1, 1);
-Fx(eqn,lambda_f) = A(1, 2);
-
-eqn = 10;
-Fxp(eqn,lambda_f) = RHS_flag;
-Fx(eqn,lambda_h) = A(2, 1);
-Fx(eqn,lambda_f) = A(2, 2);
+eqn = 46;
+Fxp(eqn,lambdat_f) = RHS_flag;
+Fx(eqn,lambdat_h) = A(2, 1);
+Fx(eqn,lambdat_f) = A(2, 2);
 
 %1. Marginal Utility eq
-eqn = 11;
-Fy(eqn, C_h) = xi_c_c;
-Fy(eqn, N_h) = xi_c_n;
-Fy(eqn, C_f) = RHS_flag * xi_c_c;
-Fy(eqn, N_f) = RHS_flag * xi_c_n;
+eqn = 47;
+Fy(eqn, Ct_h) = xi_c_c;
+Fy(eqn, Nt_h) = xi_c_n;
+Fy(eqn, Ct_f) = RHS_flag * xi_c_c;
+Fy(eqn, Nt_f) = RHS_flag * xi_c_n;
 
 %Resource constraint
-eqn = 12;
-Fy(eqn,Y_h) = yss;
-Fy(eqn,Y_f) = yss;
-Fy(eqn,C_h) = css;
-Fy(eqn,C_f) = css;
+eqn = 48;
+Fy(eqn,Yt_h) = yss;
+Fy(eqn,Yt_f) = yss;
+Fy(eqn,Ct_h) = css;
+Fy(eqn,Ct_f) = css;
 Fx(eqn,Kt_h) = 0.25 * (1 - delta) * kss;
 Fx(eqn,Kt_f) = 0.25 * (1 - delta) * kss;
 Fx(eqn,Kt1_h) = 0.25 * ((1 - delta) - 1) * kss;
