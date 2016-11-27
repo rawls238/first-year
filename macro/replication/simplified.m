@@ -16,6 +16,7 @@
  delta = 0.025;
  J = 4;
  A = [.906 .088; .088 .906];
+ 
  % Steady state
  yss = 1;    % Output is normalized to 1
  zss = yss * ((1 - beta) / (beta * sigma))^(1/(-v - 1));
