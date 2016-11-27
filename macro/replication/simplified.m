@@ -20,8 +20,8 @@
  yss = 1;    % Output is normalized to 1
  zss = yss * ((1 - beta) / (beta * sigma))^(1/(-v - 1));
  kss_denom = 1 + (delta - 1)*beta;
- kss = (theta * beta / kss_denom) * yss^(v+1) * ((yss)^(-v) - sigma * (zss)^(-v));
- nss_first_term = ((1 - theta) * (yss)^(v+1)*((yss)^(-v) - sigma*(zss)^(-v)))^(-1);
+ kss = (theta * beta / kss_denom) * yss^(v+1) * ((yss)^(-v) - sigma * (zss)^(-v))^(-1);
+ nss_first_term = ((1 - theta) * (yss)^(v+1)*((yss)^(-v) - sigma*(zss)^(-v)));
  nss_second_term = (1/mu - 1) * (yss - delta * kss);
  nss = (nss_first_term * nss_second_term + 1)^-1;
  css = yss - delta * kss;
@@ -142,7 +142,6 @@ Fxp(eqn,lambda_h)  = RHS_flag;
 Fx(eqn,lambda_h)  = A(1, 1);
 Fx(eqn,lambda_f) = A(1, 2);
 
-
 eqn = 6;
 Fxp(eqn,lambda_f) = RHS_flag;
 Fx(eqn,lambda_h) = A(2, 1);
@@ -150,14 +149,14 @@ Fx(eqn,lambda_f) = A(2, 2);
 
 %1. Marginal Utility eq
 eqn = 7;
-Fy(eqn,C_h) = q_c;
-Fx(eqn,lambda_h) = p_lambda;
-Fx(eqn,K_h) = p_k;
-Fx(eqn,Z_h) = p_z;
-Fy(eqn,C_f) = RHS_flag * q_c;
-Fx(eqn,lambda_f) = RHS_flag * p_lambda;
-Fx(eqn,K_f) = RHS_flag * p_k;
-Fx(eqn,Z_f) = RHS_flag * p_z;
+Fy(eqn,C_h) = RHS_flag * q_c;
+Fx(eqn,lambda_h) = RHS_flag * p_lambda;
+Fx(eqn,K_h) = RHS_flag * p_k;
+Fx(eqn,Z_h) = RHS_flag * p_z;
+Fy(eqn,C_f) =  q_c;
+Fx(eqn,lambda_f) = p_lambda;
+Fx(eqn,K_f) = p_k;
+Fx(eqn,Z_f) = p_z;
 
 %Resource constraint
 eqn = 8;
@@ -177,7 +176,7 @@ At = [-Fxp -Fyp]; Bt = [Fx Fy];
 
 %% Impulse responses
  shock(:,1) = [1;1;1;1;1;1];
- for i=1:100
+ for i=1:20
     shock(:,i+1) = G*shock(:,i);
  end
 
@@ -193,11 +192,11 @@ c_f= z(:, 2);
 z_h = shock(:,2);
 z_f = shock(:,5);
 
-i_h = zeros(100);
-i_f = zeros(100);
-for i=1:99
-    i_h = k_h(i+1) + (1 - delta) * k_h(i);
-    i_f = k_f(i+1) + (1 - delta) * k_f(i);
+i_h = zeros(19);
+i_f = zeros(19);
+for i=1:19
+    i_h(i) =k_h(i+1) + (1 - delta) * k_h(i);
+    i_f(i) = k_f(i+1) + (1 - delta) * k_f(i);
 end
 
 %y_h = ...
