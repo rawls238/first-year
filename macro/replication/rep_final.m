@@ -148,7 +148,7 @@ for country_num=1:num_countries
     Fy(eqn, Nt) = xi_n_n - xi_c_n - tau_n_n;
     Fx(eqn, lambdat) = RHS_flag * tau_n_lambda;
     Fx(eqn, Kt) = RHS_flag * tau_n_k;
-    Fp(eqn, Zt) = RHS_flag * tau_n_z;
+    Fx(eqn, Zt) = RHS_flag * tau_n_z;
     
     eqn = 4 + offset;
     Fx(eqn,Kt1) = 1;
