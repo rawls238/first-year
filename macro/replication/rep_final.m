@@ -215,10 +215,16 @@ Fy(eqn,Y_h) = yss;
 Fy(eqn,Y_f) = yss;
 Fy(eqn,C_h) = css;
 Fy(eqn,C_f) = css;
-Fx(eqn,K_h) = (1 - delta) * kss;
-Fx(eqn,K_f) = (1 - delta) * kss;
-Fxp(eqn,K_h) = RHS_flag * kss;
-Fxp(eqn,K_f) = RHS_flag * kss;
+Fx(eqn,Kt_h) = 0.25 * (1 - delta) * kss;
+Fx(eqn,Kt_f) = 0.25 * (1 - delta) * kss;
+Fx(eqn,Kt1_h) = 0.25 * ((1 - delta) - 1) * kss;
+Fx(eqn,Kt1_f) = 0.25 * ((1 - delta) - 1) * kss;
+Fx(eqn,Kt2_h) = 0.25 * ((1 - delta) - 1) * kss;
+Fx(eqn,Kt2_f) = 0.25 * ((1 - delta) - 1) * kss;
+Fx(eqn,Kt3_h) = 0.25 * ((1 - delta) - 1) * kss;
+Fx(eqn,Kt3_f) = 0.25 * ((1 - delta) - 1) * kss;
+Fxp(eqn,Kt3_h) = RHS_flag * 0.25 * -1 * kss;
+Fxp(eqn,Kt3_f) = RHS_flag * 0.25 * -1 * kss;
 
 
 At = [-Fxp -Fyp]; Bt = [Fx Fy];
