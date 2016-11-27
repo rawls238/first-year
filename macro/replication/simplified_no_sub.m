@@ -1,4 +1,4 @@
- % CH2 Solving the real business cycle model
+% CH2 Solving the real business cycle model
  %
  % ECON 614, Karel Mertens, Cornell University
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -128,7 +128,7 @@ Fxp(eqn,Z) = RHS_flag * (1 - beta) * tau_z_z;
 mid = 1 / (1 + (delta - 1) * beta);
 eqn = 2 + (country_num - 1) * country_offset;
 Fyp(eqn, C) = RHS_flag * (xi_c_c - mid * (delta - 1) * beta * xi_c_c);
-Fyp(eqn, N) = RHS_flag * (xi_c_n - tau_k_n - mid * (delta - 1) * beta * xi_c_n);
+Fyp(eqn, N) = RHS_flag * (xi_c_n + tau_k_n - mid * (delta - 1) * beta * xi_c_n);
 Fxp(eqn, lambda) = RHS_flag * tau_k_lambda;
 Fxp(eqn, K) = RHS_flag * tau_k_k;
 Fxp(eqn, Z) = RHS_flag * tau_k_z;
@@ -149,7 +149,7 @@ Fy(eqn, C) = xi_n_c - xi_c_c;
 Fy(eqn, N) = xi_n_n - tau_n_n - xi_c_n;
 Fx(eqn, lambda) = RHS_flag * tau_n_lambda;
 Fx(eqn, K) = RHS_flag * tau_n_k;
-Fx(eqn, Z) = tau_n_z;
+Fx(eqn, Z) = RHS_flag * tau_n_z;
 end
 
 C_h = var_offset(1, vars('C'));
@@ -184,21 +184,21 @@ Fy(eqn, N_f) = RHS_flag * xi_c_n;
 
 %Resource constraint
 eqn = 12;
-Fy(eqn,Y_h) =  yss;
-Fy(eqn,Y_f) =  yss;
+Fy(eqn,Y_h) = RHS_flag * yss;
+Fy(eqn,Y_f) = RHS_flag * yss;
 Fy(eqn,C_h) = css;
 Fy(eqn,C_f) = css;
-Fx(eqn,K_h) = (1 - delta) * kss;
-Fx(eqn,K_f) = (1 - delta) * kss;
-Fxp(eqn,K_h) = RHS_flag * kss;
-Fxp(eqn,K_f) = RHS_flag * kss;
+Fx(eqn,K_h) = RHS_flag *(1 - delta) * kss;
+Fx(eqn,K_f) = RHS_flag *(1 - delta) * kss;
+Fxp(eqn,K_h) = RHS_flag * (-kss);
+Fxp(eqn,K_f) = RHS_flag * (-kss);
 
 
 At = [-Fxp -Fyp]; Bt = [Fx Fy];
 [H,G]=solab(At,Bt,size(Fx,2));
 
 %% Impulse responses
- shock(:,1) = [1;1;1;1;1;1];
+ shock(:,1) = [0;0;1;0;0;0];
  for i=1:20
     shock(:,i+1) = G*shock(:,i);
  end
@@ -212,35 +212,47 @@ k_h = shock(:,1);
 k_f = shock(:,4);
 c_h = z(:,1);
 c_f= z(:, 2);
+y_h = z(:,3);
+y_f = z(:,4);
+
 z_h = shock(:,2);
 z_f = shock(:,5);
 
 i_h = zeros(19);
 i_f = zeros(19);
 for i=1:19
-    i_h(i) =k_h(i+1) + (1 - delta) * k_h(i);
-    i_f(i) = k_f(i+1) + (1 - delta) * k_f(i);
+    i_h(i) =(k_h(i+1)*kss - (1 - delta) *kss* k_h(i) + zss*(z_h(i+1)-z_h(i)))/(delta*kss);
+    i_f(i) =(k_f(i+1)*kss - (1 - delta) *kss* k_f(i) + zss*(z_f(i+1)-z_f(i)))/(delta*kss);
 end
 
-%y_h = ...
-%nx_h = y_h - c..
+for i = 1:19
+nx_h(i) = (y_h(i)*yss - (c_h(i)*css + i_h(i)*delta*kss + zss*(z_h(i+1)-z_h(i))))/(yss-css-delta*kss) ;
+nx_f(i) = (y_f(i)*yss - (c_f(i)*css + i_f(i)*delta*kss + zss*(z_f(i+1)-z_f(i))))/(yss-css-delta*kss)  ;
+end
 
  % Plot Impulse Responses
-plot(c_h,'-d','MarkerSize',3,'Color',[0,0,0])
+plot(0:21, [0 c_h'],'-d','MarkerSize',3,'Color',[0,0,0])
 hold on 
-plot(i_h,'-^','MarkerSize',3,'Color',[0.5, 0.5, 0])
+plot(0:21, [0 y_h'],'-^','MarkerSize',3,'Color',[0.5, 0.5, 0])
+hold on 
+plot(0:21, [0 k_h'],'-.','MarkerSize',3,'Color',[0,.5,0])
+hold on
+plot(0:21, [0 lambda_h'], '-.','MarkerSize',3,'Color',[0,0,.5])
 hold off
-ylabel('Percent Deviations')
-xlabel('Quarters')
-legend('c', 'i');
-saveas(gcf,'home','psc2')
+% plot(i_h,'--','MarkerSize',3,'Color',[0.5, 0, 0])
+% hold on
+% plot(nx_h,'.','MarkerSize',3,'Color',[0, .5, 0])
+% hold off
+ ylabel('Percent Deviations')
+ xlabel('Quarters')
+ legend('c', 'y','i','lambda');
+% saveas(gcf,'home','psc2')
 
-plot(c_f,'-d','MarkerSize',3,'Color',[0.9, 0, 0])
-hold on
-plot(i_f,'-^','MarkerSize',3)
-hold on
-hold off
-ylabel('Percent Deviations')
-xlabel('Quarters')
-legend('c', 'i');
-saveas(gcf,'foreign','psc2')
+%plot(c_f,'-d','MarkerSize',3,'Color',[0,0,0])
+%hold on 
+%plot(y_f,'-^','MarkerSize',3,'Color',[0.5, 0.5, 0])
+%hold on 
+%plot(k_f,'-.','MarkerSize',3,'Color',[0,.5,0])
+%hold on
+%plot(lambda_f, '-.','MarkerSize',3,'Color',[0,0,.5])
+% saveas(gcf,'foreign','psc2')
