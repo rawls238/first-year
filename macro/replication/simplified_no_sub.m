@@ -212,22 +212,24 @@ k_h = shock(:,1);
 k_f = shock(:,4);
 c_h = z(:,1);
 c_f= z(:, 2);
-y_h = z(:,3);
+n_h = z(:,5);
+n_f = z(:,6);
 y_f = z(:,4);
-
 z_h = shock(:,2);
 z_f = shock(:,5);
-
-i_h = zeros(19);
-i_f = zeros(19);
+i_h = zeros(19, 1);
+i_f = zeros(19, 1);
+x_h = zeros(19, 1);
+x_f = zeros(19, 1);
+nx_h = zeros(19, 1);
+nx_f = zeros(19, 1);
 for i=1:19
-    i_h(i) =(k_h(i+1)*kss - (1 - delta) *kss* k_h(i) + zss*(z_h(i+1)-z_h(i)))/(delta*kss);
-    i_f(i) =(k_f(i+1)*kss - (1 - delta) *kss* k_f(i) + zss*(z_f(i+1)-z_f(i)))/(delta*kss);
-end
-
-for i = 1:19
-nx_h(i) = (y_h(i)*yss - (c_h(i)*css + i_h(i)*delta*kss + zss*(z_h(i+1)-z_h(i))))/(yss-css-delta*kss) ;
-nx_f(i) = (y_f(i)*yss - (c_f(i)*css + i_f(i)*delta*kss + zss*(z_f(i+1)-z_f(i))))/(yss-css-delta*kss)  ;
+    x_h(i) = k_h(i+1) - (1 - delta) * k_h(i);
+    x_f(i) = k_f(i+1) - (1 - delta) * k_f(i);
+    i_h(i) = x_h(i) + z_h(i+1) - z_h(i);
+    i_f(i) = x_f(i) + z_f(i+1) - z_f(i);
+    nx_h(i) = y_h(i) - c_h(i) - i_h(i);
+    nx_f(i) = y_f(i) - c_f(i) - i_f(i);
 end
 
  % Plot Impulse Responses
@@ -235,24 +237,30 @@ plot(0:21, [0 c_h'],'-d','MarkerSize',3,'Color',[0,0,0])
 hold on 
 plot(0:21, [0 y_h'],'-^','MarkerSize',3,'Color',[0.5, 0.5, 0])
 hold on 
-plot(0:21, [0 k_h'],'-.','MarkerSize',3,'Color',[0,.5,0])
+plot(0:19, [0 i_h'],'-.','MarkerSize',3,'Color',[0,.5,0])
 hold on
-plot(0:21, [0 lambda_h'], '-.','MarkerSize',3,'Color',[0,0,.5])
+plot(0:21, [0 lambda_h'], '-x','MarkerSize',3,'Color',[0,0,.5])
+hold on
+plot(0:19, [0 nx_h'], '-y', 'MarkerSize', 3,'Color',[0.5,0.5,.5])
 hold off
-% plot(i_h,'--','MarkerSize',3,'Color',[0.5, 0, 0])
-% hold on
-% plot(nx_h,'.','MarkerSize',3,'Color',[0, .5, 0])
-% hold off
- ylabel('Percent Deviations')
- xlabel('Quarters')
- legend('c', 'y','i','lambda');
-% saveas(gcf,'home','psc2')
-
-%plot(c_f,'-d','MarkerSize',3,'Color',[0,0,0])
-%hold on 
-%plot(y_f,'-^','MarkerSize',3,'Color',[0.5, 0.5, 0])
-%hold on 
-%plot(k_f,'-.','MarkerSize',3,'Color',[0,.5,0])
-%hold on
-%plot(lambda_f, '-.','MarkerSize',3,'Color',[0,0,.5])
+ylabel('Percent Deviations')
+xlabel('Quarters')
+title('Home response')
+legend('c', 'y','i','lambda', 'nx');
+%{
+plot(0:21, [0 c_f'],'-d','MarkerSize',3,'Color',[0,0,0])
+hold on 
+plot(0:21, [0 y_f'],'-^','MarkerSize',3,'Color',[0.5, 0.5, 0])
+hold on 
+plot(0:19, [0 i_f'],'-.','MarkerSize',3,'Color',[0,.5,0])
+hold on
+plot(0:21, [0 lambda_f'], '-x','MarkerSize',3,'Color',[0,0,.5])
+hold on
+plot(0:19, [0 nx_f'], '-y', 'MarkerSize', 3,'Color',[0.5,0.5,.5])
+hold off
+ylabel('Percent Deviations')
+xlabel('Quarters')
+title('Foreign response')
+legend('c', 'y','i','lambda', 'nx');
 % saveas(gcf,'foreign','psc2')
+%}

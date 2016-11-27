@@ -271,3 +271,57 @@ Fxp(eqn,Kt3_f) = RHS_flag * 0.25 * -1 * kss;
 
 At = [-Fxp -Fyp]; Bt = [Fx Fy];
 [H,G]=solab(At,Bt,size(Fx,2));
+
+%% Impulse responses
+ shock(:,1) = [0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0];
+ for i=1:20
+    shock(:,i+1) = G*shock(:,i);
+ end
+
+z = (H*shock)';
+shock = shock';
+
+lambda_h = shock(:,9);
+lambda_f = shock(:,18);
+k_h = shock(:,1);
+k_f = shock(:,10);
+c_h = z(:,1);
+c_f= z(:,12);
+n_h = z(:,5);
+n_f = z(:,16);
+zi_h = shock(:,5);
+zi_f = shock(:,17);
+
+y_h = ((lambda_h.*k_h.^(theta).*n_h.^(1-theta)).^(-v) + sigma .* z_h.^(-v)).^(-1/v);
+
+
+i_h = zeros(19, 1);
+i_f = zeros(19, 1);
+x_h = zeros(19, 1);
+x_f = zeros(19, 1);
+nx_h = zeros(19, 1);
+nx_f = zeros(19, 1);
+for i=1:19
+    x_h(i) = k_h(i+1) - (1 - delta) * k_h(i);
+    x_f(i) = k_f(i+1) - (1 - delta) * k_f(i);
+    i_h(i) = x_h(i) + zi_h(i+1) - zi_h(i);
+    i_f(i) = x_f(i) + zi_f(i+1) - zi_f(i);
+    %nx_h(i) = y_h(i) - c_h(i) - i_h(i);
+    %nx_f(i) = y_f(i) - c_f(i) - i_f(i);
+end
+
+ % Plot Impulse Responses
+plot(0:21, [0 c_h'],'-d','MarkerSize',3,'Color',[0,0,0])
+hold on 
+plot(0:21, [0 y_h'],'-^','MarkerSize',3,'Color',[0.5, 0.5, 0])
+hold on 
+plot(0:19, [0 i_h'],'-.','MarkerSize',3,'Color',[0,.5,0])
+hold on
+plot(0:21, [0 lambda_h'], '-x','MarkerSize',3,'Color',[0,0,.5])
+hold on
+%plot(0:19, [0 nx_h'], '-y', 'MarkerSize', 3,'Color',[0.5,0.5,.5])
+hold off
+ylabel('Percent Deviations')
+xlabel('Quarters')
+title('Home response')
+legend('c', 'y','i','lambda');
