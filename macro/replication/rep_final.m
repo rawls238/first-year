@@ -125,11 +125,10 @@ for country_num=1:num_countries
     Fy(eqn,Ct) = xi_c_c;
     Fy(eqn,Nt) = xi_c_n;
     Fyp(eqn,Ct) = xi_c_c;
-    Fyp(eqn,Nt) = xi_c_n;
+    Fyp(eqn,Nt) = RHS_flag * ((1 - beta) * tau_z_n + xi_c_n);
     Fxp(eqn,lambdat) = RHS_flag * (1 - beta) * tau_z_lambda;
     Fxp(eqn,Kt) = RHS_flag * (1 - beta) * tau_z_k;
     Fxp(eqn,Zt) = RHS_flag * (1 - beta) * tau_z_z;
-    Fyp(eqn,Nt) = RHS_flag * (1 - beta) * tau_z_n;
 
     %2. Euler
     eqn = 2 + offset;
@@ -158,10 +157,9 @@ for country_num=1:num_countries
     %4. Labor
     eqn = 4 + offset;
     Fy(eqn, Ct) = xi_n_c - xi_c_c;
-    Fy(eqn, Nt) = xi_n_n - xi_c_n;
+    Fy(eqn, Nt) = xi_n_n - xi_c_n - tau_n_n;
     Fx(eqn, lambdat) = RHS_flag * tau_n_lambda;
     Fx(eqn, Kt) = RHS_flag * tau_n_k;
-    Fy(eqn, Nt) = tau_n_n;
     Fx(eqn, Zt) = tau_n_z;
     
     eqn = 5 + offset;

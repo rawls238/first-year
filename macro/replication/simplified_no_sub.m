@@ -146,10 +146,9 @@ Fx(eqn,Z) = zita_z;
 % Labor
 eqn = 4 + (country_num - 1) * country_offset;
 Fy(eqn, C) = xi_n_c - xi_c_c;
-Fy(eqn, N) = xi_n_n - xi_c_n;
+Fy(eqn, N) = xi_n_n - tau_n_n - xi_c_n;
 Fx(eqn, lambda) = RHS_flag * tau_n_lambda;
 Fx(eqn, K) = RHS_flag * tau_n_k;
-Fy(eqn, N) = tau_n_n;
 Fx(eqn, Z) = tau_n_z;
 end
 
@@ -185,8 +184,8 @@ Fy(eqn, N_f) = RHS_flag * xi_c_n;
 
 %Resource constraint
 eqn = 12;
-Fy(eqn,Y_h) = yss;
-Fy(eqn,Y_f) = yss;
+Fy(eqn,Y_h) =  yss;
+Fy(eqn,Y_f) =  yss;
 Fy(eqn,C_h) = css;
 Fy(eqn,C_f) = css;
 Fx(eqn,K_h) = (1 - delta) * kss;
