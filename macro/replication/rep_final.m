@@ -118,13 +118,13 @@ for country_num=1:num_countries
     offset = (country_num - 1) * country_offset;
     %1. Inventory FOC
     eqn = 1 + offset;
-    Fy(eqn,Ct) = xi_c_c;
-    Fy(eqn,Nt) = xi_c_n;
-    Fyp(eqn,Ct) = RHS_flag * xi_c_c;
-    Fyp(eqn,Nt) = RHS_flag * ((1 - beta) * tau_z_n + xi_c_n);
-    Fxp(eqn,lambdat) = RHS_flag * (1 - beta) * tau_z_lambda;
-    Fxp(eqn,Kt) = RHS_flag * (1 - beta) * tau_z_k;
-    Fxp(eqn,Zt) = RHS_flag * (1 - beta) * tau_z_z;
+    Fy(eqn,Ct3) = xi_c_c;
+    Fy(eqn,Nt3) = xi_c_n;
+    Fyp(eqn,Ct3) = RHS_flag * xi_c_c;
+    Fyp(eqn,Nt3) = RHS_flag * ((1 - beta) * tau_z_n + xi_c_n);
+    Fyp(eqn,lambdat3) = RHS_flag * (1 - beta) * tau_z_lambda;
+    Fxp(eqn,Kt3) = RHS_flag * (1 - beta) * tau_z_k;
+    Fxp(eqn,Zt3) = RHS_flag * (1 - beta) * tau_z_z;
 
     %2. Euler
     eqn = 2 + offset;
@@ -148,7 +148,7 @@ for country_num=1:num_countries
     Fy(eqn, Nt) = xi_n_n - xi_c_n - tau_n_n;
     Fx(eqn, lambdat) = RHS_flag * tau_n_lambda;
     Fx(eqn, Kt) = RHS_flag * tau_n_k;
-    Fx(eqn, Zt) = RHS_flag * tau_n_z;
+    Fp(eqn, Zt) = RHS_flag * tau_n_z;
     
     eqn = 4 + offset;
     Fx(eqn,Kt1) = 1;
@@ -221,7 +221,6 @@ Zt_h = var_offset(1, vars('Zt'));
 Zt_f = var_offset(2, vars('Zt'));
 Nt_h = var_offset(1, vars('Nt'));
 Nt_f = var_offset(2, vars('Nt'));
-
 Kt1_h = var_offset(1, vars('Kt1'));
 Kt1_f = var_offset(2, vars('Kt1'));
 
