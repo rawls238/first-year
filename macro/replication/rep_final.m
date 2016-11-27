@@ -50,13 +50,13 @@ clear all;
 
 num_countries = 2;
 country_offset = 22;
-state_keys = {'Kt', 'Kt1', 'Kt2', 'Kt3', 'Zt', 'Zt1', 'Zt2', 'Zt3', 'lambdat', 'lambdat1'};
+state_keys = {'Kt', 'Kt1', 'Kt2', 'Kt3', 'Zt', 'Zt1', 'Zt2', 'Zt3', 'lambdat'};
 state_vals = zeros(1, length(state_keys));
 for i=1:length(state_keys)
     state_vals(i) = i;
 end
 state_offset = length(state_vals);
-control_keys = {'Ct', 'Ct1', 'Ct2', 'Ct3', 'Yt', 'Yt1', 'Yt2', 'Yt3', 'Nt', 'Nt1', 'Nt2', 'Nt3', 'lambdat2', 'lambdat3'};
+control_keys = {'Ct', 'Ct1', 'Ct2', 'Ct3', 'Yt', 'Yt1', 'Yt2', 'Yt3', 'Nt', 'Nt1', 'Nt2', 'Nt3', 'lambdat1', 'lambdat2', 'lambdat3'};
 control_vals = zeros(1, length(control_keys));
 for i=1:length(control_keys)
     control_vals(i) = i;
@@ -87,7 +87,7 @@ Fyp=zeros(total_eqs,total_controls); Fxp=zeros(total_eqs,total_states);
 
 RHS_flag = -1;
 
-m = 1 + delta * beta + delta * beta^2 + delta * beta^3;
+m = 1 + delta * beta + delta * beta^2 + delta * beta^3 + (delta-1) * beta^4;
 m_inv = 1 / m;
 
 for country_num=1:num_countries
@@ -124,7 +124,7 @@ for country_num=1:num_countries
     eqn = 1 + offset;
     Fy(eqn,Ct) = xi_c_c;
     Fy(eqn,Nt) = xi_c_n;
-    Fyp(eqn,Ct) = xi_c_c;
+    Fyp(eqn,Ct) = RHS_flag * xi_c_c;
     Fyp(eqn,Nt) = RHS_flag * ((1 - beta) * tau_z_n + xi_c_n);
     Fxp(eqn,lambdat) = RHS_flag * (1 - beta) * tau_z_lambda;
     Fxp(eqn,Kt) = RHS_flag * (1 - beta) * tau_z_k;
@@ -160,7 +160,7 @@ for country_num=1:num_countries
     Fy(eqn, Nt) = xi_n_n - xi_c_n - tau_n_n;
     Fx(eqn, lambdat) = RHS_flag * tau_n_lambda;
     Fx(eqn, Kt) = RHS_flag * tau_n_k;
-    Fx(eqn, Zt) = tau_n_z;
+    Fx(eqn, Zt) = RHS_flag * tau_n_z;
     
     eqn = 5 + offset;
     Fx(eqn,Kt1) = 1;
@@ -175,12 +175,12 @@ for country_num=1:num_countries
     Fxp(eqn,Kt2) = RHS_flag;
 
     eqn = 8 + offset;
-    Fx(eqn, lambdat1) = 1;
+    Fy(eqn, lambdat1) = 1;
     Fxp(eqn, lambdat) = RHS_flag;
 
     eqn = 9 + offset;
     Fy(eqn, lambdat2) = 1;
-    Fxp(eqn, lambdat1) = RHS_flag;
+    Fyp(eqn, lambdat1) = RHS_flag;
 
     eqn = 10 + offset;
     Fy(eqn, lambdat3) = 1;
@@ -286,18 +286,18 @@ Fy(eqn, Nt_f) = RHS_flag * xi_c_n;
 
 %Resource constraint
 eqn = 48;
-Fy(eqn,Yt_h) = yss;
-Fy(eqn,Yt_f) = yss;
+Fy(eqn,Yt_h) = RHS_flag * yss;
+Fy(eqn,Yt_f) = RHS_flag * yss;
 Fy(eqn,Ct_h) = css;
 Fy(eqn,Ct_f) = css;
-Fx(eqn,Kt_h) = 0.25 * (1 - delta) * kss;
-Fx(eqn,Kt_f) = 0.25 * (1 - delta) * kss;
-Fx(eqn,Kt1_h) = 0.25 * ((1 - delta) - 1) * kss;
-Fx(eqn,Kt1_f) = 0.25 * ((1 - delta) - 1) * kss;
-Fx(eqn,Kt2_h) = 0.25 * ((1 - delta) - 1) * kss;
-Fx(eqn,Kt2_f) = 0.25 * ((1 - delta) - 1) * kss;
-Fx(eqn,Kt3_h) = 0.25 * ((1 - delta) - 1) * kss;
-Fx(eqn,Kt3_f) = 0.25 * ((1 - delta) - 1) * kss;
+Fx(eqn,Kt_h) = RHS_flag * 0.25 * (1 - delta) * kss;
+Fx(eqn,Kt_f) = RHS_flag * 0.25 * (1 - delta) * kss;
+Fx(eqn,Kt1_h) = RHS_flag * 0.25 * ((1 - delta) - 1) * kss;
+Fx(eqn,Kt1_f) = RHS_flag * 0.25 * ((1 - delta) - 1) * kss;
+Fx(eqn,Kt2_h) = RHS_flag * 0.25 * ((1 - delta) - 1) * kss;
+Fx(eqn,Kt2_f) = RHS_flag * 0.25 * ((1 - delta) - 1) * kss;
+Fx(eqn,Kt3_h) = RHS_flag * 0.25 * ((1 - delta) - 1) * kss;
+Fx(eqn,Kt3_f) = RHS_flag * 0.25 * ((1 - delta) - 1) * kss;
 Fxp(eqn,Kt3_h) = RHS_flag * 0.25 * -1 * kss;
 Fxp(eqn,Kt3_f) = RHS_flag * 0.25 * -1 * kss;
 
