@@ -1,8 +1,4 @@
- % CH2 Solving the real business cycle model
- %
- % ECON 614, Karel Mertens, Cornell University
- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- clear all;
+clear all;
  close all;
  
   % Parameter values
@@ -51,32 +47,17 @@
  tau_z_lambda = (v + 1) * (1 - tmp);
  tau_n_lambda = (v+1)*(1 - (sigma)*(yss)^v*(zss)^(-v)) - v;
  tau_k_lambda = (v+1)*(1 - (sigma)*(yss)^v*(zss)^(-v)) - v; 
- 
- m = 1;
- s = xi_n_n - xi_c_n - tau_n_n;
- p_c = xi_c_c + xi_c_n * (xi_c_c - xi_n_c);
- q_c = xi_c_c * (xi_n_n - tau_n_n) - xi_c_n * xi_n_c;
- p_lambda = xi_c_n * tau_n_lambda;
- p_k = xi_c_n * tau_n_k;
- p_z = xi_c_n * tau_n_z;
- 
- % Model Solution
- % The Linearized System is of the form
- % 
- % Fyp*Ey(t+1)+Fxp x(t+1)+Fy*y(t)+Fx*x(t)=0
- % 
- % where y are the controls and x are the states
 
 num_countries = 2;
 country_offset = 4;
-state_keys = {'K', 'Z', 'lambda'};
-state_vals = zeros(length(state_keys), 1);
+state_keys = {'Kt', 'Zt', 'lambdat', 'Kt1', 'Kt2', 'Kt3', 'Zt1', 'Zt2', 'Zt3', 'lambdat1'};
+state_vals = zeros(1, length(state_keys));
 for i=1:length(state_keys)
     state_vals(i) = i;
 end
 state_offset = length(state_vals);
-control_keys = {'C', 'Y', 'N'};
-control_vals = zeros(length(control_keys), 1);
+control_keys = {'Ct', 'Ct1', 'Ct2', 'Ct3', 'Yt', 'Yt1', 'Yt2', 'Yt3', 'Nt1', 'Nt2', 'Nt3', 'lambdat2', 'lambdat3'};
+control_vals = zeros(1, length(control_keys));
 for i=1:length(control_keys)
     control_vals(i) = i;
 end
@@ -100,6 +81,7 @@ for i=1:num_countries
     end
 end
 
+
 Fy=zeros(total_eqs,total_controls);  Fx=zeros(total_eqs,total_states);
 Fyp=zeros(total_eqs,total_controls); Fxp=zeros(total_eqs,total_states);
 
@@ -107,12 +89,34 @@ RHS_flag = -1;
 
 for country_num=1:num_countries
     
-C = var_offset(country_num, vars('C'));
-K = var_offset(country_num, vars('K'));
-lambda = var_offset(country_num, vars('lambda'));
-Z = var_offset(country_num, vars('Z'));
-N = var_offset(country_num, vars('N'));
-Y = var_offset(country_num, vars('Y'));
+Ct = var_offset(country_num, vars('Ct'));
+Kt = var_offset(country_num, vars('Kt'));
+lambdat = var_offset(country_num, vars('lambdat'));
+Zt = var_offset(country_num, vars('Zt'));
+Nt = var_offset(country_num, vars('Nt'));
+Yt = var_offset(country_num, vars('Yt'));
+
+Ct1 = var_offset(country_num, vars('Ct1'));
+Kt1 = var_offset(country_num, vars('Kt1'));
+lambdat1 = var_offset(country_num, vars('lambdat1'));
+Zt1 = var_offset(country_num, vars('Zt1'));
+Nt1 = var_offset(country_num, vars('Nt1'));
+Yt1 = var_offset(country_num, vars('Yt1'));
+
+Ct2 = var_offset(country_num, vars('Ct2'));
+Kt2 = var_offset(country_num, vars('Kt2'));
+lambdat2 = var_offset(country_num, vars('lambdat2'));
+Zt2 = var_offset(country_num, vars('Zt2'));
+Nt2 = var_offset(country_num, vars('Nt2'));
+Yt2 = var_offset(country_num, vars('Yt2'));
+
+Ct3 = var_offset(country_num, vars('Ct3'));
+Kt3 = var_offset(country_num, vars('Kt3'));
+lambdat3 = var_offset(country_num, vars('lambdat3'));
+Zt3 = var_offset(country_num, vars('Zt3'));
+Nt3 = var_offset(country_num, vars('Nt3'));
+Yt3 = var_offset(country_num, vars('Yt3'));
+
 
 %2. Inventory FOC
 eqn = 1 + (country_num - 1) * country_offset;
@@ -154,18 +158,39 @@ Fy(eqn, N) = tau_n_n;
 Fx(eqn, Z) = tau_n_z;
 end
 
-C_h = var_offset(1, vars('C'));
-C_f = var_offset(2, vars('C'));
-K_h = var_offset(1, vars('K'));
-K_f = var_offset(2, vars('K'));
-lambda_h = var_offset(1, vars('lambda'));
-lambda_f = var_offset(2, vars('lambda'));
-Z_h = var_offset(1, vars('Z'));
-Z_f = var_offset(2, vars('Z'));
-Y_h = var_offset(1, vars('Y'));
-Y_f = var_offset(2, vars('Y'));
-N_h = var_offset(1, vars('N'));
-N_f = var_offset(2, vars('N'));
+Ct_h = var_offset(1, vars('Ct'));
+Ct_f = var_offset(2, vars('Ct'));
+Kt_h = var_offset(1, vars('Kt'));
+Kt_f = var_offset(2, vars('Kt'));
+lambdat_h = var_offset(1, vars('lambdat'));
+lambdat_f = var_offset(2, vars('lambdat'));
+Zt_h = var_offset(1, vars('Zt'));
+Zt_f = var_offset(2, vars('Zt'));
+Yt_h = var_offset(1, vars('Yt'));
+Yt_f = var_offset(2, vars('Yt'));
+Nt_h = var_offset(1, vars('Nt'));
+Nt_f = var_offset(2, vars('Nt'));
+
+Ct1_h = var_offset(1, vars('Ct1'));
+Ct1_f = var_offset(2, vars('Ct1'));
+Kt1_h = var_offset(1, vars('Kt1'));
+Kt1_f = var_offset(2, vars('Kt1'));
+lambdat1_h = var_offset(1, vars('lambdat1'));
+lambdat1_f = var_offset(2, vars('lambdat1'));
+Zt1_h = var_offset(1, vars('Zt1'));
+Zt1_f = var_offset(2, vars('Zt1'));
+Yt1_h = var_offset(1, vars('Yt1'));
+Yt1_f = var_offset(2, vars('Yt1'));
+Nt1_h = var_offset(1, vars('Nt1'));
+Nt1_f = var_offset(2, vars('Nt1'));
+
+
+Kt2_h = var_offset(1, vars('Kt2'));
+Kt2_f = var_offset(2, vars('Kt2'));
+
+Kt3_h = var_offset(1, vars('Kt3'));
+Kt3_f = var_offset(2, vars('Kt3'));
+
 
 eqn = 9;
 Fxp(eqn,lambda_h)  = RHS_flag;
@@ -198,51 +223,3 @@ Fxp(eqn,K_f) = RHS_flag * kss;
 
 At = [-Fxp -Fyp]; Bt = [Fx Fy];
 [H,G]=solab(At,Bt,size(Fx,2));
-
-%% Impulse responses
- shock(:,1) = [1;1;1;1;1;1];
- for i=1:20
-    shock(:,i+1) = G*shock(:,i);
- end
-
-z = (H*shock)';
-shock = shock';
-
-lambda_h = shock(:,3);
-lambda_f = shock(:,6);
-k_h = shock(:,1);
-k_f = shock(:,4);
-c_h = z(:,1);
-c_f= z(:, 2);
-z_h = shock(:,2);
-z_f = shock(:,5);
-
-i_h = zeros(19);
-i_f = zeros(19);
-for i=1:19
-    i_h(i) =k_h(i+1) + (1 - delta) * k_h(i);
-    i_f(i) = k_f(i+1) + (1 - delta) * k_f(i);
-end
-
-%y_h = ...
-%nx_h = y_h - c..
-
- % Plot Impulse Responses
-plot(c_h,'-d','MarkerSize',3,'Color',[0,0,0])
-hold on 
-plot(i_h,'-^','MarkerSize',3,'Color',[0.5, 0.5, 0])
-hold off
-ylabel('Percent Deviations')
-xlabel('Quarters')
-legend('c', 'i');
-saveas(gcf,'home','psc2')
-
-plot(c_f,'-d','MarkerSize',3,'Color',[0.9, 0, 0])
-hold on
-plot(i_f,'-^','MarkerSize',3)
-hold on
-hold off
-ylabel('Percent Deviations')
-xlabel('Quarters')
-legend('c', 'i');
-saveas(gcf,'foreign','psc2')
