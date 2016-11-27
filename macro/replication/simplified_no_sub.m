@@ -118,12 +118,11 @@ Y = var_offset(country_num, vars('Y'));
 eqn = 1 + (country_num - 1) * country_offset;
 Fy(eqn,C) = xi_c_c;
 Fy(eqn,N) = xi_c_n;
-Fyp(eqn,C) = xi_c_c;
-Fyp(eqn,N) = xi_c_n;
+Fyp(eqn,C) = RHS_flag * xi_c_c;
+Fyp(eqn,N) = RHS_flag * (xi_c_n + (1 - beta) * tau_z_n);
 Fxp(eqn,lambda) = RHS_flag * (1 - beta) * tau_z_lambda;
 Fxp(eqn,K) = RHS_flag * (1 - beta) * tau_z_k;
 Fxp(eqn,Z) = RHS_flag * (1 - beta) * tau_z_z;
-Fyp(eqn,N) = RHS_flag * (1 - beta) * tau_z_n;
 
 %3. Euler
 mid = 1 / (1 + (delta - 1) * beta);
