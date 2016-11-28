@@ -413,8 +413,8 @@ nx_f = zeros(total_periods, 1);
 for i=1:total_periods
     x_h(i) = (1/(delta*4))* ((delta-1)*k_h(i) + delta*k1_h(i) + delta*k2_h(i) + delta*k3_h(i) + k3_h(i+1));
     x_f(i) = (1/(delta*4))* ((delta-1)*k_f(i) + delta*k1_f(i) + delta*k2_f(i) + delta*k3_f(i) + k3_f(i+1));
-    i_h(i) = x_h(i) + z_h(i+1) - z_h(i);
-    i_f(i) = x_f(i) + z_f(i+1) - z_f(i);
+    i_h(i) = x_h(i);
+    i_f(i) = x_f(i);
     nx_h(i) = y_h(i) - c_h(i) - i_h(i);
     nx_f(i) = y_f(i) - c_f(i) - i_f(i);
 end
@@ -478,7 +478,7 @@ for j = 1:total_periods/period
     cross_corr_c_across_countries(j,:) = xcorr(lch_1, lcf_1, lag, 'coeff');
 end
 
-standard_deviations_mean = mean(standard_deviations * 100); %Y,C,N,K,X,Z,NX order
+standard_deviations_mean = mean(standard_deviations * 100);
 standard_deviations_std = std(standard_deviations * 100);
 std_dev_relative_mean = mean(std_dev_relative);
 std_dev_relative_std = std(std_dev_relative);
