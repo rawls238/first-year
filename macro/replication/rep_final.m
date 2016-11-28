@@ -332,15 +332,16 @@ x_f = zeros(20, 1);
 nx_h = zeros(20, 1);
 nx_f = zeros(20, 1);
 for i=1:20
-    x_h(i) = (1-delta)*k_h(i) + delta*k1_h(i) + delta*k2_h(i) + delta*k3_h(i) + k3_h(i+1);
+    x_h(i) = (1/(delta*4))* ((delta-1)*k_h(i) + delta*k1_h(i) + delta*k2_h(i) + delta*k3_h(i) + k3_h(i+1));
     x_f(i) = (1-delta)*k_f(i) + delta*k1_f(i) + delta*k2_f(i) + delta*k3_f(i) + k3_f(i+1);
-    i_h(i) = x_h(i) + zi_h(i+1)*zss - zi_h(i);
+    i_h(i) = x_h(i);
     i_f(i) = x_f(i) + zi_f(i+1) - zi_f(i);
     nx_h(i) = y_h(i) - c_h(i) - i_h(i);
     nx_f(i) = y_f(i) - c_f(i) - i_f(i);
 end
 
  % Plot Impulse Responses
+homeResponse = figure();
 plot(0:21, [0 c_h'],'-d','MarkerSize',3,'Color',[0,0,0])
 hold on 
 plot(0:21, [0 y_h'],'-^','MarkerSize',3,'Color',[0.5, 0.5, 0])
@@ -354,6 +355,22 @@ hold off
 ylabel('Percent Deviations')
 xlabel('Quarters')
 title('Home response')
+legend('c', 'y','i','lambda', 'nx');
+
+foreignResponse = figure();
+plot(0:21, [0 c_f'],'-d','MarkerSize',3,'Color',[0,0,0])
+hold on 
+plot(0:21, [0 y_f'],'-^','MarkerSize',3,'Color',[0.5, 0.5, 0])
+hold on 
+plot(0:20, [0 i_f'],'-.','MarkerSize',3,'Color',[0,.5,0])
+hold on
+plot(0:21, [0 lambda_f'], '-x','MarkerSize',3,'Color',[0,0,.5])
+hold on
+plot(0:20, [0 nx_f'], '-y', 'MarkerSize', 3,'Color',[0.5,0.5,.5])
+hold off
+ylabel('Percent Deviations')
+xlabel('Quarters')
+title('Foreign response')
 legend('c', 'y','i','lambda', 'nx');
 
 
@@ -394,8 +411,8 @@ x_f = zeros(total_periods, 1);
 nx_h = zeros(total_periods, 1);
 nx_f = zeros(total_periods, 1);
 for i=1:total_periods
-    x_h(i) = (1-delta)*k_h(i) + delta*k1_h(i) + delta*k2_h(i) + delta*k3_h(i) + k3_h(i+1);
-    x_f(i) = (1-delta)*k_f(i) + delta*k1_f(i) + delta*k2_f(i) + delta*k3_f(i) + k3_f(i+1);
+    x_h(i) = (delta-1)*k_h(i) + delta*k1_h(i) + delta*k2_h(i) + delta*k3_h(i) + delta*k3_h(i+1);
+    x_f(i) = (delta-1)*k_f(i) + delta*k1_f(i) + delta*k2_f(i) + delta*k3_f(i) + delta*k3_f(i+1);
     i_h(i) = x_h(i) + z_h(i+1) - z_h(i);
     i_f(i) = x_f(i) + z_f(i+1) - z_f(i);
     nx_h(i) = y_h(i) - c_h(i) - i_h(i);
@@ -449,16 +466,16 @@ for j = 1:total_periods/period
     std_dev_relative(j,:) = [1.0, c_percent, n_percent, k_percent, x_percent, z_percent];
 
     corHP =  V./(sqrt(diag(V))*sqrt(diag(V))'); % cross-correlations
-    cross_corr_y(j,:) = xcorr(lyh_1, lyh_1, 5, 'coeff');
-    cross_corr_k(j,:) = xcorr(lkh_1, lyh_1, 5, 'coeff');
-    cross_corr_c(j,:) = xcorr(lch_1, lyh_1, 5, 'coeff');
-    cross_corr_n(j,:) = xcorr(lnh_1, lyh_1, 5, 'coeff');
-    cross_corr_x(j,:) = xcorr(lxh_1, lyh_1, 5, 'coeff');
-    cross_corr_z(j,:) = xcorr(lzh_1, lyh_1, 5, 'coeff');
-    cross_corr_nx(j,:) = xcorr(lnxh_1, lyh_1, 5, 'coeff');
+    cross_corr_y(j,:) = xcorr(lyh_1, lyh_1, lag, 'coeff');
+    cross_corr_k(j,:) = xcorr(lkh_1, lyh_1, lag, 'coeff');
+    cross_corr_c(j,:) = xcorr(lch_1, lyh_1, lag, 'coeff');
+    cross_corr_n(j,:) = xcorr(lnh_1, lyh_1, lag, 'coeff');
+    cross_corr_x(j,:) = xcorr(lxh_1, lyh_1, lag, 'coeff');
+    cross_corr_z(j,:) = xcorr(lzh_1, lyh_1, lag, 'coeff');
+    cross_corr_nx(j,:) = xcorr(lnxh_1, lyh_1, lag, 'coeff');
 
-    cross_corr_y_across_countries(j,:) = xcorr(lyh_1, lyf_1, 5, 'coeff');
-    cross_corr_c_across_countries(j,:) = xcorr(lch_1, lcf_1, 5, 'coeff');
+    cross_corr_y_across_countries(j,:) = xcorr(lyh_1, lyf_1, lag, 'coeff');
+    cross_corr_c_across_countries(j,:) = xcorr(lch_1, lcf_1, lag, 'coeff');
 end
 
 standard_deviations_mean = mean(standard_deviations * 100); %Y,C,N,K,X,Z,NX order

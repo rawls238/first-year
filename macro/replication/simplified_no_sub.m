@@ -239,6 +239,7 @@ for i=1:19
 end
 
  % Plot Impulse Responses
+homeResponse = figure();
 plot(0:21, [0 c_h'],'-d','MarkerSize',3,'Color',[0,0,0])
 hold on 
 plot(0:21, [0 y_h'],'-^','MarkerSize',3,'Color',[0.5, 0.5, 0])
@@ -254,6 +255,7 @@ xlabel('Quarters')
 title('Home response')
 legend('c', 'y','i','lambda', 'nx');
 
+foreignResponse = figure();
 plot(0:21, [0 c_f'],'-d','MarkerSize',3,'Color',[0,0,0])
 hold on 
 plot(0:21, [0 y_f'],'-^','MarkerSize',3,'Color',[0.5, 0.5, 0])
