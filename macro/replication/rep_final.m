@@ -22,6 +22,7 @@ nss_first_term = ((1 - theta) * (yss)^(v+1)*((yss)^(-v) - sigma*(zss)^(-v)));
 nss_second_term = (1/mu - 1) * (yss - delta * kss);
 nss = (nss_first_term * nss_second_term + 1)^-1;
 css = yss - delta * kss;
+xss = delta * kss;
 
 tmp = sigma * yss^v * zss^-v;
 xi_c_c = gamma*mu - 1;
@@ -120,6 +121,7 @@ for country_num=1:num_countries
     Yt3 = var_offset(country_num, vars('Yt3'));
 
     offset = (country_num - 1) * country_offset;
+    
     %1. Inventory FOC
     eqn = 1 + offset;
     Fy(eqn,Ct3) = xi_c_c;
@@ -244,6 +246,8 @@ Zt_h = var_offset(1, vars('Zt'));
 Zt_f = var_offset(2, vars('Zt'));
 Nt_h = var_offset(1, vars('Nt'));
 Nt_f = var_offset(2, vars('Nt'));
+Yt_h = var_offset(1, vars('Yt'));
+Yt_f = var_offset(1, vars('Yt'));
 Kt1_h = var_offset(1, vars('Kt1'));
 Kt1_f = var_offset(2, vars('Kt1'));
 
@@ -304,10 +308,8 @@ At = [-Fxp -Fyp]; Bt = [Fx Fy];
 z = (H*shock)';
 shock = shock';
 
-lambda_h = shock(:,9);
-lambda_f = shock(:,18);
-k_h = shock(:,1);
-k_f = shock(:,10);
+lambda_h = shock(:,lambdat_h);
+lambda_f = shock(:,lambdat_f);
 k_h = shock(:,Kt_h);
 k1_h = shock(:,Kt1_h);
 k2_h = shock(:,Kt2_h);
@@ -316,28 +318,28 @@ k_f = shock(:,Kt_f);
 k1_f = shock(:,Kt1_f);
 k2_f = shock(:,Kt2_f);
 k3_f = shock(:,Kt3_f);
-c_h = z(:,1);
-c_f= z(:,16);
-zi_h = shock(:,5);
-zi_f = shock(:,17);
+c_h = z(:,Ct_h);
+c_f= z(:,Ct_f);
+zi_h = shock(:,Zt_h);
+zi_f = shock(:,Zt_f);
 
-y_h = z(:,5);
-y_f = z(:,20);
+y_h = z(:,Yt_h);
+y_f = z(:,Yt_f);
 
-i_h = zeros(19, 1);
-i_f = zeros(19, 1);
-x_h = zeros(19, 1);
-x_f = zeros(19, 1);
-nx_h = zeros(19, 1);
-nx_f = zeros(19, 1);
-for i=1:19
+i_h = zeros(20, 1);
+i_f = zeros(20, 1);
+x_h = zeros(20, 1);
+x_f = zeros(20, 1);
+nx_h = zeros(20, 1);
+nx_f = zeros(20, 1);
+for i=1:20
     x_h(i) = (1-delta)*k_h(i) + delta*k1_h(i) + delta*k2_h(i) + delta*k3_h(i) + k3_h(i+1);
     x_f(i) = (1-delta)*k_f(i) + delta*k1_f(i) + delta*k2_f(i) + delta*k3_f(i) + k3_f(i+1);
     x_f(i) = k_f(i+1) - (1 - delta) * k_f(i);
     i_h(i) = x_h(i) + zi_h(i+1) - zi_h(i);
     i_f(i) = x_f(i) + zi_f(i+1) - zi_f(i);
-    %nx_h(i) = y_h(i) - c_h(i) - i_h(i);
-    %nx_f(i) = y_f(i) - c_f(i) - i_f(i);
+    nx_h(i) = y_h(i) - c_h(i) - i_h(i);
+    nx_f(i) = y_f(i) - c_f(i) - i_f(i);
 end
 
  % Plot Impulse Responses
@@ -345,13 +347,13 @@ plot(0:21, [0 c_h'],'-d','MarkerSize',3,'Color',[0,0,0])
 hold on 
 plot(0:21, [0 y_h'],'-^','MarkerSize',3,'Color',[0.5, 0.5, 0])
 hold on 
-plot(0:19, [0 i_h'],'-.','MarkerSize',3,'Color',[0,.5,0])
+plot(0:20, [0 i_h'],'-.','MarkerSize',3,'Color',[0,.5,0])
 hold on
 plot(0:21, [0 lambda_h'], '-x','MarkerSize',3,'Color',[0,0,.5])
 hold on
-%plot(0:19, [0 nx_h'], '-y', 'MarkerSize', 3,'Color',[0.5,0.5,.5])
+plot(0:20, [0 nx_h'], '-y', 'MarkerSize', 3,'Color',[0.5,0.5,.5])
 hold off
 ylabel('Percent Deviations')
 xlabel('Quarters')
 title('Home response')
-legend('c', 'y','i','lambda');
+legend('c', 'y','i','lambda', 'nx');
