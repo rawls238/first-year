@@ -315,19 +315,23 @@ nxss = yss - css - xss;
 for j = 1:total_periods/period
     yh_1 = log(yss * exp(y_h(1+(j-1)*period:j*period, 1)));
     lyh_1 = yh_1 - hpfilter(yh_1, 1600);
+    yf_1 = log(yss * exp(y_f(1+(j-1)*period:j*period, 1)));
+    lyf_1 = yf_1 - hpfilter(yf_1, 1600);
     ch_1 = log(css * exp(c_h(1+(j-1)*period:j*period, 1)));
     lch_1 = ch_1 - hpfilter(ch_1, 1600);
+    cf_1 = log(css * exp(c_f(1+(j-1)*period:j*period, 1)));
+    lcf_1 = cf_1 - hpfilter(cf_1, 1600);
     nh_1 = log(nss * exp(n_h(1+(j-1)*period:j*period, 1)));
     lnh_1 = nh_1 - hpfilter(nh_1, 1600);
     kh_1 = log(kss * exp(k_h(1+(j-1)*period:j*period, 1)));
-    lk_1 = kh_1 - hpfilter(kh_1, 1600);
+    lkh_1 = kh_1 - hpfilter(kh_1, 1600);
     xh_1 = log(xss * exp(x_h(1+(j-1)*period:j*period, 1)));
     lxh_1 = xh_1 - hpfilter(xh_1, 1600);
     zh_1 = log(zss * exp(z_h(1+(j-1)*period:j*period, 1)));
     lzh_1 = zh_1 - hpfilter(zh_1, 1600);
     nxh_1 = log(nxss * exp(nx_h(1+(j-1)*period:j*period, 1)));
     lnxh_1 = nxh_1 - hpfilter(nxh_1, 1600);
-    V=cov([lyh_1,lch_1,lnh_1,lk_1,lxh_1,lzh_1,lnxh_1]);
+    V=cov([lyh_1,lch_1,lnh_1,lkh_1,lxh_1,lzh_1,lnxh_1]);
 end
 
 sdzHP=sqrt(diag(V)); % standard deviations
@@ -341,4 +345,13 @@ z_percent = sdzHP(6)/std_y;
 nx_percent = sdzHP(7)/std_y;
 
 corHP =  V./(sqrt(diag(V))*sqrt(diag(V))'); % cross-correlations
-autocorrHPy = mean(acy); % auto-correlation of output
+cross_corr_y = xcorr(lyh_1, lyh_1, 5, 'coeff');
+cross_corr_k = xcorr(lkh_1, lyh_1, 5, 'coeff');
+cross_corr_c = xcorr(lch_1, lyh_1, 5, 'coeff');
+cross_corr_n = xcorr(lnh_1, lyh_1, 5, 'coeff');
+cross_corr_x = xcorr(lxh_1, lyh_1, 5, 'coeff');
+cross_corr_z = xcorr(lzh_1, lyh_1, 5, 'coeff');
+cross_corr_nx = xcorr(lnxh_1, lyh_1, 5, 'coeff');
+
+cross_corr_y_across_countries = xcorr(lyh_1, lyf_1, 5, 'coeff');
+cross_corr_c_across_countries = xcorr(lch_1, lcf_1, 5, 'coeff');
