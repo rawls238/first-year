@@ -95,6 +95,10 @@ theorems-ams-extended
 ECON G6410 Problem Set 9
 \end_layout
 
+\begin_layout Author
+Guy Aridor, James Jiang, Sara Shahanaghi & Xiao Xu
+\end_layout
+
 \begin_layout Enumerate
 \begin_inset ERT
 status open
@@ -110,7 +114,7 @@ status open
 
 \begin_deeper
 \begin_layout Enumerate
-It is irreducible.
+Yes.
  It is sufficient to show that for some 
 \begin_inset Formula $n$
 \end_inset
@@ -176,7 +180,7 @@ Yes, since every irreducible and aperiodic Markov chain has a unique stationary
 \begin_inset Formula $\pi^{*}=\left(0.2,0.4,0.2,0.2\right)$
 \end_inset
 
- numerically in Julia (see the code).
+ in Julia (see the code).
 \end_layout
 
 \end_deeper
@@ -231,7 +235,7 @@ P^{14}=\begin{pmatrix}0.9679 & 0.0321\\
 
 \end_inset
 
-the probability transition matrix of of being sick on the exam date is 
+the probability of being sick on the exam date is 
 \begin_inset Formula 
 \[
 \left(P^{14}\right)_{12}=0.0321.
@@ -263,7 +267,7 @@ Q^{14}=\begin{pmatrix}0.9694 & 0.0306\\
 
 \end_inset
 
-the probability transition matrix of of being sick on the exam date is 
+the probability of being sick on the exam date is 
 \begin_inset Formula 
 \[
 \left(Q^{14}\right)_{12}=0.0306.
@@ -289,9 +293,8 @@ No.
 \begin_inset Formula $0.9677>0.9655$
 \end_inset
 
-, in the long run, not drinking coffee gives a higher probability of being
- healthy.
- 
+, not drinking coffee gives a higher probability of being healthy in the
+ long run.
 \end_layout
 
 \end_deeper
@@ -336,6 +339,35 @@ The initial probability vector is
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+The new transition matrix is
+\begin_inset Formula 
+\[
+T=\begin{pmatrix}.9603 & .0297 & .0097 & .0003\\
+.9603 & .0297 & .0097 & .0003\\
+.005 & .005 & .495 & .495\\
+.005 & .005 & .495 & .495
+\end{pmatrix}.
+\]
+
+\end_inset
+
+
 \end_layout
 
 \end_deeper
