@@ -364,18 +364,17 @@ mu = [0,0];
 sigma = [.00852^2,.00852^2 * .258; .00852^2 * .258, .00852^2];
 e = mvnrnd(mu,sigma,total_periods+1);
 s = [0;0;0;0;0;0;0;0;e(1,1);0;0;0;0;0;0;0;0;e(1,2)];
-for i=1:total_periods+1
+for i=1:total_periods
     s(:,i+1) = G*s(:,i) + [0;0;0;0;0;0;0;0;e(i,1);0;0;0;0;0;0;0;0;e(i,2)];
 end
 z = (H*s)';
 s = s';
 
-y_h = z(:,Yt_h);
+
 k_h = s(:,Kt_h);
 c_h = z(:,Ct_h);
 n_h = z(:,Nt_h);
 z_h = s(:,Zt_h);
-y_f = z(:,Yt_f);
 k_f = s(:,Kt_f);
 c_f = z(:,Ct_f);
 n_f = z(:,Nt_f);
@@ -386,7 +385,8 @@ k3_h = s(:,Kt3_h);
 k1_f = s(:,Kt1_f);
 k2_f = s(:,Kt2_f);
 k3_f = s(:,Kt3_f);
-
+y_h = z(:,Yt_h);
+y_f = z(:,Yt_f);
 i_h = zeros(total_periods, 1);
 i_f = zeros(total_periods, 1);
 x_h = zeros(total_periods, 1);
@@ -403,8 +403,21 @@ for i=1:total_periods
 end
 
 nxss = yss - css - xss;
+lag = 5;
+total_cross_corr = lag * 2 + 1;
+standard_deviations = zeros(total_periods/period, 7);
+std_dev_relative = zeros(total_periods/period, 6);
+cross_corr_y = zeros(total_periods/period, total_cross_corr);
+cross_corr_n = zeros(total_periods/period, total_cross_corr);
+cross_corr_k = zeros(total_periods/period, total_cross_corr);
+cross_corr_c = zeros(total_periods/period, total_cross_corr);
+cross_corr_x = zeros(total_periods/period, total_cross_corr);
+cross_corr_nx = zeros(total_periods/period, total_cross_corr);
+cross_corr_z = zeros(total_periods/period, total_cross_corr);
+cross_corr_y_across_countries = zeros(total_periods/period, total_cross_corr);
+cross_corr_c_across_countries = zeros(total_periods/period, total_cross_corr);
 for j = 1:total_periods/period
-   yh_1 = log(yss * exp(y_h(1+(j-1)*period:j*period, 1)));
+    yh_1 = log(yss * exp(y_h(1+(j-1)*period:j*period, 1)));
     lyh_1 = yh_1 - hpfilter(yh_1, 1600);
     yf_1 = log(yss * exp(y_f(1+(j-1)*period:j*period, 1)));
     lyf_1 = yf_1 - hpfilter(yf_1, 1600);
@@ -422,25 +435,52 @@ for j = 1:total_periods/period
     lzh_1 = zh_1 - hpfilter(zh_1, 1600);
     nxh_1 = log(nxss * exp(nx_h(1+(j-1)*period:j*period, 1)));
     lnxh_1 = nxh_1 - hpfilter(nxh_1, 1600);
-    V=cov([lyh_1,lch_1,lnh_1,lkh_1,lxh_1,lzh_1,lnxh_1]);
+    V=cov([lyh_1,lch_1,lxh_1,lnh_1,lkh_1,lzh_1,lnxh_1]);
+    
+    
+    sdzHP=sqrt(diag(V)); % standard deviations
+    std_y = sdzHP(1);
+    c_percent = sdzHP(2)/std_y;
+    n_percent = sdzHP(3)/std_y;
+    k_percent = sdzHP(4)/std_y;
+    x_percent = sdzHP(5)/std_y;
+    z_percent = sdzHP(6)/std_y;
+    standard_deviations(j,:) = sdzHP;
+    std_dev_relative(j,:) = [1.0, c_percent, n_percent, k_percent, x_percent, z_percent];
+
+    corHP =  V./(sqrt(diag(V))*sqrt(diag(V))'); % cross-correlations
+    cross_corr_y(j,:) = xcorr(lyh_1, lyh_1, 5, 'coeff');
+    cross_corr_k(j,:) = xcorr(lkh_1, lyh_1, 5, 'coeff');
+    cross_corr_c(j,:) = xcorr(lch_1, lyh_1, 5, 'coeff');
+    cross_corr_n(j,:) = xcorr(lnh_1, lyh_1, 5, 'coeff');
+    cross_corr_x(j,:) = xcorr(lxh_1, lyh_1, 5, 'coeff');
+    cross_corr_z(j,:) = xcorr(lzh_1, lyh_1, 5, 'coeff');
+    cross_corr_nx(j,:) = xcorr(lnxh_1, lyh_1, 5, 'coeff');
+
+    cross_corr_y_across_countries(j,:) = xcorr(lyh_1, lyf_1, 5, 'coeff');
+    cross_corr_c_across_countries(j,:) = xcorr(lch_1, lcf_1, 5, 'coeff');
 end
 
-sdzHP=sqrt(diag(V)); % standard deviations
-std_y = sdzHP(1);
-c_percent = sdzHP(2)/std_y;
-n_percent = sdzHP(3)/std_y;
-k_percent = sdzHP(4)/std_y;
-x_percent = sdzHP(5)/std_y;
-z_percent = sdzHP(6)/std_y;
+standard_deviations_mean = mean(standard_deviations * 100); %Y,C,N,K,X,Z,NX order
+standard_deviations_std = std(standard_deviations * 100);
+std_dev_relative_mean = mean(std_dev_relative);
+std_dev_relative_std = std(std_dev_relative);
+cross_corr_y_mean = mean(cross_corr_y);
+cross_corr_y_std = std(cross_corr_y);
+cross_corr_c_mean = mean(cross_corr_c);
+cross_corr_c_std = std(cross_corr_c);
+cross_corr_x_mean = mean(cross_corr_x);
+cross_corr_x_std = std(cross_corr_x);
+cross_corr_n_mean = mean(cross_corr_n);
+cross_corr_n_std = std(cross_corr_n);
+cross_corr_k_mean = mean(cross_corr_k);
+cross_corr_k_std = std(cross_corr_k);
+cross_corr_z_mean = mean(cross_corr_z);
+cross_corr_z_std = std(cross_corr_z);
+cross_corr_nx_mean = mean(cross_corr_nx);
+cross_corr_nx_std = std(cross_corr_nx);
 
-corHP =  V./(sqrt(diag(V))*sqrt(diag(V))'); % cross-correlations
-cross_corr_y = xcorr(lyh_1, lyh_1, 5, 'coeff');
-cross_corr_k = xcorr(lkh_1, lyh_1, 5, 'coeff');
-cross_corr_c = xcorr(lch_1, lyh_1, 5, 'coeff');
-cross_corr_n = xcorr(lnh_1, lyh_1, 5, 'coeff');
-cross_corr_x = xcorr(lxh_1, lyh_1, 5, 'coeff');
-cross_corr_z = xcorr(lzh_1, lyh_1, 5, 'coeff');
-cross_corr_nx = xcorr(lnxh_1, lyh_1, 5, 'coeff');
-
-cross_corr_y_across_countries = xcorr(lyh_1, lyf_1, 5, 'coeff');
-cross_corr_c_across_countries = xcorr(lch_1, lcf_1, 5, 'coeff');
+cross_corr_y_across_countries_mean = mean(cross_corr_y_across_countries);
+cross_corr_y_across_countries_std = std(cross_corr_y_across_countries);
+cross_corr_c_across_countries_mean = mean(cross_corr_c_across_countries);
+cross_corr_c_across_countries_std = std(cross_corr_c_across_countries);
