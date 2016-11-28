@@ -1,0 +1,343 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\date{}
+\newcommand{\lb}{
+
+}
+\end_preamble
+\use_default_options true
+\begin_modules
+theorems-ams
+theorems-ams-extended
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "courier" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 11
+\spacing onehalf
+\use_hyperref false
+\papersize letterpaper
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\branch Key
+\selected 1
+\filename_suffix 0
+\color #faf0e6
+\end_branch
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1.75cm
+\topmargin 1.75cm
+\rightmargin 1.75cm
+\bottommargin 1.75cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip smallskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\listings_params "basicstyle={\ttfamily}"
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+ECON G6410 Problem Set 9
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+It is irreducible.
+ It is sufficient to show that for some 
+\begin_inset Formula $n$
+\end_inset
+
+ and for each pair of states 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\begin_inset Formula $j$
+\end_inset
+
+, 
+\begin_inset Formula $p_{ij}^{\left(n\right)}>0$
+\end_inset
+
+.
+ We calculate 
+\begin_inset Formula $P^{10}$
+\end_inset
+
+ in Julia numerically and find that each element of the matrix is positive,
+ which implies irreducibility.
+\end_layout
+
+\begin_layout Enumerate
+Since the matrix is irreducible, the period of every state is the same.
+ We explicitly compute the period for state 2.
+ Note that 
+\begin_inset Formula 
+\begin{align*}
+P^{2} & =\begin{pmatrix}0 & 0 & 0.5 & 0.5\\
+0.5 & 0.5 & 0 & 0\\
+0 & 1 & 0 & 0\\
+0 & 0 & 0.5 & 0.5
+\end{pmatrix}\\
+P^{3} & =\begin{pmatrix}0.5 & 0.5 & 0 & 0\\
+0 & 0.5 & 0.25 & 0.25\\
+0 & 0 & 0.5 & 0.5\\
+0.5 & 0.5 & 0 & 0
+\end{pmatrix}.
+\end{align*}
+
+\end_inset
+
+Because 
+\begin_inset Formula $p_{22}^{\left(2\right)}>0$
+\end_inset
+
+ and 
+\begin_inset Formula $p_{22}^{\left(3\right)}>0$
+\end_inset
+
+, the period for state 2 is the largest common divisor of 2 and 3, which
+ is 1.
+ So the period of every state is 1, and the Markov chain is aperiodic.
+\end_layout
+
+\begin_layout Enumerate
+Yes, since every irreducible and aperiodic Markov chain has a unique stationary
+ distribution.
+ And we find 
+\begin_inset Formula $\pi^{*}=\left(0.2,0.4,0.2,0.2\right)$
+\end_inset
+
+ numerically in Julia (see the code).
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+See the attached code and graphs.
+ The invariant distributions are 
+\begin_inset Formula 
+\[
+\pi_{6}^{*}=\left(0.0011,0.0390,0.2435,0.4329,0.2435,0.0390,0.0011\right)
+\]
+
+\end_inset
+
+and
+\begin_inset Formula 
+\[
+\pi_{7}^{*}=\left(0.0003,0.0143,0.1285,0.3569,0.3569,0.1285,0.0143,0.0003\right).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+The initial probability vector is 
+\begin_inset Formula $\pi_{0}=\left(1,0\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+The transition matrix is 
+\begin_inset Formula 
+\[
+P=\begin{pmatrix}0.99 & 0.01\\
+0.3 & 0.7
+\end{pmatrix}.
+\]
+
+\end_inset
+
+Because 
+\begin_inset Formula 
+\[
+P^{14}=\begin{pmatrix}0.9679 & 0.0321\\
+0.9624 & 0.0376
+\end{pmatrix},
+\]
+
+\end_inset
+
+the probability transition matrix of of being sick on the exam date is 
+\begin_inset Formula 
+\[
+\left(P^{14}\right)_{12}=0.0321.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+The new transition matrix is 
+\begin_inset Formula 
+\[
+Q=\begin{pmatrix}0.995 & 0.005\\
+0.14 & 0.86
+\end{pmatrix}.
+\]
+
+\end_inset
+
+Because 
+\begin_inset Formula 
+\[
+Q^{14}=\begin{pmatrix}0.9694 & 0.0306\\
+0.8578 & 0.1422
+\end{pmatrix},
+\]
+
+\end_inset
+
+the probability transition matrix of of being sick on the exam date is 
+\begin_inset Formula 
+\[
+\left(Q^{14}\right)_{12}=0.0306.
+\]
+
+\end_inset
+
+So starting to drink coffee is better to minimize the probability of sickness
+ on exam date.
+\end_layout
+
+\begin_layout Enumerate
+No.
+ Since 
+\begin_inset Formula $\pi_{P}^{*}=\left(0.9677,0.0323\right)$
+\end_inset
+
+, 
+\begin_inset Formula $\pi_{Q}^{*}=\left(0.9655,0.0345\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $0.9677>0.9655$
+\end_inset
+
+, in the long run, not drinking coffee gives a higher probability of being
+ healthy.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+There are four states: 
+\begin_inset Formula $\left(r_{H},l_{H}\right),\left(r_{L},l_{H}\right),\left(r_{H},l_{L}\right),\left(r_{L},l_{L}\right).$
+\end_inset
+
+ The transition matrix is
+\begin_inset Formula 
+\begin{align*}
+T & =\begin{pmatrix}P_{11}Q_{H11} & P_{11}Q_{H12} & P_{12}Q_{H11} & P_{12}Q_{H12}\\
+P_{11}Q_{H21} & P_{11}Q_{H22} & P_{12}Q_{H21} & P_{12}Q_{H22}\\
+P_{21}Q_{L11} & P_{21}Q_{L12} & P_{22}Q_{L11} & P_{22}Q_{L12}\\
+P_{21}Q_{L21} & P_{21}Q_{L22} & P_{22}Q_{L21} & P_{22}Q_{L22}
+\end{pmatrix}\\
+ & =\begin{pmatrix}.9603 & .0297 & .0097 & .0003\\
+.891 & .099 & .009 & .001\\
+.125 & .125 & .375 & .375\\
+.025 & .225 & .075 & .675
+\end{pmatrix}.
+\end{align*}
+
+\end_inset
+
+The initial probability vector is 
+\begin_inset Formula $\pi_{0}=\left(1,0,0,0\right)$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\end_body
+\end_document
