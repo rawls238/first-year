@@ -1,3 +1,4 @@
+*.lyx~
 *.Rapp.*
 *.m~
 .DS_Store
