@@ -7,6 +7,7 @@ function [A,B,Q,Z] = qzdiv(stake,A,B,Q,Z)
 % corner, while preserving U.T. and orthonormal properties and Q'AZ' and
 % Q'BZ'.
 %
+
 [n jnk] = size(A);
 root = abs([diag(A) diag(B)]);
 root(:,1) = root(:,1)-(root(:,1)<1.e-13).*(root(:,1)+root(:,2));

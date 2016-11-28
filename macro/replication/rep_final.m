@@ -460,11 +460,11 @@ for j = 1:total_periods/period
     nxh_1 = log(nxss/yss .* nx .* y1_h);
     lnxh_1 = nxh_1 - hpfilter(nxh_1, 1600);
     c1_h = exp(c_h(1+(j-1)*period:j*period, 1));
-    saving_h = log(yss*(css)/yss .* (c1_h) .* y1_h);
+    saving_h = log((yss-css)/yss .* (y1_h - c1_h) ./ y1_h);
     lsavingh_1 = saving_h - hpfilter(saving_h, 1600);
     c1_f = exp(c_f(1+(j-1)*period:j*period, 1));
     y1_f = exp(y_f(1+(j-1)*period:j*period, 1));
-    saving_f = log(yss*(css)/yss .* (c1_f) .* y1_f);
+    saving_f = log((yss - css)/yss .* (y1_f - c1_f) ./ y1_f);
     lsavingf_1 = saving_f - hpfilter(saving_f, 1600);
     V=cov([lyh_1,lch_1,lxh_1,lnh_1,lkh_1,lzh_1,lnxh_1]);
     

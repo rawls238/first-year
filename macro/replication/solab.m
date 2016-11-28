@@ -42,6 +42,7 @@ z11i = z11\eye(nk);
 s11 = s(1:nk,1:nk);
 t11 = t(1:nk,1:nk);
 
+
     
 dyn = s11\t11;
 
