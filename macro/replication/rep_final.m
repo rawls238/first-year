@@ -135,7 +135,7 @@ for country_num=1:num_countries
     %2. Euler
     eqn = 2 + offset;
     Fyp(eqn, Ct3) = RHS_flag * (xi_c_c - (m_inv * (delta - 1) * beta^4 * xi_c_c));
-    Fyp(eqn, Nt3) = RHS_flag * (xi_c_n - (m_inv * (delta - 1) * beta^4 * xi_c_n));
+    Fyp(eqn, Nt3) = RHS_flag * (xi_c_n + tau_k_n - (m_inv * (delta - 1) * beta^4 * xi_c_n));
     Fyp(eqn, lambdat3) = RHS_flag * tau_k_lambda;
     Fxp(eqn, Kt3) = RHS_flag * tau_k_k;
     Fxp(eqn, Zt3) = RHS_flag * tau_k_z;
