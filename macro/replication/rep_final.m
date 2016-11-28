@@ -1,3 +1,6 @@
+% Replication of  Backus, Kehoe and Kydland (1992): International Real
+% Business Cycles, Journal of Political Economy
+
 clear all;
 close all;
 
@@ -257,6 +260,7 @@ Kt2_f = var_offset(2, vars('Kt2'));
 Kt3_h = var_offset(1, vars('Kt3'));
 Kt3_f = var_offset(2, vars('Kt3'));
 
+%Tech progress
 eqn = 45;
 Fxp(eqn,lambdat_h)  = RHS_flag;
 Fx(eqn,lambdat_h)  = A(1, 1);
@@ -433,6 +437,7 @@ cross_corr_nx = zeros(total_periods/period, total_cross_corr);
 cross_corr_z = zeros(total_periods/period, total_cross_corr);
 cross_corr_y_across_countries = zeros(total_periods/period, total_cross_corr);
 cross_corr_c_across_countries = zeros(total_periods/period, total_cross_corr);
+cross_corr_saving = zeros(total_periods/period, total_cross_corr);
 for j = 1:total_periods/period
     yh_1 = log(yss * exp(y_h(1+(j-1)*period:j*period, 1)));
     lyh_1 = yh_1 - hpfilter(yh_1, 1600);
@@ -450,8 +455,17 @@ for j = 1:total_periods/period
     lxh_1 = xh_1 - hpfilter(xh_1, 1600);
     zh_1 = log(zss * exp(z_h(1+(j-1)*period:j*period, 1)));
     lzh_1 = zh_1 - hpfilter(zh_1, 1600);
-    nxh_1 = log(nxss * exp(nx_h(1+(j-1)*period:j*period, 1)));
+    nx = exp(nx_h(1+(j-1)*period:j*period, 1));
+    y1_h = exp(y_h(1+(j-1)*period:j*period, 1));
+    nxh_1 = log(nxss/yss .* nx .* y1_h);
     lnxh_1 = nxh_1 - hpfilter(nxh_1, 1600);
+    c1_h = exp(c_h(1+(j-1)*period:j*period, 1));
+    saving_h = log(yss*(css)/yss .* (c1_h) .* y1_h);
+    lsavingh_1 = saving_h - hpfilter(saving_h, 1600);
+    c1_f = exp(c_f(1+(j-1)*period:j*period, 1));
+    y1_f = exp(y_f(1+(j-1)*period:j*period, 1));
+    saving_f = log(yss*(css)/yss .* (c1_f) .* y1_f);
+    lsavingf_1 = saving_f - hpfilter(saving_f, 1600);
     V=cov([lyh_1,lch_1,lxh_1,lnh_1,lkh_1,lzh_1,lnxh_1]);
     
     
@@ -476,6 +490,7 @@ for j = 1:total_periods/period
 
     cross_corr_y_across_countries(j,:) = xcorr(lyh_1, lyf_1, lag, 'coeff');
     cross_corr_c_across_countries(j,:) = xcorr(lch_1, lcf_1, lag, 'coeff');
+    cross_corr_saving(j,:) = xcorr(lsavingh_1, lsavingf_1, lag, 'coeff');
 end
 
 standard_deviations_mean = mean(standard_deviations * 100);
@@ -501,3 +516,6 @@ cross_corr_y_across_countries_mean = mean(cross_corr_y_across_countries);
 cross_corr_y_across_countries_std = std(cross_corr_y_across_countries);
 cross_corr_c_across_countries_mean = mean(cross_corr_c_across_countries);
 cross_corr_c_across_countries_std = std(cross_corr_c_across_countries);
+cross_corr_saving_mean = mean(cross_corr_saving);
+cross_corr_saving_std = std(cross_corr_saving);
+
