@@ -1,4 +1,6 @@
 using StatsBase
+using Plots
+gr()
 
 type MarkovChain
     P::Array{Float64, 2}
