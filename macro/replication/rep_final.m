@@ -320,12 +320,12 @@ k2_f = shock(:,Kt2_f);
 k3_f = shock(:,Kt3_f);
 c_h = z(:,Ct_h);
 c_f= z(:,Ct_f);
+n_h = z(:, Nt_h);
 zi_h = shock(:,Zt_h);
 zi_f = shock(:,Zt_f);
 
 y_h = z(:,Yt_h);
 y_f = z(:,Yt_f);
-
 i_h = zeros(20, 1);
 i_f = zeros(20, 1);
 x_h = zeros(20, 1);
@@ -357,3 +357,77 @@ ylabel('Percent Deviations')
 xlabel('Quarters')
 title('Home response')
 legend('c', 'y','i','lambda', 'nx');
+
+
+period = 100;
+sim_num = 50;
+total_periods = period * sim_num;
+mu = [0,0];
+sigma = [.00852^2,.00852^2 * .258; .00852^2 * .258, .00852^2];
+e = mvnrnd(mu,sigma,total_periods+1);
+s = [0;0;0;0;0;0;0;0;e(1,1);0;0;0;0;0;0;0;0;e(1,2)];
+for i=1:total_periods+1
+    s(:,i+1) = G*s(:,i) + [0;0;0;0;0;0;0;0;e(i,1);0;0;0;0;0;0;0;0;e(i,2)];
+end
+z = (H*s)';
+s = s';
+
+y_h = z(:,Yt_h);
+k_h = s(:,Kt_h);
+c_h = z(:,Ct_h);
+n_h = z(:,Nt_h);
+z_h = s(:,Zt_h);
+y_f = z(:,Yt_f);
+k_f = s(:,Kt_f);
+c_f = z(:,Ct_f);
+n_f = z(:,Nt_f);
+z_f = s(:,Zt_f);
+k1_h = s(:,Kt1_h);
+k2_h = s(:,Kt2_h);
+k3_h = s(:,Kt3_h);
+k1_f = s(:,Kt1_f);
+k2_f = s(:,Kt2_f);
+k3_f = s(:,Kt3_f);
+
+i_h = zeros(total_periods, 1);
+i_f = zeros(total_periods, 1);
+x_h = zeros(total_periods, 1);
+x_f = zeros(total_periods, 1);
+nx_h = zeros(total_periods, 1);
+nx_f = zeros(total_periods, 1);
+for i=1:total_periods
+    x_h(i) = (1-delta)*k_h(i) + delta*k1_h(i) + delta*k2_h(i) + delta*k3_h(i) + k3_h(i+1);
+    x_f(i) = (1-delta)*k_f(i) + delta*k1_f(i) + delta*k2_f(i) + delta*k3_f(i) + k3_f(i+1);
+    i_h(i) = x_h(i) + z_h(i+1) - z_h(i);
+    i_f(i) = x_f(i) + z_f(i+1) - z_f(i);
+    nx_h(i) = y_h(i) - c_h(i) - i_h(i);
+    nx_f(i) = y_f(i) - c_f(i) - i_f(i);
+end
+
+nxss = yss - css - xss;
+for j = 1:total_periods/period
+    yh_1 = log(yss * exp(y_h(1+(j-1)*period:j*period, 1)));
+    lyh_1 = yh_1 - hpfilter(yh_1, 1600);
+    ch_1 = log(css * exp(c_h(1+(j-1)*period:j*period, 1)));
+    lch_1 = ch_1 - hpfilter(ch_1, 1600);
+    nh_1 = log(nss * exp(n_h(1+(j-1)*period:j*period, 1)));
+    lnh_1 = nh_1 - hpfilter(nh_1, 1600);
+    kh_1 = log(kss * exp(k_h(1+(j-1)*period:j*period, 1)));
+    lk_1 = kh_1 - hpfilter(kh_1, 1600);
+    xh_1 = log(xss * exp(x_h(1+(j-1)*period:j*period, 1)));
+    lxh_1 = xh_1 - hpfilter(xh_1, 1600);
+    zh_1 = log(zss * exp(z_h(1+(j-1)*period:j*period, 1)));
+    lzh_1 = zh_1 - hpfilter(zh_1, 1600);
+    nxh_1 = log(nxss * exp(nx_h(1+(j-1)*period:j*period, 1)));
+    lnxh_1 = nxh_1 - hpfilter(nxh_1, 1600);
+    V=cov([lyh_1,lch_1,lnh_1,lk_1,lxh_1,lzh_1,lnxh_1]);
+end
+
+sdzHP=sqrt(diag(V)); % standard deviations
+y_percent = 1.0;
+std_y = sdzHP(1);
+c_percent = sdzHP(2)/std_y;
+n_percent = sdzHP(3)/std_y;
+k_percent = sdzHP(4)/std_y;
+x_percent = sdzHP(5)/std_y;
+z_percent = sdzHP(6)/std_y;

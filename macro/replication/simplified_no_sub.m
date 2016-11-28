@@ -26,6 +26,7 @@
  nss_second_term = (1/mu - 1) * (yss - delta * kss);
  nss = (nss_first_term * nss_second_term + 1)^-1;
  css = yss - delta * kss;
+ xss = delta * kss;
  
  tmp = sigma * yss^v * zss^-v;
  xi_c_c = gamma*mu - 1;
@@ -224,6 +225,12 @@ x_h = zeros(19, 1);
 x_f = zeros(19, 1);
 nx_h = zeros(19, 1);
 nx_f = zeros(19, 1);
+
+a = xi_n_n - xi_c_n - tau_n_n;
+b = 1/a;
+n_h = b * ((xi_c_c - xi_n_c) * c_h + tau_n_lambda * lambda_h + tau_n_k * k_h + tau_n_z * z_h);
+y_h = zita_lambda * lambda_h + zita_k * k_h + zita_n * n_h + zita_z * z_h;
+
 for i=1:19
     x_h(i) = k_h(i+1) - (1 - delta) * k_h(i);
     x_f(i) = k_f(i+1) - (1 - delta) * k_f(i);
@@ -238,7 +245,7 @@ plot(0:21, [0 c_h'],'-d','MarkerSize',3,'Color',[0,0,0])
 hold on 
 plot(0:21, [0 y_h'],'-^','MarkerSize',3,'Color',[0.5, 0.5, 0])
 hold on 
-plot(0:19, [0 i_h'],'-.','MarkerSize',3,'Color',[0,.5,0])
+plot(0:19, [0 x_h'],'-.','MarkerSize',3,'Color',[0,.5,0])
 hold on
 plot(0:21, [0 lambda_h'], '-x','MarkerSize',3,'Color',[0,0,.5])
 hold on
@@ -248,7 +255,7 @@ ylabel('Percent Deviations')
 xlabel('Quarters')
 title('Home response')
 legend('c', 'y','i','lambda', 'nx');
-%{
+
 plot(0:21, [0 c_f'],'-d','MarkerSize',3,'Color',[0,0,0])
 hold on 
 plot(0:21, [0 y_f'],'-^','MarkerSize',3,'Color',[0.5, 0.5, 0])
@@ -264,4 +271,74 @@ xlabel('Quarters')
 title('Foreign response')
 legend('c', 'y','i','lambda', 'nx');
 % saveas(gcf,'foreign','psc2')
-%}
+
+period = 100;
+sim_num = 50;
+total_periods = period * sim_num;
+mu = [0,0];
+sigma = [.00852^2,.00852^2 * .258; .00852^2 * .258, .00852^2];
+e = mvnrnd(mu,sigma,total_periods+1);
+s = [0;0;e(1,1);0;0;e(1,2)];
+for i=1:total_periods+1
+    s(:,i+1) = G*s(:,i) + [0;0;e(i,1);0;0;e(i,2)];
+end
+z = (H*s)';
+s = s';
+
+y_h = z(:,Y_h);
+k_h = s(:,K_h);
+c_h = z(:,C_h);
+n_h = z(:,N_h);
+z_h = s(:,Z_h);
+y_f = z(:,Y_f);
+k_f = s(:,K_f);
+c_f = z(:,C_f);
+n_f = z(:,N_f);
+z_f = s(:,Z_f);
+
+i_h = zeros(total_periods, 1);
+i_f = zeros(total_periods, 1);
+x_h = zeros(total_periods, 1);
+x_f = zeros(total_periods, 1);
+nx_h = zeros(total_periods, 1);
+nx_f = zeros(total_periods, 1);
+for i=1:total_periods
+    x_h(i) = k_h(i+1) - (1 - delta) * k_h(i);
+    x_f(i) = k_f(i+1) - (1 - delta) * k_f(i);
+    i_h(i) = x_h(i) + z_h(i+1) - z_h(i);
+    i_f(i) = x_f(i) + z_f(i+1) - z_f(i);
+    nx_h(i) = y_h(i) - c_h(i) - i_h(i);
+    nx_f(i) = y_f(i) - c_f(i) - i_f(i);
+end
+
+nxss = yss - css - xss;
+for j = 1:total_periods/period
+    yh_1 = log(yss * exp(y_h(1+(j-1)*period:j*period, 1)));
+    lyh_1 = yh_1 - hpfilter(yh_1, 1600);
+    ch_1 = log(css * exp(c_h(1+(j-1)*period:j*period, 1)));
+    lch_1 = ch_1 - hpfilter(ch_1, 1600);
+    nh_1 = log(nss * exp(n_h(1+(j-1)*period:j*period, 1)));
+    lnh_1 = nh_1 - hpfilter(nh_1, 1600);
+    kh_1 = log(kss * exp(k_h(1+(j-1)*period:j*period, 1)));
+    lk_1 = kh_1 - hpfilter(kh_1, 1600);
+    xh_1 = log(xss * exp(x_h(1+(j-1)*period:j*period, 1)));
+    lxh_1 = xh_1 - hpfilter(xh_1, 1600);
+    zh_1 = log(zss * exp(z_h(1+(j-1)*period:j*period, 1)));
+    lzh_1 = zh_1 - hpfilter(zh_1, 1600);
+    nxh_1 = log(nxss * exp(nx_h(1+(j-1)*period:j*period, 1)));
+    lnxh_1 = nxh_1 - hpfilter(nxh_1, 1600);
+    V=cov([lyh_1,lch_1,lnh_1,lk_1,lxh_1,lzh_1,lnxh_1]);
+end
+
+sdzHP=sqrt(diag(V)); % standard deviations
+y_percent = 1.0;
+std_y = sdzHP(1);
+c_percent = sdzHP(2)/std_y;
+n_percent = sdzHP(3)/std_y;
+k_percent = sdzHP(4)/std_y;
+x_percent = sdzHP(5)/std_y;
+z_percent = sdzHP(6)/std_y;
+nx_percent = sdzHP(7)/std_y;
+
+corHP =  V./(sqrt(diag(V))*sqrt(diag(V))'); % cross-correlations
+autocorrHPy = mean(acy); % auto-correlation of output
