@@ -105,7 +105,7 @@ function analyze_results(results, num_simulations::Int64, T::Int64)
             if is_high_liquidity_state(state)
                 append!(liquidity_history, 1);
             else is_low_liquidity_state(state)
-                num_time_in_low_liquidity+= 1;
+                num_time_in_low_liquidity += 1;
                 append!(liquidity_history, 0);
             end
         end
