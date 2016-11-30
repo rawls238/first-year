@@ -1,0 +1,1690 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\usepackage{listings}
+\usepackage{color}
+%\definecolor{hellgelb}{rgb}{1,1,0.85}
+%\definecolor{colKeys}{rgb}{0,0,1}
+%\definecolor{colIdentifier}{rgb}{0,0,0}
+%\definecolor{colComments}{rgb}{1,0,0}
+%\definecolor{colString}{rgb}{0,0.5,0}
+\definecolor{hellgelb}{rgb}{0.95,0.95,0.95}
+\definecolor{colKeys}{rgb}{0,0,0}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{0.5,0.5,0.5}
+\definecolor{colString}{rgb}{0,0,0}
+\lstset{%
+     language=Matlab,%
+     float=hbp,%
+     basicstyle=\footnotesize\ttfamily,%
+     identifierstyle=\color{colIdentifier},%
+     keywordstyle=\color{colKeys},%
+     stringstyle=\color{colString},%
+     commentstyle=\itshape\color{colComments},%
+     columns=fixed,
+     tabsize=4,%
+     frame=single,%
+     framerule=0pt,
+     extendedchars=true,%
+     showspaces=false,%
+     showstringspaces=false,%
+     numbers=left,%
+     numberstyle=\tiny\ttfamily,%
+     numbersep=1em,%
+     breaklines=true,%
+     breakindent=10pt,%
+     backgroundcolor=\color{hellgelb},%
+     breakautoindent=true,%
+     captionpos=t,%
+     xleftmargin=1em,%
+     xrightmargin=\fboxsep%
+}
+\date{}
+\newcommand{\lb}{
+
+}
+\end_preamble
+\use_default_options true
+\begin_modules
+theorems-ams
+theorems-ams-extended
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "courier" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 11
+\spacing onehalf
+\use_hyperref false
+\papersize letterpaper
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\branch Key
+\selected 1
+\filename_suffix 0
+\color #faf0e6
+\end_branch
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1.75cm
+\topmargin 1.75cm
+\rightmargin 1.75cm
+\bottommargin 1.75cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip smallskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\listings_params "basicstyle={\ttfamily}"
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+ECON G6410 Problem Set 10
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Every subset of 
+\begin_inset Formula $X$
+\end_inset
+
+ is invariant under 
+\begin_inset Formula $f$
+\end_inset
+
+.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lb 
+\end_layout
+
+\end_inset
+
+Every point in 
+\begin_inset Formula $X$
+\end_inset
+
+ is a fixed point.
+ For all 
+\begin_inset Formula $x\in X$
+\end_inset
+
+, the corresponding stable set is 
+\begin_inset Formula $W\left(x\right)=\left\{ x\right\} $
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+The subsets of 
+\begin_inset Formula $X$
+\end_inset
+
+ that are invariant under 
+\begin_inset Formula $f$
+\end_inset
+
+ take the form of
+\begin_inset Formula 
+\[
+S=T\cup\left(-T\right),
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $T\subset\mathbb{R}$
+\end_inset
+
+.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lb 
+\end_layout
+
+\end_inset
+
+The system has one fixed point 
+\begin_inset Formula $x=0$
+\end_inset
+
+; its stable set is 
+\begin_inset Formula $W\left(0\right)=\left\{ 0\right\} $
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+The subsets of 
+\begin_inset Formula $X$
+\end_inset
+
+ that are invariant under 
+\begin_inset Formula $f$
+\end_inset
+
+ take the form of
+\begin_inset Formula 
+\[
+S=T\cup\left\{ t+1:t\in T\right\} ,
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $T\subset\mathbb{R}$
+\end_inset
+
+.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lb 
+\end_layout
+
+\end_inset
+
+The system has no stable point.
+\end_layout
+
+\begin_layout Enumerate
+The subsets of 
+\begin_inset Formula $X$
+\end_inset
+
+ that are invariant under 
+\begin_inset Formula $f$
+\end_inset
+
+ take the form of
+\begin_inset Formula 
+\[
+S=T\cup\left\{ \frac{t}{2}:t\in T\right\} ,
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $T\subset\mathbb{R}$
+\end_inset
+
+.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lb 
+\end_layout
+
+\end_inset
+
+The system has one fixed point 
+\begin_inset Formula $x=0$
+\end_inset
+
+; its stable set is 
+\begin_inset Formula $W\left(0\right)=\mathbb{R}$
+\end_inset
+
+.
+ This is because for any 
+\begin_inset Formula $x\in\mathbb{R}$
+\end_inset
+
+, 
+\begin_inset Formula 
+\[
+\lim_{n\to\infty}f^{n}\left(x\right)=\lim_{n\to\infty}\frac{x}{2^{n}}=0.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+The subsets of 
+\begin_inset Formula $X$
+\end_inset
+
+ that are invariant under 
+\begin_inset Formula $f$
+\end_inset
+
+ take the form of
+\begin_inset Formula 
+\[
+S=T\cup\left\{ 1.2t:t\in T\right\} ,
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $T\subset\mathbb{R}_{+}$
+\end_inset
+
+.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lb 
+\end_layout
+
+\end_inset
+
+The system has one fixed point 
+\begin_inset Formula $x=0$
+\end_inset
+
+; its stable set is 
+\begin_inset Formula $W\left(0\right)=\left\{ 0\right\} $
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+The subsets of 
+\begin_inset Formula $X$
+\end_inset
+
+ that are invariant under 
+\begin_inset Formula $f$
+\end_inset
+
+ take the form of
+\begin_inset Formula 
+\[
+S=T\cup\left\{ 0.2\sqrt{t}+0.8t:t\in T\right\} ,
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $T\subset\mathbb{R}_{+}$
+\end_inset
+
+.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lb 
+\end_layout
+
+\end_inset
+
+Setting 
+\begin_inset Formula $f\left(x\right)=x$
+\end_inset
+
+ gives two solutions 
+\begin_inset Formula $x=0$
+\end_inset
+
+ and 
+\begin_inset Formula $x=1$
+\end_inset
+
+, which are the fixed points of the system.
+ To find their stable sets, note that 
+\begin_inset Formula $f\left(x\right)>x$
+\end_inset
+
+ for 
+\begin_inset Formula $x\in\left(0,1\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $f\left(x\right)<x$
+\end_inset
+
+ for 
+\begin_inset Formula $x\in\left(1,\infty\right)$
+\end_inset
+
+, so
+\begin_inset Formula 
+\[
+\lim_{n\to\infty}f^{n}\left(x\right)=1
+\]
+
+\end_inset
+
+for any 
+\begin_inset Formula $x\in\left(0,\infty\right)$
+\end_inset
+
+.
+ Therefore, 
+\begin_inset Formula $W\left(1\right)=\left(0,\infty\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $W\left(0\right)=\left\{ 0\right\} $
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\begin_inset Formula 
+\begin{align*}
+B & =\begin{pmatrix}1 & 1 & 0\\
+0 & 1 & 0\\
+0 & 1 & 1
+\end{pmatrix}\\
+C & =\begin{pmatrix}-2 & -1 & 3.5\\
+-1 & 0 & 1.5\\
+-4 & -1 & 5.5
+\end{pmatrix}.
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Since 
+\begin_inset Formula $B$
+\end_inset
+
+ is invertible,
+\begin_inset Formula 
+\begin{align*}
+A & =B^{-1}C\\
+ & =\begin{pmatrix}1 & -1 & 0\\
+0 & 1 & 0\\
+0 & -1 & 1
+\end{pmatrix}C\\
+ & =\begin{pmatrix}-1 & -1 & 2\\
+-1 & 0 & 1.5\\
+-3 & -1 & 4
+\end{pmatrix}.
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Set 
+\begin_inset Formula $\det\left(A-\lambda I\right)=0$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{align*}
+\begin{vmatrix}-1-\lambda & -1 & 2\\
+-1 & -\lambda & 1.5\\
+-3 & -1 & 4-\lambda
+\end{vmatrix} & =0\\
+2\lambda^{3}-6\lambda^{2}+5\lambda-2 & =0\\
+\left(\lambda-2\right)\left(2\lambda^{2}-2\lambda+1\right) & =0\\
+\lambda & =2\text{ or }\frac{1+i}{2}\text{ or }\frac{1-i}{2}.
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+First find the eigenvectors.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lb 
+\end_layout
+
+\end_inset
+
+For 
+\begin_inset Formula $\lambda_{1}=2$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{align*}
+\left(A-2I\right)z & =0\\
+\begin{pmatrix}-3 & -1 & 2\\
+-1 & -2 & 1.5\\
+-3 & -1 & 2
+\end{pmatrix}z & =0,
+\end{align*}
+
+\end_inset
+
+which implies
+\begin_inset Formula 
+\begin{align*}
+-3z_{1}-z_{2}+2z_{3} & =0\\
+-z_{1}-2z_{2}+1.5z_{3} & =0.
+\end{align*}
+
+\end_inset
+
+Solve the system and get an eigenvector 
+\begin_inset Formula 
+\[
+z=\left(1,1,2\right)'.
+\]
+
+\end_inset
+
+For 
+\begin_inset Formula $\lambda_{2}=\frac{1+i}{2}$
+\end_inset
+
+: for the real part,
+\begin_inset Formula 
+\begin{align*}
+\left(A-\left(\frac{1+i}{2}\right)I\right)\left(u+iv\right) & =0\\
+\begin{pmatrix}-1.5-0.5i & -1 & 2\\
+-1 & -0.5-0.5i & 1.5\\
+-3 & -1 & 3.5-0.5i
+\end{pmatrix}\left(u+iv\right) & =0,
+\end{align*}
+
+\end_inset
+
+which implies
+\begin_inset Formula 
+\begin{align*}
+\left(-1.5-0.5i\right)u_{1}-u_{2}+2u_{3}+\left(0.5-1.5i\right)v_{1}-iv_{2}+2iv_{3} & =0\\
+-u_{1}-\left(0.5+0.5i\right)u_{2}+1.5u_{3}-iv_{1}+\left(0.5-0.5i\right)v_{2}+1.5iv_{3} & =0,
+\end{align*}
+
+\end_inset
+
+or
+\begin_inset Formula 
+\begin{align*}
+-1.5u_{1}-u_{2}+2u_{3}+0.5v_{1} & =0\\
+-0.5u_{1}-1.5v_{1}-v_{2}+2v_{3} & =0\\
+-u_{1}-0.5u_{2}+1.5u_{3}+0.5v_{2} & =0\\
+-0.5u_{2}-v_{1}-0.5v_{2}+1.5v_{3} & =0.
+\end{align*}
+
+\end_inset
+
+Solve the system and get an eigenvector 
+\begin_inset Formula 
+\[
+u+iv=\left(-1,0,-1\right)'+i\left(1,1,1\right)'.
+\]
+
+\end_inset
+
+For 
+\begin_inset Formula $\lambda_{3}=\frac{1+i}{2}$
+\end_inset
+
+, an eigenvector is
+\begin_inset Formula 
+\[
+u-iv=\left(-1,0,-1\right)'+i\left(1,1,1\right)'.
+\]
+
+\end_inset
+
+Let 
+\begin_inset Formula 
+\begin{align*}
+P & =\begin{pmatrix}z & u & v\end{pmatrix}\\
+ & =\begin{pmatrix}1 & -1 & 1\\
+1 & 0 & 1\\
+2 & -1 & 1
+\end{pmatrix}.
+\end{align*}
+
+\end_inset
+
+Then
+\begin_inset Formula 
+\[
+P^{-1}AP=\begin{pmatrix}2 & 0 & 0\\
+0 & 0.5 & 0.5\\
+0 & -0.5 & 0.5
+\end{pmatrix},
+\]
+
+\end_inset
+
+i.e.
+ 
+\begin_inset Formula $\lambda=2,\alpha=\beta=0.5$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Let 
+\begin_inset Formula $Ax=x$
+\end_inset
+
+; then 
+\begin_inset Formula $\left(A-I\right)x=0$
+\end_inset
+
+.
+ Because 
+\begin_inset Formula 
+\[
+\det\left(A-I\right)=\begin{vmatrix}-2 & -1 & 2\\
+-1 & -1 & 1.5\\
+-3 & -1 & 3
+\end{vmatrix}=0.5,
+\]
+
+\end_inset
+
+
+\begin_inset Formula $A-I$
+\end_inset
+
+ is invertible and the system has a unique solution
+\begin_inset Formula 
+\begin{align*}
+x^{*} & =\left(A-I\right)^{-1}0\\
+ & =0.
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Let 
+\begin_inset Formula $P^{-1}AP=\Lambda$
+\end_inset
+
+; then 
+\begin_inset Formula $A=P\Lambda P^{-1}$
+\end_inset
+
+ and thus
+\begin_inset Formula 
+\[
+A^{t}=P\Lambda^{t}P^{-1}.
+\]
+
+\end_inset
+
+Note that 
+\begin_inset Formula $\Lambda^{t}$
+\end_inset
+
+ takes the form
+\begin_inset Formula 
+\[
+\Lambda^{t}=\begin{pmatrix}2^{t} & 0 & 0\\
+0 & a_{t} & b_{t}\\
+0 & c_{t} & d_{t}
+\end{pmatrix},
+\]
+
+\end_inset
+
+where
+\begin_inset Formula 
+\[
+D_{t}\equiv\begin{pmatrix}a_{t} & b_{t}\\
+c_{t} & d_{t}
+\end{pmatrix}=\begin{pmatrix}0.5 & 0.5\\
+-0.5 & 0.5
+\end{pmatrix}^{t}.
+\]
+
+\end_inset
+
+We want to first show 
+\begin_inset Formula $\lim_{t\to\infty}D_{t}=0$
+\end_inset
+
+.
+ For a matrix 
+\begin_inset Formula $C$
+\end_inset
+
+, denote the entry with the largest absolute value as 
+\begin_inset Formula $k_{C}$
+\end_inset
+
+.
+ Because
+\begin_inset Formula 
+\[
+D_{2}=\begin{pmatrix}0 & 0.5\\
+-0.5 & 0
+\end{pmatrix},
+\]
+
+\end_inset
+
+for an arbitrary matrix 
+\begin_inset Formula $M$
+\end_inset
+
+, 
+\begin_inset Formula 
+\[
+D_{2}M=\begin{pmatrix}0.5m_{21} & 0.5m_{22}\\
+-0.5m_{11} & -0.5m_{12}
+\end{pmatrix}.
+\]
+
+\end_inset
+
+Therefore, we have 
+\begin_inset Formula 
+\[
+k_{D_{2}M}=\frac{1}{2}k_{M}.
+\]
+
+\end_inset
+
+So 
+\begin_inset Formula 
+\begin{align*}
+k_{D_{t}} & =\left(\frac{1}{2}\right)^{\frac{t}{2}}k_{I}\\
+ & =\left(\frac{1}{2}\right)^{\frac{t}{2}}
+\end{align*}
+
+\end_inset
+
+for any even number integer 
+\begin_inset Formula $t$
+\end_inset
+
+, and 
+\begin_inset Formula 
+\begin{align*}
+k_{D_{t}} & =\left(\frac{1}{2}\right)^{\frac{t-1}{2}}k_{D_{1}}\\
+ & =\left(\frac{1}{2}\right)^{\frac{t+1}{2}}
+\end{align*}
+
+\end_inset
+
+for any odd integer 
+\begin_inset Formula $t$
+\end_inset
+
+.
+ Apparently 
+\begin_inset Formula $\lim_{t\to\infty}k_{D_{t}}\to0$
+\end_inset
+
+; so 
+\begin_inset Formula $\lim_{t\to\infty}D_{t}=0$
+\end_inset
+
+.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lb 
+\end_layout
+
+\end_inset
+
+It follows that
+\begin_inset Formula 
+\begin{align*}
+\lim_{t\to\infty}A^{t} & =P\lim_{t\to\infty}\Lambda^{t}P^{-1}\\
+ & =\begin{pmatrix}1 & -1 & 1\\
+1 & 0 & 1\\
+2 & -1 & 1
+\end{pmatrix}\begin{pmatrix}2^{t} & 0 & 0\\
+0 & 0 & 0\\
+0 & 0 & 0
+\end{pmatrix}\begin{pmatrix}-1 & 0 & 1\\
+-1 & 1 & 0\\
+1 & 1 & -1
+\end{pmatrix}\\
+ & =\begin{pmatrix}2^{t} & 0 & 0\\
+2^{t} & 0 & 0\\
+2^{t+1} & 0 & 0
+\end{pmatrix}\begin{pmatrix}-1 & 0 & 1\\
+-1 & 1 & 0\\
+1 & 1 & -1
+\end{pmatrix}\\
+ & =\begin{pmatrix}-2^{t} & 0 & 2^{t}\\
+-2^{t} & 0 & 2^{t}\\
+-2^{t+1} & 0 & 2^{t+1}
+\end{pmatrix}.
+\end{align*}
+
+\end_inset
+
+Let 
+\begin_inset Formula $x_{0}=\left(1,0,0\right)'$
+\end_inset
+
+; then 
+\begin_inset Formula 
+\[
+\lim_{t\to\infty}A^{t}x_{0}=\lim_{t\to\infty}\left(-2^{t},-2^{t},-2^{t+1}\right)\neq0.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Let 
+\begin_inset Formula $\hat{x}_{0}=\left(1,0,1\right)'$
+\end_inset
+
+.
+ It is easy to verify that 
+\begin_inset Formula $\lim_{t\to\infty}A^{t}\hat{x}_{0}=0$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+We want to show there exists a homeomorphism 
+\begin_inset Formula $h:\left[-1,1\right]\to\left[-2,2\right]$
+\end_inset
+
+ such that 
+\begin_inset Formula $h\circ f=g\circ h$
+\end_inset
+
+.
+ We guess that 
+\begin_inset Formula $h$
+\end_inset
+
+ is of the polynomial form 
+\begin_inset Formula $h\left(x\right)=a+bx+cx^{2}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula 
+\begin{align*}
+h\circ f\left(x\right) & =a+b\left(2x^{2}-1\right)+c\left(2x^{2}-1\right)^{2}\\
+ & =4cx^{4}+\left(2b-4c\right)x^{2}+a-b+c,\\
+g\circ h\left(x\right) & =\left(a+bx+cx^{2}\right)^{2}-2\\
+ & =c^{2}x^{4}+2bcx^{3}+\left(b^{2}+2ac\right)x^{2}+2abx+a^{2}-2.
+\end{align*}
+
+\end_inset
+
+The equivalence between the two implies
+\begin_inset Formula 
+\begin{align*}
+4c & =c^{2}\\
+0 & =2bc\\
+2b-4c & =b^{2}+2ac\\
+0 & =2ab\\
+a-b+c & =a^{2}-2.
+\end{align*}
+
+\end_inset
+
+Solve the system and get
+\begin_inset Formula 
+\[
+\begin{cases}
+a=-1\\
+b=0\\
+c=0
+\end{cases}\text{or\quad}\begin{cases}
+a=2\\
+b=0\\
+c=0
+\end{cases}\text{or}\quad\begin{cases}
+a=0\\
+b=2\\
+c=0
+\end{cases}.
+\]
+
+\end_inset
+
+The third set of solutions corresponds to 
+\begin_inset Formula $h\left(x\right)=2x$
+\end_inset
+
+, which is a homeomorphism from 
+\begin_inset Formula $\left[-1,1\right]$
+\end_inset
+
+ to 
+\begin_inset Formula $\left[-2,2\right]$
+\end_inset
+
+.
+ Therefore, 
+\begin_inset Formula $f$
+\end_inset
+
+ and 
+\begin_inset Formula $g$
+\end_inset
+
+ are conjugate.
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\small\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+clear all;
+\end_layout
+
+\begin_layout Plain Layout
+
+close all;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+% Part (a)
+\end_layout
+
+\begin_layout Plain Layout
+
+n=5000;
+\end_layout
+
+\begin_layout Plain Layout
+
+a=1.4;
+\end_layout
+
+\begin_layout Plain Layout
+
+b=0.3;
+\end_layout
+
+\begin_layout Plain Layout
+
+x=zeros(n,1);
+\end_layout
+
+\begin_layout Plain Layout
+
+y=zeros(n,1);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+for i=2:n
+\end_layout
+
+\begin_layout Plain Layout
+
+   x(i) = a - (x(i-1))^2 + b*y(i-1);
+\end_layout
+
+\begin_layout Plain Layout
+
+   y(i) = x(i-1);
+\end_layout
+
+\begin_layout Plain Layout
+
+end
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plot(1:5000,x,'Color',[0.5,0.5,0.5])
+\end_layout
+
+\begin_layout Plain Layout
+
+print('Fig_a1','-dpng')
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plot(x,y,'Color',[0.5,0.5,0.5])
+\end_layout
+
+\begin_layout Plain Layout
+
+print('Fig_a2','-dpng')
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+[]
+\end_layout
+
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+Fig_a1.png:
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Fig_a1.png
+	lyxscale 10
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lb 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+Fig_a2.png:
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Fig_a2.png
+	lyxscale 10
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+[(b)]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\small\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+% Part (b)
+\end_layout
+
+\begin_layout Plain Layout
+
+histogram(x,40,'FaceColor',[0.5,0.5,0.5])
+\end_layout
+
+\begin_layout Plain Layout
+
+print('Fig_b','-dpng')
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+[]
+\end_layout
+
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+Fig_b.png:
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Fig_b.png
+	lyxscale 10
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+[(c)]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\small\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+% Part (c)
+\end_layout
+
+\begin_layout Plain Layout
+
+xx=zeros(n,1);
+\end_layout
+
+\begin_layout Plain Layout
+
+yy=zeros(n,1);
+\end_layout
+
+\begin_layout Plain Layout
+
+xx(1)=10^(-8);
+\end_layout
+
+\begin_layout Plain Layout
+
+yy(1)=10^(-8);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+for i=2:n
+\end_layout
+
+\begin_layout Plain Layout
+
+   xx(i) = a - (xx(i-1))^2 + b*yy(i-1);
+\end_layout
+
+\begin_layout Plain Layout
+
+   yy(i) = xx(i-1);
+\end_layout
+
+\begin_layout Plain Layout
+
+end
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plot(1:5000,xx,'Color',[0.5,0.5,0.5])
+\end_layout
+
+\begin_layout Plain Layout
+
+print('Fig_c1','-dpng')
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+plot(xx,yy,'Color',[0.5,0.5,0.5])
+\end_layout
+
+\begin_layout Plain Layout
+
+print('Fig_c2','-dpng')
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+histogram(xx,40,'FaceColor',[0.5,0.5,0.5])
+\end_layout
+
+\begin_layout Plain Layout
+
+print('Fig_c3','-dpng')
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+[]
+\end_layout
+
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+Fig_c1.png:
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Fig_c1.png
+	lyxscale 10
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lb 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+Fig_c2.png:
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Fig_c2.png
+	lyxscale 10
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lb 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+Fig_c3.png:
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Fig_c3.png
+	lyxscale 10
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+[(d)]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\small\ttfamily}"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+% Part (d)
+\end_layout
+
+\begin_layout Plain Layout
+
+diff=log(abs(x-xx));
+\end_layout
+
+\begin_layout Plain Layout
+
+plot(1:5000,diff,'Color',[0.5,0.5,0.5])
+\end_layout
+
+\begin_layout Plain Layout
+
+print('Fig_d','-dpng')
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+[]
+\end_layout
+
+\end_inset
+
+
+\begin_inset Box Frameless
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+thickness "0.4pt"
+separation "3pt"
+shadowsize "4pt"
+framecolor "black"
+backgroundcolor "none"
+status open
+
+\begin_layout Plain Layout
+Fig_d.png:
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename Fig_d.png
+	lyxscale 10
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_body
+\end_document
