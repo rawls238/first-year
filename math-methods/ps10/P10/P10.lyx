@@ -242,7 +242,7 @@ The subsets of
  take the form of
 \begin_inset Formula 
 \[
-S=T\cup\left\{ t+1:t\in T\right\} ,
+S=T\cup\left(\bigcup_{x\in\mathbb{N}}\left\{ t+x:t\in T\right\} \right),
 \]
 
 \end_inset
@@ -279,7 +279,7 @@ The subsets of
  take the form of
 \begin_inset Formula 
 \[
-S=T\cup\left\{ \frac{t}{2}:t\in T\right\} ,
+S=T\cup\left(\bigcup_{x\in\mathbb{N}}\left\{ \frac{t}{2^{x}}:t\in T\right\} \right),
 \]
 
 \end_inset
@@ -337,7 +337,7 @@ The subsets of
  take the form of
 \begin_inset Formula 
 \[
-S=T\cup\left\{ 1.2t:t\in T\right\} ,
+S=T\cup\left(\bigcup_{x\in\mathbb{N}}\left\{ 1.2^{x}t:t\in T\right\} \right),
 \]
 
 \end_inset
@@ -382,7 +382,7 @@ The subsets of
  take the form of
 \begin_inset Formula 
 \[
-S=T\cup\left\{ 0.2\sqrt{t}+0.8t:t\in T\right\} ,
+S=T\cup\left(\bigcup_{x\in\mathbb{N}}\left\{ f^{x}\left(t\right):t\in T\right\} \right),
 \]
 
 \end_inset
@@ -1598,7 +1598,9 @@ lb
 
 \end_inset
 
-Both trajectories are roughly the same.
+The trajectories are notably different from each other, but overtime they
+ pass through approximately the same set of points, since the system is
+ chaotic and the periodic points are dense.
 \end_layout
 
 \begin_layout Enumerate
@@ -1696,6 +1698,20 @@ Fig_d.png:
 \end_inset
 
 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lb 
+\end_layout
+
+\end_inset
+
+The trajectory depends heavily on the initial conditions in the sense that
+ a small initial deviation leads to persistent differences later on.
 \end_layout
 
 \end_deeper
