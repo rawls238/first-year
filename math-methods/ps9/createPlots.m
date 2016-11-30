@@ -71,7 +71,7 @@ legend('boxoff')
 
 % part c
 figure()
-subplot(3,2,1);
+subplot(2,2,1);
 hold on; box on;
 plot(1:1:100, simc_stock_1(1:100));
 yyaxis right;
@@ -80,7 +80,7 @@ ylim([-1 2]);
 l=legend('Stock Price','Liquidity', 'Location','NorthWest');
 legend('boxoff')
 
-subplot(3,2,2);
+subplot(2,2,2);
 hold on; box on;
 plot(1:1:100, simc_stock_2(1:100));
 yyaxis right;
@@ -89,7 +89,7 @@ ylim([-1 2]);
 l=legend('Stock Price','Liquidity', 'Location','NorthWest');
 legend('boxoff')
 
-subplot(3,2,3);
+subplot(2,2,3);
 hold on; box on;
 plot(1:1:100, simc_stock_3(1:100));
 yyaxis right;
@@ -98,7 +98,7 @@ ylim([-1 2]);
 l=legend('Stock Price','Liquidity', 'Location','NorthWest');
 legend('boxoff')
 
-subplot(3,2,4);
+subplot(2,2,4);
 hold on; box on;
 plot(1:1:100, simc_stock_4(1:100));
 yyaxis right;
