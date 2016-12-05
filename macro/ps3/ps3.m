@@ -12,7 +12,7 @@ T = length(dat(:,vars('ENTRY')));
 VARn = 7;
 VARp = 4;
 
-z = [dat(:,vars('M1'))'; dat(:,vars('Y'))'; dat(:,vars('RFF'))'; dat(:,vars('TR'))'; dat(:,vars('NBR'))'; dat(:,vars('Pc'))'; dat(:,vars('P'))'];
+z = [dat(:,vars('P'))'; dat(:,vars('Pc'))'; dat(:,vars('Y'))'; dat(:,vars('M1'))'; dat(:,vars('TR'))'; dat(:,vars('RFF'))'; dat(:,vars('NBR'))'];
 Z = [lagmatrix(z',1) lagmatrix(z',2) lagmatrix(z',3) lagmatrix(z',4);];
 
 z = z(:,VARp+1:length(z));
@@ -29,10 +29,10 @@ A3 = reshape(beta(99:147),7,7);
 A4 = reshape(beta(148:196),7,7);
 
 % Long-run impact matrices
-D=chol(Sigma);
+D=chol(Sigma)';
 
-IRdiffRFF(:,5)  = D(:,3)*[1;0;0;0;0;0;0]';
-IRlevelRFF(:,5) = D(:,3)*[1;0;0;0;0;0;0]';
+IRdiffRFF(:,5)  = D*[0;0;0;0;1;0;0];
+IRlevelRFF(:,5) = D*[0;0;0;0;1;0;0];
 for i = 6:19     
     IRdiffRFF(:,i) = A1*IRdiffRFF(:,i-1)+A2*IRdiffRFF(:,i-2)+A3*IRdiffRFF(:,i-3)+A4*IRdiffRFF(:,i-4);     
     IRlevelRFF(:,i)= IRlevelRFF(:,i-1)+IRdiffRFF(:,i);
@@ -60,8 +60,8 @@ title('Fed funds: RFF')
 ylabel('Percent')
 hold off
 
-IRdiffNBR(:,5)  = D*[0;0;D(5,5);0;0;0;0];
-IRlevelNBR(:,5) = D*[0;0;D(5,5);0;0;0;0];
+IRdiffNBR(:,5)  = D*[0;0;0;0;0;1;0];
+IRlevelNBR(:,5) = D*[0;0;0;0;0;1;0];
 for i = 6:19    
     IRdiffNBR(:,i) = A1*IRdiffNBR(:,i-1)+A2*IRdiffNBR(:,i-2)+A3*IRdiffNBR(:,i-3)+A4*IRdiffNBR(:,i-4);     
     IRlevelNBR(:,i)= IRlevelNBR(:,i-1)+IRdiffNBR(:,i);
