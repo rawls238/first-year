@@ -1,0 +1,573 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\begin_modules
+theorems-named
+theorems-ams
+knitr
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 12
+\spacing onehalf
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\rightmargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+Metrics Pset 9 
+\end_layout
+
+\begin_layout Standard
+Guy Aridor and Xiao Xu
+\end_layout
+
+\begin_layout Enumerate
+Let the AR(1) process be 
+\begin_inset Formula $X_{t}=\phi X_{t-1}+\epsilon_{t}$
+\end_inset
+
+ and 
+\begin_inset Formula $|\phi|<1$
+\end_inset
+
+.
+ Therefore, 
+\begin_inset Formula $(1-\phi L)X_{t}=\epsilon_{t}$
+\end_inset
+
+.
+ 
+\begin_inset Formula $X_{t}=\frac{1}{1-\phi L}\epsilon_{t}=\sum_{j=0}^{\infty}\phi^{j}\epsilon_{t-j}$
+\end_inset
+
+, which is 
+\begin_inset Formula $MA(\infty)$
+\end_inset
+
+.
+ Let the MA(1) process be 
+\begin_inset Formula $X_{t}=\epsilon_{t}+\theta\epsilon_{t-1}$
+\end_inset
+
+ and 
+\begin_inset Formula $|\theta|<1$
+\end_inset
+
+.
+ 
+\begin_inset Formula $X_{t}=(1+\theta L)\epsilon_{t}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\epsilon_{t}=\frac{1}{1+\theta L}X_{t}$
+\end_inset
+
+.
+ 
+\begin_inset Formula $\epsilon_{t}=\sum_{j=0}^{\infty}(-\theta)^{j}X_{t-j}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Autocovariance of MA(q)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Formula $MA(q)=\sum_{i=0}^{q}\theta_{i}\epsilon_{i}$
+\end_inset
+
+.
+ The ACF function of the process
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $ACF(X_{t},X_{t-s})=E[(\sum_{i=0}^{q}\theta_{i}\epsilon_{t-i})(\sum_{i=s}^{s+q}\theta_{i-s}\epsilon_{t-j})]=\sum_{i=s}^{q}\theta_{i}\theta_{i-s}\sigma^{2}$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Auto-covariance of AR(2)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Let the AR(2) process be 
+\begin_inset Formula $y_{t}=\phi_{1}y_{t-1}+\phi_{2}y_{t-2}+\epsilon_{t}.$
+\end_inset
+
+ Multiplying the equation on both sides with 
+\begin_inset Formula $y_{t-s}$
+\end_inset
+
+ and taking expectations we have 
+\begin_inset Formula $\gamma(s)=E(y_{t}y_{t-s})=\phi_{1}E(y_{t-1}y_{t-s})+\phi_{2}E(y_{t-2}y_{t-s})=\phi_{1}\gamma(s-1)+\phi_{2}\gamma(s-2)$
+\end_inset
+
+.
+ By definition, the auto-correlation function is 
+\begin_inset Formula $\rho(0)=1$
+\end_inset
+
+ and 
+\begin_inset Formula $\rho=\frac{\gamma(s)}{\gamma(0)}$
+\end_inset
+
+ for 
+\begin_inset Formula $s\geq1$
+\end_inset
+
+.
+ So for 
+\begin_inset Formula $s\geq1$
+\end_inset
+
+, we have 
+\begin_inset Formula $\rho(s)=\phi_{1}\rho(s-1)+\phi_{2}\rho(s-2)$
+\end_inset
+
+.
+ For 
+\begin_inset Formula $s=1$
+\end_inset
+
+, this becomes 
+\begin_inset Formula $\rho(1)=\phi_{1}\rho(0)+\phi_{2}\rho(1)=\phi_{1}+\phi_{2}\rho(1)=\frac{\phi_{1}}{1-\phi_{2}}$
+\end_inset
+
+ and recursively 
+\begin_inset Formula $\rho(2)=\phi_{1}\rho(1)+\phi_{2}\rho(0)=\frac{\phi_{^{2}}+\phi_{2}(1-\phi_{2})}{1-\phi_{2}}$
+\end_inset
+
+.
+ With this recursive relation, we can find 
+\begin_inset Formula $\gamma(0)=\phi_{1}\gamma(1)+\phi_{2}\gamma(2)+\sigma^{2}=\phi_{1}\rho(1)\gamma(0)+\phi_{2}\rho(2)\gamma(0)+\sigma^{2}$
+\end_inset
+
+.
+ Thus, 
+\begin_inset Formula $\gamma(0)=\frac{1}{1-\phi_{1}\rho(1)-\phi_{2}\rho(2)}\sigma^{2}=\frac{(1-\phi_{2})}{\Phi}\sigma^{2}$
+\end_inset
+
+.
+ Using the recursive relation 
+\begin_inset Formula $\gamma(s)=\phi_{1}\gamma(s-1)+\phi_{2}\gamma(s-2)$
+\end_inset
+
+ we can find 
+\begin_inset Formula $\gamma(2),\gamma(3)....$
+\end_inset
+
+, which completely describes the evolution of auto-covariance.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+aggregation
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Let 
+\begin_inset Formula $X_{t}=\epsilon_{t}+\theta\epsilon_{t-1}$
+\end_inset
+
+ and 
+\begin_inset Formula $Y_{t}=e_{t}+\phi e_{t-1}$
+\end_inset
+
+ be two MA(1) independent stationary processes.
+ Let 
+\begin_inset Formula $Z_{t}=X_{t}+Y_{t}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $EZ_{t}=EX_{t}+EY_{t}=0$
+\end_inset
+
+.
+ 
+\begin_inset Formula $Var(Z_{t})=Var(X_{t}+Y_{t})=Var(X_{t})+Var(Y_{t})=(1+\theta^{2})\sigma_{X}^{2}+(1+\phi^{2})\sigma_{Y}^{2}$
+\end_inset
+
+ because of independence.
+ 
+\begin_inset Formula $E(Z_{t}Z_{t-k})=E[(X_{t}+Y_{t})(X_{t-k}+Y_{t-k})]=E(X_{t}X_{t-k}+X_{t}Y_{t-k}+Y_{t}X_{t-k}+Y_{t}Y_{t-k})$
+\end_inset
+
+.
+ 
+\begin_inset Formula $E(X_{t}Y_{t-k})=0$
+\end_inset
+
+ and 
+\begin_inset Formula $E(Y_{t}X_{t-k})=0$
+\end_inset
+
+ because of independence and 
+\begin_inset Formula $E(X_{t}X_{t-k})=0$
+\end_inset
+
+ and 
+\begin_inset Formula $E(Y_{t}Y_{t-k})=0$
+\end_inset
+
+ for 
+\begin_inset Formula $k>1$
+\end_inset
+
+.
+ For 
+\begin_inset Formula $k=1$
+\end_inset
+
+, 
+\begin_inset Formula $E(X_{t}X_{t-k})=\theta\sigma_{X}^{2}$
+\end_inset
+
+ and 
+\begin_inset Formula $E(Y_{t}Y_{t-k})=\phi\sigma_{Y}^{2}$
+\end_inset
+
+.
+ Therefore, 
+\begin_inset Formula $E(Z_{t}Z_{t-k})=\begin{cases}
+0 & k>1\\
+\theta\sigma_{X}^{2}+\phi\sigma_{Y}^{2} & k=1
+\end{cases}.$
+\end_inset
+
+ Hence, 
+\begin_inset Formula $Z_{t}$
+\end_inset
+
+ is MA(1).
+\end_layout
+
+\begin_layout Enumerate
+We can rearrange and express our two AR(1) processes as 
+\begin_inset Formula $X_{t}=\frac{1}{1-\phi_{1}L}\epsilon_{t}$
+\end_inset
+
+ and 
+\begin_inset Formula $Y_{t}=\frac{1}{1-\phi_{2}L}\eta_{t}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $Z_{t}=X_{t}+Y_{t}$
+\end_inset
+
+.
+ Then if 
+\begin_inset Formula $\phi_{1}=\phi_{2}$
+\end_inset
+
+, we have 
+\begin_inset Formula $(1-\phi_{1}L)Z_{t}=\epsilon_{t}+\eta_{t}$
+\end_inset
+
+.
+ Then we have 
+\begin_inset Formula $Z_{t}=\phi_{1}Z_{t-1}+u_{t}$
+\end_inset
+
+, where 
+\begin_inset Formula $u_{t}=\epsilon_{t}+\eta_{t}$
+\end_inset
+
+.
+ We need to show 
+\begin_inset Formula $u_{t}$
+\end_inset
+
+ is white noise.
+ First, 
+\begin_inset Formula $E(u_{t})=E(\epsilon_{t}+\eta_{t})=0$
+\end_inset
+
+.
+ Second, 
+\begin_inset Formula $E(u_{t}^{2})=E(\epsilon_{t}^{2}+\eta_{t}^{2}+2\epsilon_{t}\eta_{t})=E(\epsilon_{t}^{2})+E(\eta_{t}^{2})=\sigma_{\epsilon}^{2}+\sigma_{\eta}^{2}$
+\end_inset
+
+ since 
+\begin_inset Formula $E(\epsilon_{t}\eta_{t})=0$
+\end_inset
+
+ by independence.
+ Third, 
+\begin_inset Formula $E(u_{t}u_{t-s})=E(\epsilon_{t}\epsilon_{t-s}+\epsilon_{t}\eta_{t-s}+\eta_{t}\epsilon_{t-s}+\eta_{t}\eta_{t-s})=0$
+\end_inset
+
+ because of independence and both 
+\begin_inset Formula $\eta_{t}$
+\end_inset
+
+ and 
+\begin_inset Formula $\epsilon_{t}$
+\end_inset
+
+ are white noises.
+ Therefore, 
+\begin_inset Formula $u_{t}$
+\end_inset
+
+ is white noise and 
+\begin_inset Formula $Z_{t}$
+\end_inset
+
+ is AR(1).
+\end_layout
+
+\begin_layout Enumerate
+Now, following the same definition of 
+\begin_inset Formula $Z_{t}$
+\end_inset
+
+ in (b), we have the following
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Formula $(1-(\phi_{1}+\phi_{2})L+\phi_{1}\phi_{2}L^{2})Z_{t}=(1-\phi_{2}L)\epsilon_{t}+(1-\phi_{1}L)\eta_{t}$
+\end_inset
+
+.
+ The LHS is AR(2) and the RHS is the sum of two independent stationary MA(1)
+ processes which by (a) is an MA(1) process.
+ Since 
+\begin_inset Formula $\phi_{1},\phi_{2}<1$
+\end_inset
+
+, we have a stationary 
+\begin_inset Formula $ARMA(2,1)$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Enumerate
+By the definition of long run variance, 
+\begin_inset Formula $lim_{T\to\infty}T\cdot var(\bar{X}_{T})=\gamma_{0}+2\sum_{j=1}^{\infty}\gamma_{j}$
+\end_inset
+
+, 
+\begin_inset Formula $\gamma_{0}=\frac{\sigma^{2}}{1-\rho^{2}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\gamma_{j}=\rho^{j}\frac{\sigma^{2}}{1-\rho^{2}}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $lim_{T\to\infty}T\cdot var(\bar{X}_{T})=\frac{\sigma^{2}}{1-\rho^{2}}+\frac{2\sigma^{2}}{(1-\rho^{2})(1-\rho)}=\frac{\sigma^{2}}{(1-\rho)^{2}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+We have two equations about 
+\begin_inset Formula $\gamma_{0}$
+\end_inset
+
+ and 
+\begin_inset Formula $\gamma_{1}$
+\end_inset
+
+.
+ 
+\begin_inset Formula $(1+\tau^{2})\sigma_{e}^{2}=10$
+\end_inset
+
+.
+ 
+\begin_inset Formula $\tau\sigma_{e}^{2}=3$
+\end_inset
+
+.
+ So plug 
+\begin_inset Formula $\sigma_{e}^{2}=\frac{3}{\tau}$
+\end_inset
+
+ into the first equation.
+ Then we have 
+\begin_inset Formula $3\tau^{2}-10\tau+3=0$
+\end_inset
+
+.
+ And the two roots are 
+\begin_inset Formula $\tau_{1}=\frac{1}{3}$
+\end_inset
+
+ and 
+\begin_inset Formula $\tau_{2}=3$
+\end_inset
+
+.
+ We pick the 
+\begin_inset Formula $\tau_{1}$
+\end_inset
+
+ so that the Wold decomposition is invertible and 
+\begin_inset Formula $\sigma_{e}^{2}=9$
+\end_inset
+
+ as result.
+ So theWold decomposition is 
+\begin_inset Formula $X_{t}=e_{t}+\frac{1}{3}e_{t-1}$
+\end_inset
+
+ with 
+\begin_inset Formula $\sigma_{e}^{2}=9$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Enumerate
+simulation
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<1, cache=FALSE, size='small'>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ar1.sim<-arima.sim(model=list(ar=c(.7)),n=200)
+\end_layout
+
+\begin_layout Plain Layout
+
+ts.plot(ar1.sim)
+\end_layout
+
+\begin_layout Plain Layout
+
+ar.acf<-acf(ar1.sim,20,type="correlation",plot=T)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+arma.sim<-arima.sim(model=list(ar=c(.7,-.3),ma=c(.8,.4)),n=200)
+\end_layout
+
+\begin_layout Plain Layout
+
+ts.plot(arma.sim)
+\end_layout
+
+\begin_layout Plain Layout
+
+arma.acf<-acf(arma.sim,20,type="correlation",plot=T)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
