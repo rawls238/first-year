@@ -31,15 +31,16 @@ A4 = reshape(beta(162:210),7,7);
 
 D=chol(Sigma)';
 
-IRdiffRFF(:,5)  = D*[0;0;0;1;0;0;0];
+IRdiffRFF(:,5) = D*[0;0;0;1;0;0;0];
 
-for i = 6:19     
+for i = 6:19
     IRdiffRFF(:,i) = A1*IRdiffRFF(:,i-1)+A2*IRdiffRFF(:,i-2)+A3*IRdiffRFF(:,i-3)+A4*IRdiffRFF(:,i-4);     
 end
 
 plotGr(IRdiffRFF, Y, Pc, M1, RFF);
 
-P = 1; Pc = 2; Y = 3; NBR = 4; TR = 5; RFF = 6; M1 = 7;
+% 2.c
+P = 1; Pc=2; Y = 3; NBR = 4; TR = 5; RFF = 6; M1 = 7;
 z = [dat(:,vars('P'))'; dat(:,vars('Pc'))'; dat(:, vars('Y'))'; dat(:, vars('NBR'))'; dat(:, vars('TR'))'; dat(:, vars('RFF'))'; dat(:, vars('M1'))'];
 
 Z = [(1:T)' ones(146,1) lagmatrix(z',1) lagmatrix(z',2) lagmatrix(z',3) lagmatrix(z',4);];
@@ -53,8 +54,13 @@ beta  = kron(inv(Z*Z')*Z,eye(VARn))*z(:);
 Sigma = (T-VARn*VARp-1)^(-1)*z*(eye(length(z))-Z'*inv((Z*Z'))*Z)*z';
 D = chol(Sigma)';
 
-IRdiffNBR(:,5)  = D*[0;0;0;1;0;0;0];
-for i = 6:19    
+A1 = reshape(beta(15:63),7,7);
+A2 = reshape(beta(64:112),7,7);
+A3 = reshape(beta(113:161),7,7);
+A4 = reshape(beta(162:210),7,7);
+
+IRdiffNBR(:,5)  = D*[0;0;0;1;0;0;0]*-1;
+for i = 6:19
     IRdiffNBR(:,i) = A1*IRdiffNBR(:,i-1)+A2*IRdiffNBR(:,i-2)+A3*IRdiffNBR(:,i-3)+A4*IRdiffNBR(:,i-4);     
 end
 
