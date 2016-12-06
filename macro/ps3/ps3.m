@@ -120,9 +120,8 @@ function c = plotGr(IR, Y, Pc, M1, TR)
     title('M1: NBR')
     subplot(4,2,8)
     plot(IR(TR,5:19))
-    title('Fed funds: NBR')
+    title('Total Reserves: NBR')
     ylabel('Percent')
     hold off
 end
-
 
