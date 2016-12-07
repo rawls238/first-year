@@ -1599,8 +1599,7 @@ lb
 \end_inset
 
 The trajectories are notably different from each other, but overtime they
- pass through approximately the same set of points, since the system is
- chaotic and the periodic points are dense.
+ pass through approximately the same set of points.
 \end_layout
 
 \begin_layout Enumerate

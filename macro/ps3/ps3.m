@@ -36,7 +36,7 @@ for i = 6:19
     IRdiffRFF(:,i) = A1*IRdiffRFF(:,i-1)+A2*IRdiffRFF(:,i-2)+A3*IRdiffRFF(:,i-3)+A4*IRdiffRFF(:,i-4);     
 end
 
-plotGr(IRdiffRFF, Y, Pc, M1, TR);
+plotGr(IRdiffRFF, Y, Pc, M1, TR, NBR, RFF);
 
 % 2.c
 P = 1; Pc=2; Y = 3; NBR = 4; TR = 5; RFF = 6; M1 = 7;
@@ -63,7 +63,7 @@ for i = 6:19
     IRdiffNBR(:,i) = A1*IRdiffNBR(:,i-1)+A2*IRdiffNBR(:,i-2)+A3*IRdiffNBR(:,i-3)+A4*IRdiffNBR(:,i-4);     
 end
 
-plotGr(IRdiffNBR, Y, Pc, M1, TR);
+plotGr(IRdiffNBR, Y, Pc, M1, TR, NBR, RFF);
 
 
 % 2.d
@@ -101,26 +101,34 @@ ylabel('Percent')
 xlabel('Quarters')
 hold off
 
-function c = plotGr(IR, Y, Pc, M1, TR) 
+function c = plotGr(IR, Y, Pc, M1, TR, NBR, RFF)
     c = figure();
-    subplot(4,2,2)
+    subplot(6,2,2)
     plot(IR(Y,5:19))
-    title('Output: NBR')
+    title('Output')
     ylabel('Percent')
     xlabel('Quarters')
-    subplot(4,2,4)
+    subplot(6,2,4)
     plot(IR(Pc,5:19))
-    title('Pcom: NBR')
+    title('Pcom')
     ylabel('Percent')
     xlabel('Quarters')
-    subplot(4,2,6)
+    subplot(6,2,6)
     plot(IR(M1,5:19))
     xlabel('Quarters')
     ylabel('Percent')
-    title('M1: NBR')
-    subplot(4,2,8)
+    title('M1')
+    subplot(6,2,8)
     plot(IR(TR,5:19))
-    title('Total Reserves: NBR')
+    title('Total Reserves=')
+    ylabel('Percent')
+    subplot(6,2,10)
+    plot(IR(NBR,5:19))
+    title('Non-borrowed Reserves')
+    ylabel('Percent')
+    subplot(6,2,12)
+    plot(IR(RFF,5:19))
+    title('RFF')
     ylabel('Percent')
     hold off
 end
