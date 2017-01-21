@@ -6,7 +6,7 @@ simulate <- function(num_iter, n, mu, var, c) {
     z <- rnorm(n, mu, var)
     stat_1 <- sqrt(n) * (mean(z) / mean(x) - c)
     stat_2 <- sqrt(n) * (mean(z) - c * mean(x))
-    err_1 <- sqrt(var(z) + var(x))
+    err_1 <- sqrt((var(x)*mean(z)^2)/mean(x)^4+var(z)/mean(x)^2)
     err_2 <- sqrt(var(z) + c^2 * var(x))
     t_stat_1 <- stat_1 / err_1
     t_stat_2 <- stat_2 / err_2
