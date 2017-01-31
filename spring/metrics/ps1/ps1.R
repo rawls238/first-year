@@ -20,16 +20,16 @@ simulate <- function(num_iter, n, mu, var, c) {
   cat(pass_stat_1 / num_iter, pass_stat_2 / num_iter, '\n')
 }
 
-n <- 100
+n <- 10000000
 num_iter <- 10000
 var <- 1
 c <- 1
-cat('mu = 1, c = 1, ')
-simulate(n, num_iter, 1, var, c)
-cat('mu = .1, c = 1, ')
-simulate(n, num_iter, .1, var, c)
+#cat('mu = 1, c = 1, ')
+#simulate(n, num_iter, 1, var, c)
+#cat('mu = .1, c = 1, ')
+#simulate(n, num_iter, .1, var, c)
 cat('mu = .01, c = 1, ')
-simulate(n, num_iter, .01, var, c)
+simulate(n, num_iter, .0000001, var, c)
 
 c <- 2
 cat('mu = 1, c = 2, ')

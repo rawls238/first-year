@@ -10,6 +10,9 @@ end
 
 x = linspace(0, 2);
 c = figure();
+xlabel('\rho_1');
+ylabel('\rho_2');
+title('Estimated Coefficients');
 scatter(estimates(:,1), estimates(:,2));
 hold on;
 plot(x, -1*ones(size(x)));

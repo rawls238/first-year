@@ -2,43 +2,43 @@ get_mean <- function(n, mu) {
   return(sqrt(n) * mu)
 }
 
-simulate <- function(num_iter, n, mu, var, c) {
-  pass_stat_1 <- 0
-  pass_stat_2 <- 0
+simulate <- function(num_iter, m, n, mu=0.01, var=1.0, c=1.0) {
+  s1 <- c()
+  s2 <- c()
   for (year in 1:num_iter) {
-    x <- rnorm(n, mu, var)
-    z <- rnorm(n, mu, var)
-    stat_1 <- sqrt(n) * (mean(z) / mean(x) - c)
-    stat_2 <- sqrt(n) * (mean(z) - c * mean(x))
-    err_1 <- sqrt((var(x)*mean(z)^2)/mean(x)^4+var(z)/(c^2 + mean(x)^2))
-    err_2 <- sqrt(var(z) + c^2 * var(x))
-    t_stat_1 <- stat_1 / err_1
-    t_stat_2 <- stat_2 / err_2
-    if (abs(t_stat_1) > 1.96) {
-      pass_stat_1 <- pass_stat_1 + 1
-    }
-    if (abs(t_stat_2) > 1.96) {
-      pass_stat_2 <- pass_stat_2 + 1
+    for(i in seq(n, 10000, by = 1000)) {
+      x <- rnorm(i, m/sqrt(i), var)
+      z <- rnorm(i, mu, var)
+      c_n <- sqrt(i) * mu / m
+      stat_1 <- sqrt(i) * (mean(z) / mean(x) - c_n)
+      stat_2 <- sqrt(i) * (mean(z) - c_n * mean(x))
+      err_1 <- sqrt((var(x)*mean(z)^2)/mean(x)^4+var(z)/(c_n^2 + mean(x)^2))
+      err_2 <- sqrt(var(z) + c_n^2 * var(x))
+      t_stat_1 <- stat_1 / err_1
+      t_stat_2 <- stat_2 / err_2
+      if (abs(t_stat_1) > 1.96) {
+        if (is.null(s1) || is.na(s1[i])) {
+          s1[i] <- 1
+        } else {
+          s1[i] <- s1[i] + 1
+        }
+      }
+      if (abs(t_stat_2) > 1.96) {
+        if (is.null(s2) || is.na(s2[i])) {
+          s2[i] <- 1
+        } else {
+          s2[i] <- s2[i] + 1
+        }
+      }
     }
   }
-  cat(pass_stat_1 / num_iter, pass_stat_2 / num_iter, '\n')
+  return(c(s1, s2))
 }
 
-n <- 100
 num_iter <- 10000
 var <- 1
 c <- 1
-cat('mu = 1, c = 1, ')
-simulate(n, num_iter, 1, var, c)
-cat('mu = .1, c = 1, ')
-simulate(n, num_iter, .1, var, c)
-cat('mu = .01, c = 1, ')
-simulate(n, num_iter, .01, var, c)
-
-c <- 2
-cat('mu = 1, c = 2, ')
-simulate(n, num_iter, 1, var, c)
-cat('mu = .1, c = 2, ')
-simulate(n, num_iter, .1, var, c)
-cat('mu = .01, c = 2, ')
-simulate(n, num_iter, .01, var, c)
+n <- 1000
+mu <- 0.01
+m <- get_mean(n, mu)
+b <- simulate(num_iter, m, n, mu)
