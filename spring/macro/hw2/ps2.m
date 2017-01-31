@@ -1,7 +1,7 @@
 load data_hwk2.mat;
 
 estimates = zeros(length(data_hwk2), 3);
-r = 2;
+r = 0.02;
 for i=1:length(data_hwk2)
    dat = data_hwk2{i,2};
    estimate = estimate_dat(log(dat(2,:)));

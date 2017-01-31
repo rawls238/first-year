@@ -32,13 +32,12 @@ simulate <- function(num_iter, m, n, mu=0.01, var=1.0, c=1.0) {
       }
     }
   }
-  return(c(s1, s2))
+  return(c(s1 /num_iter, s2 / num_iter))
 }
 
 num_iter <- 10000
-var <- 1
-c <- 1
 n <- 1000
 mu <- 0.01
 m <- get_mean(n, mu)
 b <- simulate(num_iter, m, n, mu)
+b <- b[!is.na(b)]
