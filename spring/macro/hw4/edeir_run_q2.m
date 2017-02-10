@@ -48,6 +48,13 @@ disp('Columns: std,  serial corr., corr with y,');
 num_table1 = num_table([noutput nc nivv nh ntby  ncay],:);
 disp(num_table1);
 
+T = 11; %number of periods for impulse responses
+%Give a unit innovation to TFP
+x0 = zeros(nstate,1);
+x0(end) = 0.01;
+%Compute Impulse Response
+[IR IRy IRx]=ir(gx,hx,x0,T);
+
 edeir_model_2;
 
 edeir_ss_1;
@@ -86,7 +93,6 @@ T = 11; %number of periods for impulse responses
 x0 = zeros(nstate,1);
 x0(end) = 0.01;
 %Compute Impulse Response
-[IR IRy IRx]=ir(gx,hx,x0,T);
 [IR1 IR1y IR1x]=ir(gx1,hx1,x0,T);
 
 %Plot Impulse responses

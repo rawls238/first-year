@@ -10,10 +10,10 @@ clear all
 
 % Create the symbolic expressions for the model. 
 %You need to run this only once. 
-edeir_model %This program generates the file edeir_model_num_eval.m
+edeir_model_3 %This program generates the file edeir_model_num_eval.m
 
 %Compute the steady state by running edeir_ss.m
-edeir_ss
+edeir_ss_3
 
 %Evaluate f and its derivates at the steady state by running edeir_model_num_eval.m
 edeir_model_num_eval; 
@@ -33,4 +33,4 @@ stds = sqrt(diag(sigy0));
 
 %correlations with investment
 corr_xi = sigy0(:,nivv)./stds(nivv)./stds;
-investment_corr = corr_xi(nc)
+investment_corr = corr_xi(11)

@@ -24,7 +24,7 @@ function edeir_model
 %
 %© Martin Uribe and Stephanie Schmitt- Grohe, January 2013.
 
-filename = 'edeir_model_1'; %output file name (it will have a suffix _num_eval in the .m file used for numerical evaluation)
+filename = 'edeir_model'; %output file name (it will have a suffix _num_eval in the .m file used for numerical evaluation)
 
 sourcename = mfilename('fullpath'); %carries the name of the current file and its full path.
 
@@ -34,7 +34,7 @@ approx = 1; %Order of approximation desired
 syms RSTAR BETTA DBAR DELTA ALFA  PHI  RHO  STD_EPS_A ETATILDE SIGG OMEGA PSSI
 
 %Define endogenous  variables 
-variables = {'la', 'c', 'k',  'kfu',  'h', 'd', 'output',  'ivv', 'tb', 'tby' ,'ca','cay', 'r'};
+variables = {'la', 'c', 'k',  'kfu',  'h', 'd', 'output',  'ivv', 'tb', 'tby' ,'ca','cay', 'r', 's'};
 %create a symbol for the variable in period t and period t+1
 aux1 =length(variables); 
 for aux2=1:aux1; 
@@ -55,7 +55,7 @@ Standard_Deviations  = {'ETATILDE'};
 %Equilibrium conditions. The symbols e1, e2, ... denote equation 1, equation2, ...
 
 %Evolution of debt
-e1 = c + ivv + PHI/2*(kp-k)^2 - output;
+e1 = -dp + (1+r)*d + c + ivv + PHI/2*(kp -k)^2 - output;
 
 %Output
 e2 = -output + a*k^ALFA*h^(1-ALFA);
@@ -67,13 +67,13 @@ e3 = -la + (c-h^OMEGA/OMEGA)^(-SIGG);
 e4 = -h^(OMEGA-1)+ (1-ALFA) * a * (k/h)^ALFA;
 
 %FOC w.r.t. debt
-%e5 = -la + BETTA * (1+rp) * lap;
+e5 = -la + BETTA * (1+rp) * lap;
 
 %FOC w.r.t. capital
 e6 = -la* (1+PHI*(kp-k)) + BETTA * lap * (1-DELTA + ALFA * ap * (kp/hp)^(ALFA-1) + PHI * (kfup-kp));
 
 %Country premium
-%e7 = -rp + RSTAR + PSSI * (exp(dp-DBAR) -1);
+e7 = -rp + RSTAR + PSSI * (exp(dp-DBAR) -1);
 
 %Investment
 e8 = -ivv +kp - (1-DELTA)*k;
@@ -85,7 +85,7 @@ e9 = -tb + output - c - ivv;
 e10 = -tby + tb/output;
 
 %Current account
-e11 = -ca;
+e11 = -ca -dp + d;
 
 %Current-account-to-output ratio
 e12 = -cay + ca/output;
@@ -96,18 +96,20 @@ e13 = -log(ap) + RHO * log(a);
 %make kfu=kp
 e14 = -kfu+kp;
 
+e15 = -s + output - c;
+
 %Create function f
-f = [e1;e2;e3;e4;e6;e8;e9;e10;e11;e12;e13;e14];
+f = [e1;e2;e3;e4;e5;e6;e7;e8;e9;e10;e11;e12;e13;e14;e15];
 
 %create the vector of state and control variables
 statevar = [];
 controlvar = [];
 
 % Define the vector of controls, y, and states, x
-statevar = [statevar k  a];
+statevar = [statevar d  r k  a];
 statevarp = p_it(statevar);%the program p_it (a function at the bottom of this code, creates the state in period t+1
 
-controlvar = [controlvar c ivv output h la kfu tb tby ca cay];
+controlvar = [controlvar c ivv output h la kfu tb tby ca cay s];
 controlvarp = p_it(controlvar);
 
 %Pick variables around which f will be  log-linearized (f will be linearized around all other variables)

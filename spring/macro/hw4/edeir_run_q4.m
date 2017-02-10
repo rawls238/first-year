@@ -3,38 +3,42 @@ clear all
 % Create the symbolic expressions for the model. 
 %You need to run this only once. 
 edeir_model %This program generates the file edeir_model_num_eval.m
-OMEGA = 1.3764; %Frisch ela st. from Mendoza 1991
+OMEGA = 1.3975; %Frisch ela st. from Mendoza 1991
 OLD_OMEGA = OMEGA;
-DBAR = 0.74421765717098; %debt
+DBAR = 0.7439; %debt
 OLD_DBAR = DBAR;
-PSSI = 0.11135/150; %debt elasticity of interest rate
+PSSI = 0.0001; %debt elasticity of interest rate
 OLD_PSSI = PSSI;
-PHI = 0.0223; %capital adjustment cost
+PHI = 0.0271; %capital adjustment cost
 OLD_PHI = PHI;
-RHO = 0.3751; %persistence of TFP shock
+RHO = 0.5300; %persistence of TFP shock
 OLD_RHO = RHO;
-ETATILDE = 0.0103; %standard deviation of innovation to TFP shock
+ETATILDE = 0.0095; %standard deviation of innovation to TFP shock
 OLD_ETATILDE = ETATILDE;
 edeir_ss_4
 
 
 
-%target tb/y,sigma_y,rho_y,sigma_i,rho_i,sigma_h
-target = [2.81;0.62;9.82;0.31;2.02];
+%target sigma_y,rho_y,sigma_i,rho_i,sigma_h,tb/y
+target = [2.81;0.62;9.82;0.31;2.02;0.02];
+TARGET_TB_Y = 6;
 TARGET_SIGMA_H = 5;
 TARGET_SERIAL_Y = 2;
 TARGET_SIGMA_I = 3;
 TARGET_SERIAL_I = 4;
 TARGET_SIGMA_Y = 1;
 threshold = 0.1;
-current_error = 1;
+[stds, scorr, actual] = iterate(OMEGA,DBAR,PSSI,PHI,RHO,ETATILDE);
+current_opt = compute_distance(actual, target);
 prev = [];
 best = [];
+opt_vals = [];
 
 %implementation of simulated annealing
 iter = 1;
-while current_error > threshold
-    current_error
+num_change = 1;
+while current_opt > threshold
+    current_opt
     OLD_OMEGA = OMEGA;
     OLD_DBAR = DBAR;
     OLD_PSSI = PSSI;
@@ -73,10 +77,10 @@ while current_error > threshold
         OMEGA = perturb(OMEGA, 0);
     end
     
-    if ~isempty(prev) && prev(TARGET_SIGMA_I) < target(TARGET_SIGMA_I)
-        PHI = perturb(PHI, -1);
-    elseif ~isempty(prev) && prev(TARGET_SIGMA_I) > target(TARGET_SIGMA_I)
+    if ~isempty(prev) && (prev(TARGET_SIGMA_I) < target(TARGET_SIGMA_I))
         PHI = perturb(PHI, 1);
+    elseif ~isempty(prev) && (prev(TARGET_SIGMA_I) > target(TARGET_SIGMA_I))
+        PHI = perturb(PHI, -1);
     else
         PHI = perturb(PHI,0);
     end
@@ -86,8 +90,8 @@ while current_error > threshold
     [stds, scorr, actual] = iterate(OMEGA,DBAR,PSSI,PHI,RHO,ETATILDE);
     prev = actual;
     distance = compute_distance(actual, target);
-    T = 500 / iter^.05;
-    if distance > current_error && exp(-1*(distance - current_error) / T) > rand(1)
+    if distance > current_opt
+        num_change = num_change + 1;
         OMEGA = OLD_OMEGA;
         DBAR = OLD_DBAR;
         PSSI = OLD_PSSI;
@@ -96,15 +100,16 @@ while current_error > threshold
         ETATILDE = OLD_ETATILDE;
     else
        if actual(1) ~= 1000 && ~isnan(actual(1))
-            current_error = distance;
+            current_opt = distance;
             best = actual;
+            opt_vals = [OMEGA; DBAR; PSSI;PHI;RHO;ETATILDE];
        end
     end
     iter = iter + 1;
 end
 
 function new_value = perturb(old_value, sign)
-    ran = 10;
+    ran = 50;
     if sign == 1
         perturb_percent = (-.1 + rand(1)) / ran;
     elseif sign == -1
@@ -141,10 +146,10 @@ function [stds, scorr, targets] = iterate(OMEGA1,DBAR1,PSSI1,PHI1,RHO1,ETATILDE1
     %serial correlations
         [sigy1,sigx1]=mom(gx,hx,varshock,1);
         scorr = diag(sigy1)./diag(sigy0);
-        targets = [stds(noutput)*100; scorr(noutput); stds(nivv)*100; scorr(nivv);stds(nh)*100];
+        targets = [stds(noutput)*100; scorr(noutput); stds(nivv)*100; scorr(nivv);stds(nh)*100;tby];
     catch
         infinity = 1000;
-        stds = [infinity;infinity;infinity;infinity;infinity];
+        stds = [infinity;infinity;infinity;infinity;infinity;infinity];
         scorr = stds;
         targets = stds;
     end
