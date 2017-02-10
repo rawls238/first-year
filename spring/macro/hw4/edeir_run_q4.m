@@ -61,7 +61,6 @@ while current_error > threshold
     else
         PSSI = perturb(PSSI, 0);
     end
-    PSSI = perturb(PSSI, 0);
     
     if ~isempty(prev) && prev(TARGET_SIGMA_H) > target(TARGET_SIGMA_H)
         OMEGA = perturb(OMEGA, 1);
