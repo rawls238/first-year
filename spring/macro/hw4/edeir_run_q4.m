@@ -29,7 +29,10 @@ TARGET_SIGMA_Y = 1;
 threshold = 0.1;
 current_error = 1;
 prev = [];
-best = [9];
+best = [];
+
+%implementation of simulated annealing
+iter = 1;
 while current_error > threshold
     current_error
     OLD_OMEGA = OMEGA;
@@ -83,7 +86,8 @@ while current_error > threshold
     [stds, scorr, actual] = iterate(OMEGA,DBAR,PSSI,PHI,RHO,ETATILDE);
     prev = actual;
     distance = compute_distance(actual, target);
-    if distance > current_error && exp(-1*(distance - current_error) / 1000) > rand(1)
+    T = 500 / iter^.05;
+    if distance > current_error && exp(-1*(distance - current_error) / T) > rand(1)
         OMEGA = OLD_OMEGA;
         DBAR = OLD_DBAR;
         PSSI = OLD_PSSI;
@@ -91,19 +95,20 @@ while current_error > threshold
         RHO = OLD_RHO;
         ETATILDE = OLD_ETATILDE;
     else
-       current_error = distance;
        if actual(1) ~= 1000 && ~isnan(actual(1))
+            current_error = distance;
             best = actual;
        end
     end
+    iter = iter + 1;
 end
 
 function new_value = perturb(old_value, sign)
     ran = 10;
     if sign == 1
-        perturb_percent = (rand(1)) / ran;
+        perturb_percent = (-.1 + rand(1)) / ran;
     elseif sign == -1
-        perturb_percent = (-1 + rand(1)) / ran;
+        perturb_percent = (-.9 + rand(1)) / ran;
     else
         perturb_percent = (-.5 + rand(1)) / ran;
     end
@@ -131,12 +136,12 @@ function [stds, scorr, targets] = iterate(OMEGA1,DBAR1,PSSI1,PHI1,RHO1,ETATILDE1
     %standard deviations
     try
         [sigy0,sigx0]=mom(gx,hx,varshock);
-        stds = sqrt(diag(sigy0)) * 100;
+        stds = sqrt(diag(sigy0));
     
     %serial correlations
         [sigy1,sigx1]=mom(gx,hx,varshock,1);
         scorr = diag(sigy1)./diag(sigy0);
-        targets = [stds(noutput); scorr(noutput); stds(nivv); scorr(nivv);stds(nh)];
+        targets = [stds(noutput)*100; scorr(noutput); stds(nivv)*100; scorr(nivv);stds(nh)*100];
     catch
         infinity = 1000;
         stds = [infinity;infinity;infinity;infinity;infinity];
