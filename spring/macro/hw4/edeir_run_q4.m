@@ -3,18 +3,22 @@ clear all
 % Create the symbolic expressions for the model. 
 %You need to run this only once. 
 edeir_model %This program generates the file edeir_model_num_eval.m
-OMEGA = 1.3975; %Frisch ela st. from Mendoza 1991
+OMEGA = 1.3986; %Frisch ela st. from Mendoza 1991
 OLD_OMEGA = OMEGA;
-DBAR = 0.7439; %debt
+DBAR = 0.7444; %debt
 OLD_DBAR = DBAR;
 PSSI = 0.0001; %debt elasticity of interest rate
 OLD_PSSI = PSSI;
-PHI = 0.0271; %capital adjustment cost
+PHI = 0.0277; %capital adjustment cost
 OLD_PHI = PHI;
-RHO = 0.5300; %persistence of TFP shock
+RHO = 0.5447; %persistence of TFP shock
 OLD_RHO = RHO;
-ETATILDE = 0.0095; %standard deviation of innovation to TFP shock
+ETATILDE = 0.0093; %standard deviation of innovation to TFP shock
 OLD_ETATILDE = ETATILDE;
+orig_opt_vals = [1.3986; 0.7444; 0.0001;0.0277;0.5447;0.0093];
+old_opt_vals = [1.3096;0.7462; 0.0005; 0.0546;0.5335;0.0102];
+old_old_opt_vals =    [1.3967;0.7444;0.0002;0.0541;0.5997;0.0089];
+
 edeir_ss_4
 
 
@@ -27,9 +31,9 @@ TARGET_SERIAL_Y = 2;
 TARGET_SIGMA_I = 3;
 TARGET_SERIAL_I = 4;
 TARGET_SIGMA_Y = 1;
-threshold = 0.1;
+threshold = 0.0000001;
 [stds, scorr, actual] = iterate(OMEGA,DBAR,PSSI,PHI,RHO,ETATILDE);
-current_opt = compute_distance(actual, target);
+current_opt = compute_distance(actual, target, 6);
 prev = [];
 best = [];
 opt_vals = [];
@@ -77,9 +81,9 @@ while current_opt > threshold
         OMEGA = perturb(OMEGA, 0);
     end
     
-    if ~isempty(prev) && (prev(TARGET_SIGMA_I) < target(TARGET_SIGMA_I))
+    if ~isempty(prev) && (prev(TARGET_SIGMA_I) > target(TARGET_SIGMA_I))
         PHI = perturb(PHI, 1);
-    elseif ~isempty(prev) && (prev(TARGET_SIGMA_I) > target(TARGET_SIGMA_I))
+    elseif ~isempty(prev) && (prev(TARGET_SIGMA_I) < target(TARGET_SIGMA_I))
         PHI = perturb(PHI, -1);
     else
         PHI = perturb(PHI,0);
@@ -89,8 +93,10 @@ while current_opt > threshold
     DBAR = y*tby/RSTAR;
     [stds, scorr, actual] = iterate(OMEGA,DBAR,PSSI,PHI,RHO,ETATILDE);
     prev = actual;
-    distance = compute_distance(actual, target);
-    if distance > current_opt
+    
+    T = 50000 / iter^.05;
+    distance = compute_distance(actual, target, 6);
+    if distance > current_opt && exp(-1*(distance - current_opt) / T) > rand(1)
         num_change = num_change + 1;
         OMEGA = OLD_OMEGA;
         DBAR = OLD_DBAR;
@@ -98,6 +104,7 @@ while current_opt > threshold
         PHI = OLD_PHI;
         RHO = OLD_RHO;
         ETATILDE = OLD_ETATILDE;
+        prev = best;
     else
        if actual(1) ~= 1000 && ~isnan(actual(1))
             current_opt = distance;
@@ -108,8 +115,9 @@ while current_opt > threshold
     iter = iter + 1;
 end
 
+
 function new_value = perturb(old_value, sign)
-    ran = 50;
+    ran = 100;
     if sign == 1
         perturb_percent = (-.1 + rand(1)) / ran;
     elseif sign == -1
@@ -117,13 +125,25 @@ function new_value = perturb(old_value, sign)
     else
         perturb_percent = (-.5 + rand(1)) / ran;
     end
-    new_value = old_value + perturb_percent * old_value;
+    perturbation = perturb_percent * old_value;
+    new_value = old_value + perturbation;
 end
 
 
-function distance = compute_distance(actual, target)
-    z = actual - target;
-    distance = sqrt(z' * z);
+function distance = compute_distance(actual, target, t)
+    if t == 1
+       z = (actual - target) ./ target;
+       distance = sqrt(z' * z);
+    elseif t == 2
+       z = abs(actual - target) ./ target;
+       distance = mean(z);
+    elseif t == 3
+       z = abs(actual - target) ./ target;
+       distance = max(z);
+    else
+        z = (actual - target);
+        distance = sqrt(z' * z);
+    end
 end
 
 function [stds, scorr, targets] = iterate(OMEGA1,DBAR1,PSSI1,PHI1,RHO1,ETATILDE1)

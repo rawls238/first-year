@@ -17,6 +17,12 @@ PHI = 0.028; %capital adjustment cost
 RHO = 0.42; %persistence of TFP shock
 ETATILDE = 0.0129; %standard deviation of innovation to TFP shock
 
+%OMEGA= 1.397907023457787;
+%DBAR =   0.744410937075253;
+%PSSI =   0.000098805777619;
+%PHI =   0.027657543538344;
+%RHO=   0.546977455306480;
+%ETATILDE=   0.009228754480410;
 %Implied parameters and steady state of endogenous variables
 BETTA = 1/(1+RSTAR); %subjective discount factor
 

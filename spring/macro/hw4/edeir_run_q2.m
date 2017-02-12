@@ -48,6 +48,13 @@ disp('Columns: std,  serial corr., corr with y,');
 num_table1 = num_table([noutput nc nivv nh ntby  ncay],:);
 disp(num_table1);
 
+orig_noutput = noutput;
+orig_nc = nc;
+orig_na = na;
+orig_nivv = nivv;
+orig_nh = nh;
+orig_ntby = ntby;
+
 T = 11; %number of periods for impulse responses
 %Give a unit innovation to TFP
 x0 = zeros(nstate,1);
@@ -84,7 +91,7 @@ num_table = [stds*100  scorr corr_xy];
 disp('In This table:');
 disp('Rows: y,c,i,h, tb/y,ca/y');
 disp('Columns: std,  serial corr., corr with y,');
-num_table1 = num_table([noutput nc nivv nh ntby  ncay],:);
+num_table1 = num_table([noutput nc nivv nh],:);
 disp(num_table1);
 
 %Compute Impulse Responses
@@ -99,26 +106,32 @@ x0(end) = 0.01;
 t=(0:T-1)';
 
 subplot(3,2,1)
-plot(t,IR(:,noutput)*100,t,IR1(:,noutput)*100)
+plot(t,IR(:,orig_noutput)*100,t,IR1(:,noutput)*100)
 title('Output')
+legend('open', 'closed')
 
 subplot(3,2,2)
-plot(t,IR(:,nc)*100,t,IR1(:,nc)*100)
+plot(t,IR(:,orig_nc)*100,t,IR1(:,nc)*100)
 title('Consumption')
+legend('open', 'closed')
 
 subplot(3,2,3)
-plot(t,IR(:,nivv)*100,t,IR1(:,nivv)*100)
+plot(t,IR(:,orig_nivv)*100,t,IR1(:,nivv)*100)
 title('Investment')
+legend('open', 'closed')
 
 subplot(3,2,4)
-plot(t,IR(:,nh)*100,t,IR1(:,nh)*100)
+plot(t,IR(:,orig_nh)*100,t,IR1(:,nh)*100)
 title('Hours')
+legend('open', 'closed')
 
 subplot(3,2,5)
-plot(t,IR(:,ntby)*100,t,IR1(:,ntby)*100)
+plot(t,IR(:,orig_ntby)*100,t,zeros(length(IR1(:,nh)),1))
 title('Trade Balance / Output')
+legend('open', 'closed')
 
 subplot(3,2,6)
-plot(t,IRx(:,na)*100,t,IR1x(:,na)*100)
+plot(t,IRx(:,orig_na)*100,t,IR1x(:,na)*100)
 title('TFP Shock')
+legend('open', 'closed')
 shg

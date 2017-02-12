@@ -29,7 +29,6 @@ kfu = k;
 output = KAPA^ALFA * h; %output
 
 c = output-DELTA*k-RSTAR*DBAR;
-
 ivv = DELTA * k; %investment
 
 tb = output - ivv - c; %trade balance

@@ -6,10 +6,6 @@ nfx = [
 [ -(ALFA*a*k*(k/h)^(ALFA - 1)*(ALFA - 1))/h, -a*(k/h)^ALFA*(ALFA - 1)]
 [                                  PHI*k*la,                        0]
 [                             k*(DELTA - 1),                        0]
-[                                         0,                        0]
-[                                         0,                        0]
-[                                         0,                        0]
-[                                         0,                        0]
 [                                         0,                      RHO]
 [                                         0,                        0]
 ];
@@ -20,43 +16,31 @@ nfxp = [
 [                                                                        0,                                0]
 [ - PHI*k*la - BETTA*la*(PHI*k - (ALFA*a*k*(k/h)^(ALFA - 2)*(ALFA - 1))/h), ALFA*BETTA*a*la*(k/h)^(ALFA - 1)]
 [                                                                        k,                                0]
-[                                                                        0,                                0]
-[                                                                        0,                                0]
-[                                                                        0,                                0]
-[                                                                        0,                                0]
 [                                                                        0,                               -1]
 [                                                                        k,                                0]
 ];
 nfy = [
-[                                        c,  ivv,    -output,                                                                      0,   0,    0,        0,  0,        0,  0]
-[                                        0,    0,    -output,                                        -(a*h*k^ALFA*(ALFA - 1))/h^ALFA,   0,    0,        0,  0,        0,  0]
-[ -(SIGG*c)/(c - h^OMEGA/OMEGA)^(SIGG + 1),    0,          0,                  (SIGG*h*h^(OMEGA - 1))/(c - h^OMEGA/OMEGA)^(SIGG + 1), -la,    0,        0,  0,        0,  0]
-[                                        0,    0,          0, (ALFA*a*k*(k/h)^(ALFA - 1)*(ALFA - 1))/h - h*h^(OMEGA - 2)*(OMEGA - 1),   0,    0,        0,  0,        0,  0]
-[                                        0,    0,          0,                                                                      0, -la,    0,        0,  0,        0,  0]
-[                                        0, -ivv,          0,                                                                      0,   0,    0,        0,  0,        0,  0]
-[                                       -c, -ivv,     output,                                                                      0,   0,    0,       -1,  0,        0,  0]
-[                                        0,    0, -tb/output,                                                                      0,   0,    0, 1/output, -1,        0,  0]
-[                                        0,    0,          0,                                                                      0,   0,    0,        0,  0,       -1,  0]
-[                                        0,    0, -ca/output,                                                                      0,   0,    0,        0,  0, 1/output, -1]
-[                                        0,    0,          0,                                                                      0,   0,    0,        0,  0,        0,  0]
-[                                        0,    0,          0,                                                                      0,   0, -kfu,        0,  0,        0,  0]
+[                                        c,  ivv, -output,                                                                      0,   0,    0]
+[                                        0,    0, -output,                                        -(a*h*k^ALFA*(ALFA - 1))/h^ALFA,   0,    0]
+[ -(SIGG*c)/(c - h^OMEGA/OMEGA)^(SIGG + 1),    0,       0,                  (SIGG*h*h^(OMEGA - 1))/(c - h^OMEGA/OMEGA)^(SIGG + 1), -la,    0]
+[                                        0,    0,       0, (ALFA*a*k*(k/h)^(ALFA - 1)*(ALFA - 1))/h - h*h^(OMEGA - 2)*(OMEGA - 1),   0,    0]
+[                                        0,    0,       0,                                                                      0, -la,    0]
+[                                        0, -ivv,       0,                                                                      0,   0,    0]
+[                                        0,    0,       0,                                                                      0,   0,    0]
+[                                        0,    0,       0,                                                                      0,   0, -kfu]
 ];
 nfyp = [
-[ 0, 0, 0,                                                  0,                                                               0,                0, 0, 0, 0, 0]
-[ 0, 0, 0,                                                  0,                                                               0,                0, 0, 0, 0, 0]
-[ 0, 0, 0,                                                  0,                                                               0,                0, 0, 0, 0, 0]
-[ 0, 0, 0,                                                  0,                                                               0,                0, 0, 0, 0, 0]
-[ 0, 0, 0, -(ALFA*BETTA*a*k*la*(k/h)^(ALFA - 2)*(ALFA - 1))/h, -BETTA*la*(DELTA + PHI*(k - kfu) - ALFA*a*(k/h)^(ALFA - 1) - 1), BETTA*PHI*kfu*la, 0, 0, 0, 0]
-[ 0, 0, 0,                                                  0,                                                               0,                0, 0, 0, 0, 0]
-[ 0, 0, 0,                                                  0,                                                               0,                0, 0, 0, 0, 0]
-[ 0, 0, 0,                                                  0,                                                               0,                0, 0, 0, 0, 0]
-[ 0, 0, 0,                                                  0,                                                               0,                0, 0, 0, 0, 0]
-[ 0, 0, 0,                                                  0,                                                               0,                0, 0, 0, 0, 0]
-[ 0, 0, 0,                                                  0,                                                               0,                0, 0, 0, 0, 0]
-[ 0, 0, 0,                                                  0,                                                               0,                0, 0, 0, 0, 0]
+[ 0, 0, 0,                                                  0,                                                               0,                0]
+[ 0, 0, 0,                                                  0,                                                               0,                0]
+[ 0, 0, 0,                                                  0,                                                               0,                0]
+[ 0, 0, 0,                                                  0,                                                               0,                0]
+[ 0, 0, 0, -(ALFA*BETTA*a*k*la*(k/h)^(ALFA - 2)*(ALFA - 1))/h, -BETTA*la*(DELTA + PHI*(k - kfu) - ALFA*a*(k/h)^(ALFA - 1) - 1), BETTA*PHI*kfu*la]
+[ 0, 0, 0,                                                  0,                                                               0,                0]
+[ 0, 0, 0,                                                  0,                                                               0,                0]
+[ 0, 0, 0,                                                  0,                                                               0,                0]
 ];
 nf = [
-[ c + ivv - output, a*h^(1 - ALFA)*k^ALFA - output, 1/(c - h^OMEGA/OMEGA)^SIGG - la, - h^(OMEGA - 1) - a*(k/h)^ALFA*(ALFA - 1), - la - BETTA*la*(DELTA + PHI*(k - kfu) - ALFA*a*(k/h)^(ALFA - 1) - 1), k - ivv + k*(DELTA - 1), output - ivv - c - tb, tb/output - tby, -ca, ca/output - cay, RHO*log(a) - log(a), k - kfu]
+[ c + ivv - output, a*h^(1 - ALFA)*k^ALFA - output, 1/(c - h^OMEGA/OMEGA)^SIGG - la, - h^(OMEGA - 1) - a*(k/h)^ALFA*(ALFA - 1), - la - BETTA*la*(DELTA + PHI*(k - kfu) - ALFA*a*(k/h)^(ALFA - 1) - 1), k - ivv + k*(DELTA - 1), RHO*log(a) - log(a), k - kfu]
 ];
 nf=transpose(nf);
 nETASHOCK = [
@@ -78,8 +62,4 @@ noutput = 3;
 nh = 4;
 nla = 5;
 nkfu = 6;
-ntb = 7;
-ntby = 8;
-nca = 9;
-ncay = 10;
-ncontrol = 10;
+ncontrol = 6;

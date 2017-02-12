@@ -34,7 +34,7 @@ approx = 1; %Order of approximation desired
 syms RSTAR BETTA DBAR DELTA ALFA  PHI  RHO  STD_EPS_A ETATILDE SIGG OMEGA PSSI
 
 %Define endogenous  variables 
-variables = {'la', 'c', 'k',  'kfu',  'h', 'd', 'output',  'ivv', 'tb', 'tby' ,'ca','cay', 'r'};
+variables = {'la', 'c', 'k',  'kfu',  'h', 'd', 'output',  'ivv', 'r'};
 %create a symbol for the variable in period t and period t+1
 aux1 =length(variables); 
 for aux2=1:aux1; 
@@ -79,16 +79,16 @@ e6 = -la* (1+PHI*(kp-k)) + BETTA * lap * (1-DELTA + ALFA * ap * (kp/hp)^(ALFA-1)
 e8 = -ivv +kp - (1-DELTA)*k;
 
 %Trade balance
-e9 = -tb + output - c - ivv;
+%e9 = -tb + output - c - ivv;
 
 %Trade-balance-to-output ratio
-e10 = -tby + tb/output;
+%e10 = -tby + tb/output;
 
 %Current account
-e11 = -ca;
+%e11 = -ca;
 
 %Current-account-to-output ratio
-e12 = -cay + ca/output;
+%e12 = -cay + ca/output;
 
 %Evolution of TFP
 e13 = -log(ap) + RHO * log(a);
@@ -97,7 +97,7 @@ e13 = -log(ap) + RHO * log(a);
 e14 = -kfu+kp;
 
 %Create function f
-f = [e1;e2;e3;e4;e6;e8;e9;e10;e11;e12;e13;e14];
+f = [e1;e2;e3;e4;e6;e8;e13;e14];
 
 %create the vector of state and control variables
 statevar = [];
@@ -107,7 +107,7 @@ controlvar = [];
 statevar = [statevar k  a];
 statevarp = p_it(statevar);%the program p_it (a function at the bottom of this code, creates the state in period t+1
 
-controlvar = [controlvar c ivv output h la kfu tb tby ca cay];
+controlvar = [controlvar c ivv output h la kfu];
 controlvarp = p_it(controlvar);
 
 %Pick variables around which f will be  log-linearized (f will be linearized around all other variables)

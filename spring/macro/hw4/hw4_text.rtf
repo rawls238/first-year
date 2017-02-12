@@ -1,0 +1,142 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf810
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\b\fs24 \cf0 2)\
+\
+Second moments for the closed economy
+\b0 \
+\
+In This table:\
+Rows: y,c,i,h, tb/y,ca/y\
+Columns: std,  serial corr., corr with y,\
+    3.3992    0.6810    1.0000\
+    2.7209    0.7799    0.9859\
+    6.0165    0.5348    0.9669\
+    2.3362    0.6810    1.0000\
+    0.0000    NaN   	NaN\
+         0       NaN       NaN\
+\
+
+\b IR graphs attached
+\b0 \
+\
+\
+Investment volatility is higher in the open economy than the closed economy and the initial response to the TFP shock is higher investment in the open economy vs in the closed economy. We can see this in the second moments as well as the impulse response graphs. Notice how in the first period after the TFP shock there is a spike in investment in the open economy while in the closed economy there is not as much of a spike. In the open economy this is because when a single country has a TFP shock other countries want to invest in that country to take advantage of the higher productivity and when the effects of the productivity shock start to decrease there is less foreign investment. This explains the big jumps in investment in the open economy vs the closed economy in the earlier periods.\
+\
+In general, the closed economy has smoother declines back to the pre-shock levels. The open economy output, consumption, investment, and hours begin to tend back to their pre-shock levels when the tb/y ratio also begins to tend back to its pre-shock level. In the closed economy the trade balance is always zero since it\'92s closed and this results in the smoother declines. \
+\
+In terms of second moments, however, they\'92re mostly the same except for output. In the closed economy, investment, consumption, and hours are more highly correlated with output than in the open economy. This makes sense since in the open economy it is possible for agents to acquire foreign debt holdings whereas in the closed economy that cannot happen.\
+\
+
+\b 3) 
+\b0 Adding the variable s = output - c to the model, we see that the investment-savings correlation is 0.577.\
+\
+The Feldstein-Horioka puzzle posits that we should observe low correlation between domestic investment and savings in the context of an open economy however in practice there is high correlation between domestic investment and savings. In the EDEIR economy the correlation of .577 shows that the investment-savings correlation is moderately correlated, which lies somewhere between reality (high correlation) and what we expect in theory (low correlation). Thus the EDEIR economy does not exactly capture reality nor does it seem in line with our economic intuition.\
+\
+
+\b 4) \
+
+\b0 a) The general calibration strategy I employed for this question was a modified version of the simulated annealing algorithm for approximating global extremum. This strategy effectively took the model as a black box and iteratively approached the optimum based on the distance function.\
+\
+I considered three different distance functions, the Euclidean distance metric, the sup % metric, and the mean % metric. Where the sup % metric was defined as the max % distance any moment was from its target, the average % metric was defined as the average % distance any moment was from its target.\
+\
+The issue with using the standard Euclidean distance without normalization to define the distance between the two is that, for instance, the order of magnitude of the difference between the target standard deviation in investment and the serial correlation in investment would make targeting a closer standard deviation in investment \'93better\'94 than targeting a closer serial correlation of investment for no economic reason. This is apparent with the reported results for optimizing wrt to the Euclidean distance as every second moment is almost exactly nailed except the serial correlations are far off from each other. The resulting Euclidean distance is <.2 but this is only because of the reasons mentioned before.\
+\
+I report the results from the other 3 metrics as a document of what I did, but qualitatively I was happiest with the results from the Euclidean distance.\
+\
+
+\b \ul sup % metric\ulnone \
+Calibration: \
+
+\b0 OMEGA: 1.361375031842813\
+DBAR: 0.745039699006215\
+PSSI: 0.000558931773039\
+PHI: 0.053587094483034\
+RHO: 0.532114452706256\
+ETATILDE: 0.011006820028503\
+
+\b Results: 
+\b0    \
+SIGMA_Y:   3.206284266866107\
+SCORR_Y:  0.726547909061852\
+SIGMA_I:   8.070705533280558\
+SCORR_I:   0.256943880644760\
+SIGMA_H:   2.355180748780107\
+TB/Y:  0.020009978891211\
+\
+
+\b \ul mean % metric\ulnone \
+Calibration: 
+\b0 \
+OMEGA: 1.386618271612423\
+DBAR: 0.744564564742059\
+PSI: 0.000101959172448\
+PHI: 0.047551170823552\
+RHO:  0.613259099272710\
+ETATILDE:   0.008366649521819\
+
+\b \
+Results:\
+
+\b0 SIGMA_Y:  2.801602665408557\
+SCORR_Y:   0.806783393988152\
+SIGMA_I:  8.020765839464021\
+SCORR_I:   0.305707966224892\
+SIGMA_H:   2.020457052070092\
+TB/Y:  0.020009371333502\
+\
+
+\b \ul Euclidean distance\
+\ulnone Calibration:\
+
+\b0 OMEGA: 1.397907023457787\
+ DBAR:  0.744410937075253\
+ PSI:  0.000098805777619\
+ PHI:  0.027657543538344\
+ RHO:  0.546977455306480\
+ ETATILDE:  0.009228754480410\
+\
+
+\b Results:\
+
+\b0  SIGMA_Y: 2.825380972702162\
+ SCORR_Y: 0.765975740095809\
+ SIGMA_I:  9.814918827422945\
+ SCORR_I:  0.174565808818854\
+ SIGMA_H:  2.021150852875360\
+ TB/Y:  0.020010179848974\
+\
+\
+
+\b b) 
+\b0 Using the calibration resulting from the Euclidean distance we get the following:\
+\
+In This table:\
+Rows: y,c,i,h, tb/y,ca/y\
+Columns: std,  serial corr., corr with y,\
+    2.8254    0.7660    1.0000\
+    3.9695    0.9426    0.5507\
+    9.8149    0.1746    0.5514\
+    2.0212    0.7660    1.0000\
+    3.0637    0.7349   -0.0362\
+    1.7972    0.2765    0.0052\
+\
+
+\b c) 
+\b0 The model, both with the calibration from the book and the calibration above, has trouble pinning down all the moments properly. For the reasons discussed above, my calibration strategy does fairly well at pinning down the standard deviations, but does a poor job with with serial correlations. Likewise, the calibration given in the book suffers from the same issue but also has some issues with some of the standard deviations.\
+\
+
+\b d) \
+
+\b0 Given the calibration from 
+\b a 
+\b0 we have that sigma_A = 2.02, sigma_y = 2.83\
+Given the calibration from the book we have that sigma_A = 2.12, sigma_y = 3.08\
+\
+The calibration from the book has a higher sigma_A and that leads to a higher sigma_y. This makes sense since the more volatile productivity shocks are, since they directly affect output, the more volatile output will be.\
+\
+}

@@ -48,47 +48,33 @@ disp('Columns: std,  serial corr., corr with y,');
 num_table1 = num_table([noutput nc nivv nh ntby  ncay],:);
 disp(num_table1);
 
-edeir_model_2;
-
-edeir_ss_1;
-
-edeir_model_1_num_eval;
-
-[gx1,hx1,exitflag]=gx_hx(nfy,nfx,nfyp,nfxp); 
-
-%Compute Impulse Responses
 T = 11; %number of periods for impulse responses
-%Give a unit innovation to TFP
 x0 = zeros(nstate,1);
 x0(end) = 0.01;
 %Compute Impulse Response
 [IR IRy IRx]=ir(gx,hx,x0,T);
-[IR1 IR1y IR1x]=ir(gx1,hx1,x0,T);
-
-%Plot Impulse responses
-t=(0:T-1)';
 
 subplot(3,2,1)
-plot(t,IR(:,noutput)*100,t,IR1(:,noutput)*100)
+plot(t,IR(:,noutput)*100)
 title('Output')
 
 subplot(3,2,2)
-plot(t,IR(:,nc)*100,t,IR1(:,nc)*100)
+plot(t,IR(:,nc)*100)
 title('Consumption')
 
 subplot(3,2,3)
-plot(t,IR(:,nivv)*100,t,IR1(:,nivv)*100)
+plot(t,IR(:,nivv)*100)
 title('Investment')
 
 subplot(3,2,4)
-plot(t,IR(:,nh)*100,t,IR1(:,nh)*100)
+plot(t,IR(:,nh)*100)
 title('Hours')
 
 subplot(3,2,5)
-plot(t,IR(:,ntby)*100,t,IR1(:,ntby)*100)
+plot(t,IR(:,ntby)*100)
 title('Trade Balance / Output')
 
 subplot(3,2,6)
-plot(t,IRx(:,na)*100,t,IR1x(:,na)*100)
+plot(t,IRx(:,na)*100)
 title('TFP Shock')
 shg
