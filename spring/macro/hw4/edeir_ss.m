@@ -10,12 +10,12 @@ SIGG = 2; %mENDOZA
 DELTA = 0.1; %depreciation rate
 RSTAR = 0.04; %long-run interest rate
 ALFA = 0.32; %F(k,h) = k^ALFA h^(1-ALFA)
-OMEGA = 1.455; %Frisch ela st. from Mendoza 1991
-DBAR =  0.74421765717098; %debt
-PSSI = 0.11135/150; %debt elasticity of interest rate
-PHI = 0.028; %capital adjustment cost
-RHO = 0.42; %persistence of TFP shock
-ETATILDE = 0.0129; %standard deviation of innovation to TFP shock
+OMEGA = 1.020894482180640; %Frisch ela st. from Mendoza 1991
+DBAR =  0.867036295078822; %debt
+PSSI = 0.000024591310326; %debt elasticity of interest rate
+PHI = 0.034704484826501; %capital adjustment cost
+RHO = 0.514357598235313; %persistence of TFP shock
+ETATILDE = 0.004346886880154; %standard deviation of innovation to TFP shock
 
 %OMEGA= 1.397907023457787;
 %DBAR =   0.744410937075253;

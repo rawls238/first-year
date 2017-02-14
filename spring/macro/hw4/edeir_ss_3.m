@@ -50,6 +50,6 @@ a = 1; %technological factor
 
 la = ((c - h^OMEGA/OMEGA))^(-SIGG); %marginal utility of wealth
 
-s = output - c;
+s = ca + ivv;
 
 
