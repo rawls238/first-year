@@ -29,15 +29,20 @@ probit_coeff <- coef(e_probit)
 logit_coeff <- coef(e_logit)
 mean_educ <- mean(!is.na(data["education"]))
 mean_exp <- mean(!is.na(data["yearsexp"]))
-predicted_1_w_p <-  probit_coeff['racew'] + probit_coeff['sexm'] + probit_coeff['education'] * mean_educ + probit_coeff['yearsexp'] * mean_exp + probit_coeff['h'] + probit_coeff['col']
-predicted_1_b_p <- probit_coeff['sexm'] + probit_coeff['education'] * mean_educ + probit_coeff["yearsexp"] * mean_exp + probit_coeff['h'] + probit_coeff['col']
-predicted_1_w_l <- (logit_coeff['racew'] + logit_coeff['sexm'] + logit_coeff['education'] * mean_educ + logit_coeff['yearsexp'] * mean_exp + logit_coeff['h'] + logit_coeff['col'])
-predicted_1_b_l <-  (logit_coeff['sexm'] + logit_coeff['education'] * mean_educ + logit_coeff["yearsexp"] * mean_exp + logit_coeff['h'] + logit_coeff['col'])
+predicted_1_w_p <-  predict(e_probit, data.frame(sex='m',race='w',education=mean_educ, yearsexp=mean_exp,h=1,col=1,eoe=0,military=0))
+predicted_1_b_p <- predict(e_probit, data.frame(sex='m',race='b',education=mean_educ, yearsexp=mean_exp,h=1,col=1,eoe=0,military=0))
+predicted_1_w_l <- predict(e_logit, data.frame(sex='m',race='w',education=mean_educ, yearsexp=mean_exp,h=1,col=1,eoe=0,military=0))
+predicted_1_b_l <- predict(e_logit, data.frame(sex='m',race='b',education=mean_educ, yearsexp=mean_exp,h=1,col=1,eoe=0,military=0))
+diff_p_1 <- predicted_1_w_p - predicted_1_b_p
+diff_l_1 <- predicted_1_w_l - predicted_1_b_l 
 
-predicted_2_w_p <- probit_coeff['racew'] + probit_coeff['education'] * mean_educ + probit_coeff['yearsexp'] * mean_exp + probit_coeff['h'] + probit_coeff['col']
-predicted_2_b_p <-probit_coeff['education'] * mean_educ + probit_coeff["yearsexp"] * mean_exp + probit_coeff['h'] + probit_coeff['col']
-predicted_2_w_l <-  logit_coeff['racew'] + logit_coeff['education'] * mean_educ + logit_coeff['yearsexp'] * mean_exp + logit_coeff['h'] + logit_coeff['col']
-predicted_2_b_l <-  logit_coeff['education'] * mean_educ + logit_coeff["yearsexp"] * mean_exp + logit_coeff['h'] + logit_coeff['col']
+predicted_2_w_p <- predict(e_probit, data.frame(sex='f',race='w',education=mean_educ, yearsexp=mean_exp,h=1,col=1,eoe=0,military=0))
+predicted_2_b_p <- predict(e_probit, data.frame(sex='f',race='b',education=mean_educ, yearsexp=mean_exp,h=1,col=1,eoe=0,military=0))
+predicted_2_w_l <-  predict(e_logit, data.frame(sex='f',race='w',education=mean_educ, yearsexp=mean_exp,h=1,col=1,eoe=0,military=0))
+predicted_2_b_l <- predict(e_logit, data.frame(sex='f',race='b',education=mean_educ, yearsexp=mean_exp,h=1,col=1,eoe=0,military=0))
+diff_p_2 <- predicted_2_w_p - predicted_2_b_p
+diff_l_2 <- predicted_2_w_l - predicted_2_b_l 
+
 
 prev_probit_wf <- 0.0
 prev_logit_wf <- 0.0
@@ -48,10 +53,10 @@ diff_pbf <- c()
 diff_lwf <- c()
 diff_lbf <- c()
 for(i in seq(1,4)) {
-  a <- i * probit_coeff['education'] + probit_coeff['racew'] + probit_coeff['yearsexp'] * mean_exp + probit_coeff['h'] + probit_coeff['col']
-  b <- predicted_3_bf_p <- i * probit_coeff['education'] + probit_coeff['yearsexp'] * mean_exp + probit_coeff['h'] + probit_coeff['col']
-  d <- i * logit_coeff['education'] + logit_coeff['racew'] + logit_coeff['yearsexp'] * mean_exp + logit_coeff['h'] + logit_coeff['col']
-  e <- logit_coeff['education'] * i + logit_coeff["yearsexp"] * mean_exp + logit_coeff['h'] + logit_coeff['col']
+  a <- predict(e_probit, data.frame(sex='f',race='w',education=i, yearsexp=mean_exp,h=1,col=1,eoe=0,military=0))
+  b <- predict(e_probit, data.frame(sex='f',race='b',education=i, yearsexp=mean_exp,h=1,col=1,eoe=0,military=0))
+  d <- predict(e_logit, data.frame(sex='f',race='w',education=i, yearsexp=mean_exp,h=1,col=1,eoe=0,military=0))
+  e <- predict(e_logit, data.frame(sex='f',race='b',education=i, yearsexp=mean_exp,h=1,col=1,eoe=0,military=0))
   if (i >= 2) {
     diff_pwf <- c(diff_pwf, a - prev_probit_wf)
     diff_pbf <- c(diff_pbf, b - prev_probit_bf)
