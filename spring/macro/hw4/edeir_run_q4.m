@@ -100,11 +100,9 @@ while current_opt > threshold
         ETATILDE = OLD_ETATILDE;
         prev = best;
     else
-       if actual(1) ~= 1000 && ~isnan(actual(1))
-            current_opt = distance;
-            best = actual;
-            opt_vals = [OMEGA; DBAR; PSSI;PHI;RHO;ETATILDE];
-       end
+       current_opt = distance;
+       best = actual;
+       opt_vals = [OMEGA; DBAR; PSSI;PHI;RHO;ETATILDE];
     end
     iter = iter + 1;
 end
@@ -154,18 +152,11 @@ function [stds, scorr, targets] = iterate(OMEGA1,DBAR1,PSSI1,PHI1,RHO1,ETATILDE1
     varshock = nETASHOCK*nETASHOCK';
 
     %standard deviations
-    try
-        [sigy0,sigx0]=mom(gx,hx,varshock);
-        stds = sqrt(diag(sigy0));
+    [sigy0,sigx0]=mom(gx,hx,varshock);
+    stds = sqrt(diag(sigy0));
     
         %serial correlations
-        [sigy1,sigx1]=mom(gx,hx,varshock,1);
-        scorr = diag(sigy1)./diag(sigy0);
-        targets = [stds(noutput)*100; scorr(noutput); stds(nivv)*100; scorr(nivv);stds(nh)*100;tby];
-    catch
-        infinity = 1000;
-        stds = [infinity;infinity;infinity;infinity;infinity;infinity];
-        scorr = stds;
-        targets = stds;
-    end
+    [sigy1,sigx1]=mom(gx,hx,varshock,1);
+    scorr = diag(sigy1)./diag(sigy0);
+    targets = [stds(noutput)*100; scorr(noutput); stds(nivv)*100; scorr(nivv);stds(nh)*100;tby];
  end
