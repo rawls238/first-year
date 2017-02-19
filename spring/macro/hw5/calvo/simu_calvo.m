@@ -14,7 +14,7 @@
 clear all
 format compact
 
-filename = 'calvo_peg'
+filename = 'calvo_opt'
 
 T = 3e6; %length of model simulation 
 
@@ -64,7 +64,7 @@ GX(10,:) = gx(ndy,:);
 x0 = zeros(nx,1); %initial condition
 
 rng('default')
-e = randn(T+Tburn,2);
+e = [randn(T+Tburn,1) zeros(3030000, 1)];
 [Y,X, e] = simu_1st(GX, hx, nETASHOCK, T+Tburn,x0,e);
 Y = Y(Tburn+1:end,:);
 X = X(Tburn+1:end,:);
@@ -85,7 +85,7 @@ EPSI = (EPSI.^4-1)*100;
 
 %Note that Y(:,6) is p_{t-1}. Shift it one period forward to obtain p_t: 
 P = Y(:,6)*100;
-P=[P(2:end); P(end)]; 
+P=[P(2:end); P(end)];
 
 PAI = ( exp(Y(:,7)).^4-1)*100;
 

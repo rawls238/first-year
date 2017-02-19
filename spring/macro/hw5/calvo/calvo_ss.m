@@ -61,6 +61,16 @@ pvmr = (MU-1)/MU*p*yN/(1-BETTA*THETA);
 
 c = 1/(A*cT^(1 - 1/XI) - yN^(1 - 1/XI)*(A - 1))^(1/(1/XI - 1)); %consumption
 
+
+
+v = (c^(1-SIGG)-1)/(1-SIGG) + VARPHI * log(HBAR-h);
+v = v/(1-BETTA); 
+
+%utility function split into consumption and labor part: 
+v_cons = (c^(1-SIGG)-1)/(1-SIGG)/(1-BETTA);
+v_h =  VARPHI * log(HBAR-h) / (1-BETTA); 
+
+
 a2 = (1-A)*(yN/c)^(-1/XI); %partial derivative of Armington aggregator with respect to cN
 
 output = yT+p*yN; %gdp in terms of tradables
@@ -69,6 +79,16 @@ dy = d/output/4;
 
 tb = yT - cT;
 tby = tb/output;
+
+INT=1+r;
+eta=0;
+ry = a2/p*output; % gdp in terms of final consumption goods
+RY = ry;
+pai = paiN; %CPI inflation
+PAI = pai;
+intr = 1/BETTA;
+
+
 
 load tpm b omega
 %produced by running tpm.m 
@@ -84,5 +104,10 @@ a22 = b(2,2);
 
 eta11 = omega(1,1);
 eta12 = omega(1,2);
+eta13=0;
 eta21 = omega(2,1);
 eta22 = omega(2,2);
+eta23=0;
+eta31=0;
+eta32=0;
+eta33=1;

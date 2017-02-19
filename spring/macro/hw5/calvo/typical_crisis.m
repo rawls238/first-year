@@ -149,7 +149,7 @@ end
 
 thick = 2;
 rows = 4;
-cols=2; 
+cols=2;
 
 ww1=10;
 ww2=30;
@@ -158,14 +158,14 @@ ww2=30;
 var_name = { 'Hours', 'Real Wage (in terms of tradables)', 'Annualized Devaluation Rate', 'Relative Price of Nontradables $(P^N_t/\mathcal{E}_t)$', 'Annual CPI Inflation Rate', 'Consumption of Tradables', 'Trade-Balance-To-Output Ratio', 'Debt-To-Output Ratio (Annual)'};
 ylabels = { '\% dev. from trend', '\% dev. from trend',    '\% ', '\% dev. from trend',    '\% ', '\% dev. from trend', '\% ', '\%'};
 
-W = zeros(nw, 41, 8); 
-W(:,:,1) = WH; 
+W = zeros(nw, 41, 8);
+W(:,:,1) = WH;
 W(:,:,2) = WW;
 W(:,:,3) = WEPSI; 
 W(:,:,4) = WP;
-W(:,:,5) = WPAI; 
+W(:,:,5) = WPAI;
 W(:,:,6) = WCT;
-W(:,:,7) = WTBY; 
+W(:,:,7) = WTBY;
 W(:,:,8) = WDY;
 
 

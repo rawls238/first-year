@@ -1,0 +1,254 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf810
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\b\fs24 \cf0 1)
+\b0 \
+\
+
+\b b)
+\b0 \
+\
+Ratio Table:\
+    		call\
+race          0          1\
+   b 0.46776181 0.03223819\
+   w 0.45174538 0.04825462\
+\
+Using the Pearson\'92s Chi-Squared Test, we test that hypothesis that the expected number of calls is the same for black and white individuals. We get p-value of 4.998e-05 and test statistic of 16.449.  Thus we reject the null and conclude that the expected number of calls is not the same for black and white individuals.\
+\
+
+\b c) 
+\b0 \
+E(y|x) = x\'92*beta\
+E(y^2|x) = x\'92*beta\
+Var(y|x) = x\'92*beta*(1 - x\'92*beta)\
+\
+Thus the model is not homoskedastic.\
+\
+
+\b d)
+\b0 \
+\
+
+\b Probit estimate:
+\b0 \
+\
+Call: glm(formula = call ~ race + sex + education + yearsexp + military + \
+    col + h, family = binomial(link = "probit"), data = data)\
+\
+Coefficients:\
+             Estimate Std. Error z value Pr(>|z|)    \
+(Intercept) -1.619384   0.201697  -8.029 9.84e-16 ***\
+racew        0.217675   0.053036   4.104 4.06e-05 ***\
+sexm        -0.043586   0.065929  -0.661 0.508546    \
+education   -0.025773   0.072362  -0.356 0.721714    \
+yearsexp     0.018224   0.005039   3.617 0.000298 ***\
+military    -0.096711   0.103086  -0.938 0.348166    \
+col          0.022005   0.116360   0.189 0.850003    \
+h            0.089767   0.055771   1.610 0.107493  \
+\
+
+\b Logit estimate:\
+\
+
+\b0 Call:\
+glm(formula = call ~ race + sex + education + yearsexp + military + \
+    col + h, family = binomial(link = "logit"), data = data)\
+\
+Coefficients:\
+             Estimate Std. Error z value Pr(>|z|)    \
+(Intercept) -2.885702   0.408572  -7.063 1.63e-12 ***\
+racew        0.438775   0.107623   4.077 4.56e-05 ***\
+sexm        -0.099424   0.134003  -0.742 0.458115    \
+education   -0.045877   0.146295  -0.314 0.753830    \
+yearsexp     0.035401   0.009702   3.649 0.000263 ***\
+military    -0.191924   0.212210  -0.904 0.365779    \
+col          0.033868   0.233964   0.145 0.884903    \
+h            0.186678   0.111737   1.671 0.094783 . \
+\
+
+\b Linear Probability:
+\b0 \
+\
+Call:\
+lm(formula = call ~ race + sex + education + yearsexp + military + \
+    col + h, data = data)\
+\
+\
+Coefficients:\
+              Estimate Std. Error t value Pr(>|t|)    \
+(Intercept)  0.0476618  0.0296592   1.607 0.108124    \
+racew        0.0319438  0.0077764   4.108 4.06e-05 ***\
+sexm        -0.0068865  0.0095913  -0.718 0.472794    \
+education   -0.0033647  0.0106597  -0.316 0.752282    \
+yearsexp     0.0030077  0.0008087   3.719 0.000202 ***\
+military    -0.0117023  0.0145387  -0.805 0.420914    \
+col          0.0017670  0.0172122   0.103 0.918236    \
+h            0.0137378  0.0083407   1.647 0.099604 .\
+\
+According to each of the models, there is statistically significant discrimination on the job market with respect to face. With respect to sex there appears to be no statistically significant discrimination.\
+\
+
+\b e) 
+\b0 \
+\
+
+\b Logit model:\
+
+\b0 Call:\
+glm(formula = call ~ eoe + race * eoe + sex * eoe + race + sex + \
+    education + yearsexp + military + col + h, family = binomial(link = "logit"), \
+    data = data)\
+\
+Coefficients:\
+             Estimate Std. Error z value Pr(>|z|)    \
+(Intercept) -2.808114   0.411697  -6.821 9.05e-12 ***\
+eoe         -0.199817   0.196757  -1.016 0.309842    \
+racew        0.380005   0.127660   2.977 0.002914 ** \
+sexm        -0.245880   0.167405  -1.469 0.141895    \
+education   -0.052619   0.146313  -0.360 0.719122    \
+yearsexp     0.034920   0.009736   3.587 0.000335 ***\
+military    -0.175792   0.212523  -0.827 0.408141    \
+col          0.046239   0.234138   0.197 0.843448    \
+h            0.182928   0.111835   1.636 0.101904    \
+eoe:racew    0.201092   0.237879   0.845 0.397914    \
+eoe:sexm     0.420224   0.271858   1.546 0.122165  \
+\
+
+\b Probit model:\
+
+\b0 Call:\
+glm(formula = call ~ eoe + race * eoe + sex * eoe + race + sex + \
+    education + yearsexp + military + col + h, family = binomial(link = "probit"), \
+    data = data)\
+\
+Coefficients:\
+             Estimate Std. Error z value Pr(>|z|)    \
+(Intercept) -1.579440   0.203188  -7.773 7.65e-15 ***\
+eoe         -0.096921   0.094323  -1.028 0.304164    \
+racew        0.188265   0.062994   2.989 0.002802 ** \
+sexm        -0.113868   0.081062  -1.405 0.160114    \
+education   -0.029599   0.072348  -0.409 0.682454    \
+yearsexp     0.018003   0.005053   3.563 0.000367 ***\
+military    -0.088566   0.103290  -0.857 0.391194    \
+col          0.027851   0.116451   0.239 0.810976    \
+h            0.087164   0.055833   1.561 0.118487    \
+eoe:racew    0.100770   0.116997   0.861 0.389070    \
+eoe:sexm     0.206516   0.135227   1.527 0.126716    \
+\
+
+\b Linear probability model:\
+
+\b0 \
+Call:\
+lm(formula = call ~ eoe + race * eoe + sex * eoe + race + sex + \
+    education + yearsexp + military + col + h, data = data)\
+\
+Coefficients:\
+              Estimate Std. Error t value Pr(>|t|)    \
+(Intercept)  0.0530618  0.0299052   1.774 0.076070 .  \
+eoe         -0.0133642  0.0129904  -1.029 0.303638    \
+racew        0.0275476  0.0092344   2.983 0.002867 ** \
+sexm        -0.0163723  0.0114689  -1.428 0.153489    \
+education   -0.0038696  0.0106651  -0.363 0.716750    \
+yearsexp     0.0029664  0.0008098   3.663 0.000252 ***\
+military    -0.0106251  0.0145529  -0.730 0.465366    \
+col          0.0027520  0.0172438   0.160 0.873206    \
+h            0.0135069  0.0083424   1.619 0.105501    \
+eoe:racew    0.0149224  0.0171194   0.872 0.383436    \
+eoe:sexm     0.0300464  0.0201057   1.494 0.135131\
+\
+In each of the models there is not statistically significant improvements in call probability if the ad posted for the job says Equal Opportunity Employer.\
+\
+
+\b f)
+\b0 \
+\
+1)  ASSUMING EOE=1\
+Probit difference in prob: 0.05028662 \
+Logit difference in prob: 0.05126152 \
+\
+2) ASSUMING EOE=1\
+Probit difference in prob: 0.04446843\
+Logit difference in prob: 0.04447295\
+\
+3)\
+Logit average partial effect: -0.004660812\
+Probit average partial effect: -0.005104297\
+\
+4)\
+Logit average partial effect: -0.003249476\
+Probit average partial effect: -0.003780427\
+\
+The differential effect of education between applicants is very slightly more negative for white female applicants vs black female applicants.\
+\
+
+\b 2)\
+
+\b0 \
+
+\b a) 
+\b0 \
+Call:\
+glm(formula = docvis ~ private + chronic + female + income, family = poisson(link = "log"), \
+    data = data)\
+\
+Deviance Residuals: \
+   Min      1Q  Median      3Q     Max  \
+-4.865  -1.970  -1.325   0.102  31.087  \
+\
+Coefficients:\
+              Estimate Std. Error z value Pr(>|z|)    \
+(Intercept) -0.1320898  0.0257213  -5.135 2.82e-07 ***\
+private      0.7244982  0.0246912  29.342  < 2e-16 ***\
+chronic      1.0851304  0.0134489  80.685  < 2e-16 ***\
+female       0.4498289  0.0135164  33.280  < 2e-16 ***\
+income       0.0023390  0.0002232  10.479  < 2e-16 ***\
+\
+Each of the different factors increases the predicted number of doctor visits. Private insurance, chronic illness, being female, and higher income all lead to higher predicted number of doctor visits.  Each of the changes is significant. For instance, the coefficient on Chronic is interpreted as \
+log(E(Visits | Chronic)) - log(E(Visits | No Chronic)) = 1.085. The same kind of interpretation holds for the other variables.\
+
+\b \
+b)\
+\
+
+\b0 The model does not provide a good fit as it is too clustered towards the mass of values close to 0.\
+\
+
+\b c) \
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \ul \ulc0 Negative binomial coefficients\ulnone \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b0 \cf0 Coefficients:\
+              Estimate Std. Error z value Pr(>|z|)    \
+(Intercept) -0.3089709  0.0540198  -5.720 1.07e-08 ***\
+private      0.8493471  0.0536598  15.828  < 2e-16 ***\
+chronic      1.1331377  0.0376410  30.104  < 2e-16 ***\
+female       0.5018866  0.0370490  13.547  < 2e-16 ***\
+income       0.0027885  0.0006629   4.206 2.59e-05 ***\
+\
+The interpretation of the results does not change from that of Poisson. It seems to provide a slightly worse of the model, but only slightly.\
+\
+
+\b d) 
+\b0 \
+Higher income leads to more visits to the doctor. As well, the relationship between income and visits to the doctor is statistically significant according to the standard errors from the regression. \
+\
+It has a small magnitude change when considering people with chronic disease as the model predicts that with ~.89 probability a person with 0 income will visit the doctor at least once but a person with the max income would visit the doctor at least once with ~.94 probability.\
+\
+It has a large magnitude change when considering people with no chronic disease as the model predicts that with ~.67 probability a person with 0 income will visit the doctor at least once but a person with the max income would visit the doctor at least once with ~.83 probability. \
+\
+Thus the relationship changes as the other covariates such as chronic vs non-chronic disease change. Intuitively this makes sense since for people without chronic illnesses doctor visits can be seen as more of a luxury whereas for people with chronic illnesses they need to go to the doctor frequently regardless of their income.\
+\
+\
+
+\b 3)\
+
+\b0 \
+The general empirical motivation for both Poisson and Negative Binomial models is in \'93count\'94 data where the dependent variable can only take on whole numbers (i.e. deaths, doctor visits, etc.). In the case of negative binomial, it can be interpreted as the number of failures before a specific number of successes. Generally the Poisson model is used, but in the case of \'93over-dispersion\'94 the Negative Binomial model is better since it allows that the variance can be adjusted independently of the mean via the gamma parameter. Note that when gamma goes to infinity the Negative Binomial simply collapses to the Poisson model since the variance and expectation converge to the same values as in the Poisson distribution. Looking at the density of the negative binomial, simply taking the limit as gamma goes to infinity gives us the Poisson model thus the negative binomial can be viewed as a sequence of Poisson models with the parameterization of gamma going to infinity.}
