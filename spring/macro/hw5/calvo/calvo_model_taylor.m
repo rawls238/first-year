@@ -76,7 +76,7 @@ if optimal_policy==1
 e14 = paiN -1; 
 filename = 'calvo_opt'
 elseif optimal_policy==0
-e14 = -epsip + epsi + devShock;
+e14 = -epsi + devShock;
 filename = 'calvo_peg'
 elseif optimal_policy == 2
 e14=-log(intr/INT)+1.5*log(pai/PAI)+0.125*log(ry/RY)+eta;
@@ -101,7 +101,7 @@ e21 = [-v + U+BETTA*vp;
            -v_cons + (c^(1-SIGG) -1 ) /(1-SIGG)  + BETTA*v_consp;
            -v_h +  VARPHI*log(HBAR - h)   + BETTA*v_hp];  %value function
 
-e22 = -(1+r)+I/epsip;
+e22 = -(1+r)+intr/epsip;
 
 e23 = etap;
 

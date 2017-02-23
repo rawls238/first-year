@@ -88,7 +88,7 @@ eval([filename '_num_eval']) %this .m script was created by running calvo_model.
 
 [gx_peg, hx_peg, exitflag] = gx_hx(nfy, nfx, nfyp, nfxp);
 
-
+T=10;
 x0=x0(:);
 pd=length(x0);
 T1X = [gx_peg; eye(pd)];
