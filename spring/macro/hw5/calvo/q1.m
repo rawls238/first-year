@@ -1,4 +1,4 @@
-load('simu_calvo_peg.mat')
+load('simu_calvo_opt.mat')
 
 std(PAI)
 std(EPSIRER)

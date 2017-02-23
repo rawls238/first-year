@@ -1,0 +1,68 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf810
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\b\fs24 \cf0 1)
+\b0 \
+\
+
+\b Pegged\
+
+\b0 std(PAI):    7.3808\
+std(EPSI): 0\
+std(RER):    7.3837\
+corr(RER_t, RER_t-1):    0.7301\
+\
+
+\b Optimal\
+\
+
+\b0 std(PAI) =10.3771\
+std(RER) = 28.1731\
+std(EPSI) = 41.0226\
+corr(EPSI_t, EPSI_t-1) = -0.0320\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5238\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 corr(RER_t, RER_t-1) =  -0.0332\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+Let us use this to confirm the three Mussa facts:\
+\
+1) Variability of the real exchange rate is much higher under flexible exchange rates vs fixed exchange rates.\
+\
+As we can see from the value above, std(RER) = 7.3837 in the fixed exchange rate economy and std(RER) = 28.1731 in the flexible exchange economy thus verifying this fact.\
+\
+2) Movements in real exchange rates mimic movements in nominal exchange rates.\
+\
+We see in the optimal exchange economy that the autocorrelation of the real and nominal exchange rates are roughly the same, thus confirming this fact.\
+\
+3) Volatility of national inflation rates is broadly the same under flexible and fixed exchange rates regimes.\
+\
+We see that in the flexible exchange rate model, std(inflation) = 10.3771 and in the pegged exchange rate model we have std(inflation) = 7.3808 which are roughly of the same magnitude and thus \'93broadly the same\'94 thus verifying this fact.\
+\
+\
+
+\b 2)
+\b0 \
+\
+
+\b a)
+\b0 \
+   gamma = \
+ 0.0351   -0.0023\
+         0    0.0059\
+\
+
+\b b) 
+\b0 \
+\
+
+\b 3) 
+\b0 As can be seen in the attached graphs, the devaluation rate jumps in response to a one-percentage point decline in nu_t. Then in the next period it dips below 0  and slowly converges to its steady state value from below. Thus the Taylor-type interest-rate feedback rule captures the exchange-rate overshooting result. This makes sense intuitively since the monetary policy shock causes the initial devaluation and then the sticky prices in the model cause it to dip below 0 and then slowly as more and more firms can readjust their prices it converges to the steady state value. Thus it converges from below.\
+\
+As can be seen in the impulse response, the once-and-for-all devaluation of the nominal exchange rate by 100 basis points causes the devaluation rate to jump 1% (as we would expect since we forced this to happen) which is the same as having our monetary policy be expansionary in this period. Then in t=1 we have a regime switch and use the model for the optimal exchange rate policy going forward. This is how it is modeled in the code where we use the policy function from the pegged economy for t=0 with the monetary policy just encapsulating the shock and then the policy function from the optimal economy after t=1. The result is a similar overshooting result where the initial devaluation rate jumps in t=0 then dips below 0 and then converges from below back to the steady state. However, it converges much more quickly back to the steady state in this case than in the Taylor case.\
+\
+We also provide plots for the IRF of the value function in both cases showing that in both cases the welfare is decreasing while the monetary policy shock is expansionary. \
+}

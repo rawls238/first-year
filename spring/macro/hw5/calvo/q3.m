@@ -64,14 +64,14 @@ plot(t,IRy(:,nepsi)*100)
 title('rate')
 subplot(3,2,2)
 plot(t,IRy(:,nv)*100)
-title('rate')
+title('welfare value function')
 
 x0 = zeros(nstatevar,1);
 x0(end) = 0.01;
 
 filename = 'calvo_opt';
 
-calvo_taylor_ss %read parameter values and deterministic steady state
+calvo_ss %read parameter values and deterministic steady state
 
 eval([filename '_num_eval']) %this .m script was created by running calvo_model.m.  
 %in c:\data\uribe\book\dnwr\calvo
@@ -80,7 +80,6 @@ eval([filename '_num_eval']) %this .m script was created by running calvo_model.
 %y_t=gx x_t
 %x_t+1 = hx x_t + ETASHOCK epsilon_t+1
 [gx_opt, hx_opt, exitflag] = gx_hx(nfy, nfx, nfyp, nfxp);
-
 
 
 filename = 'calvo_peg';
@@ -115,6 +114,6 @@ plot(t,IRy(:,nepsi)*100)
 title('rate')
 subplot(3,2,2)
 plot(t,IRy(:,nv)*100)
-title('rate')
+title('welfare value cost')
 
 
