@@ -17,7 +17,7 @@ MU = 6;%elasticity of substitution across varieties of intermediate nontraded go
 
 RSTAR = 0.0316;%interest rate
 BETTA = 1/(1+RSTAR); %subjective discount factor 
-THETA =  0.7;% Degree of price rigidity. 
+%THETA =  0.7;% Degree of price rigidity. 
 
 A = 0.26; %share parameter of Armington aggregator
 XI = 1/SIGG; %elasticity of substitution between tradables and nontradables (parameter of the Armington aggregator). 

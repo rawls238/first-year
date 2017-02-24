@@ -73,6 +73,9 @@ eval([filename '_num_eval']) %this .m script was created by running calvo_model.
 %x_t+1 = hx x_t + ETASHOCK epsilon_t+1
 [gx, hx, exitflag] = gx_hx(nfy, nfx, nfyp, nfxp);
 
+decomp = variance_decomposition(gx, hx, 1);
+decomp(:,nc);
+
 nx = size(hx,1); %number of states
 
 %Variance/Covariance matrix of innovation to state vector x_t
