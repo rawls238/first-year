@@ -14,7 +14,7 @@
 clear all
 format compact
 
-filename = 'calvo_peg'
+filename = 'calvo_opt'
 
 T = 3e6; %length of model simulation 
 
@@ -65,7 +65,7 @@ GX(11,:) = gx(nrer,:);
 x0 = zeros(nx,1); %initial condition
 
 rng('default')
-e = [randn(T+Tburn,1) zeros(T+Tburn, 1)];
+e = [zeros(T+Tburn, 1) randn(T+Tburn,1)];
 [Y,X, e] = simu_1st(GX, hx, nETASHOCK, T+Tburn,x0,e);
 Y = Y(Tburn+1:end,:);
 X = X(Tburn+1:end,:);

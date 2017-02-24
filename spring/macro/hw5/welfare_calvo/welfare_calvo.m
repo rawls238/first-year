@@ -74,7 +74,6 @@ eval([filename '_num_eval']) %this .m script was created by running calvo_model.
 [gx, hx, exitflag] = gx_hx(nfy, nfx, nfyp, nfxp);
 
 decomp = variance_decomposition(gx, hx, 1);
-decomp(:,nc);
 
 nx = size(hx,1); %number of states
 

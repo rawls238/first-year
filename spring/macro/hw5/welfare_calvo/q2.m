@@ -17,3 +17,5 @@ Vyr_ht = [Vy_peg(1,nh)/Vy_sum(nh); Vy_peg(2,nh)/Vy_sum(nh)]
 Vyr_ct = [Vy_peg(1,ncT)/Vy_sum(ncT); Vy_peg(2,ncT)/Vy_sum(ncT)]
 Vxr_pt = [Vx_peg(1,np)/Vx_sum(np); Vx_peg(2,np)/Vx_sum(np)]
 Vxy_tby = [Vy_peg(1,ntby)/Vy_sum(ntby); Vy_peg(2,ntby)/Vy_sum(ntby)]
+    
+

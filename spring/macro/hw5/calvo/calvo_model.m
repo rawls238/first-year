@@ -16,7 +16,7 @@ function calvo_model
 %
 %© Martín Uribe and Stephanie Schmitt-Grohé, January 29, 2016 (BSGDAY)
 
-optimal_policy = 0 %this indicator takes the value 1 if optimal exchange-rate policy and 0 if currency peg. Other policies can readily be considered. Here, we contemplate only these two. 
+optimal_policy =1 %this indicator takes the value 1 if optimal exchange-rate policy and 0 if currency peg. Other policies can readily be considered. Here, we contemplate only these two. 
 
 syms cT cTp r rp rstar rstarp   p pp h hp la lap w wp pNtilde pNtildep  yN yNp s sp d dp  dy dyp paiN paiNp pvmc pvmcp pvmr pvmrp output outputp tby tbyp  c cp pai paip a2 a2p
 
