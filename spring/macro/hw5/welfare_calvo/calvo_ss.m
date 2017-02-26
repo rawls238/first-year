@@ -88,7 +88,7 @@ a12 = b(1,2);
 a21 = b(2,1);
 a22 = b(2,2);
 
-eta11 = omega(1,1);
+eta11 = 0;
 eta12 = omega(1,2);
-eta21 = omega(2,1);
+eta21 = 0;
 eta22 = omega(2,2);
