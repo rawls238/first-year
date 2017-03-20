@@ -45,10 +45,26 @@ b_model <- SVAR(b_model, Bmat=b_mat)
 
 
 b_irfs <- irf(b_model, n.ahead=20)
+plot(b_irfs)
 
-fevd_b_1 <- fevd(b_model, n.ahead = 1)
-fevd_b_8 <- fevd(b_model, n.ahead = 8)
-fevd_b_20 <- fevd(b_model, n.ahead = 20)
+
+fevd_b <- fevd(b_model, n.ahead=20)
+inf <- fevd_b$inflation * 100
+gr <- fevd_b$growth * 100
+ffr <- fevd_b$quarterly_rate * 100
+print("Numbers below are Inflation, Growth, FFR (Percentage Points)")
+print("Inflation FEVD")
+cat("1 period ahead", inf[1,], "\n")
+cat("8 periods ahead", inf[8,], "\n")
+cat("20 periods ahead", inf[20,], "\n")
+print("Growth Rate FEVD")
+cat("1 period ahead", gr[1,], "\n")
+cat("8 periods ahead", gr[8,], "\n")
+cat("20 periods ahead", gr[20,], "\n")
+print("FFR FEVD")
+cat("1 period ahead", ffr[1,], "\n")
+cat("8 periods ahead", ffr[8,], "\n")
+cat("20 periods ahead", ffr[20,], "\n")
   
   
 # question C
@@ -58,10 +74,30 @@ b_mat <- cbind(c(NA,NA,NA,NA), c(0,NA,NA,NA), c(0,0,NA,NA), c(0,0,0,NA))
 c_model <- SVAR(c_model, Bmat=b_mat)
 
 c_irfs <- irf(c_model, n.ahead=20)
+plot(c_irfs)
 
-fevd_c_1 <- fevd(c_model, n.ahead = 1)
-fevd_c_8 <- fevd(c_model, n.ahead = 8)
-fevd_c_20 <- fevd(c_model, n.ahead = 20)
+fevd_c <- fevd(c_model, n.ahead=20)
+inf <- fevd_c$inflation * 100
+gr <- fevd_c$growth * 100
+ffr <- fevd_c$quarterly_rate * 100
+fpmi <- fevd_c$quarterly_pmi * 100
+print("Numbers below are Inflation, Growth, PMI, FFR (Percentage Points) including PMI")
+print("Inflation FEVD")
+cat("1 period ahead", inf[1,], "\n")
+cat("8 periods ahead", inf[8,], "\n")
+cat("20 periods ahead", inf[20,], "\n")
+print("Growth Rate FEVD")
+cat("1 period ahead", gr[1,], "\n")
+cat("8 periods ahead", gr[8,], "\n")
+cat("20 periods ahead", gr[20,], "\n")
+print("PMI FEVD")
+cat("1 period ahead", fpmi[1,], "\n")
+cat("8 periods ahead", fpmi[8,], "\n")
+cat("20 periods ahead", fpmi[20,], "\n")
+print("FFR FEVD")
+cat("1 period ahead", ffr[1,], "\n")
+cat("8 periods ahead", ffr[8,], "\n")
+cat("20 periods ahead", ffr[20,], "\n")
 
 
 #question D
@@ -75,10 +111,25 @@ b_mat <- cbind(c(NA,NA,NA), c(0,NA,NA), c(0,0,NA))
 pre_model <- SVAR(pre_model, Bmat=b_mat)
 
 pre_irfs <- irf(pre_model, n.ahead=20)
+plot(pre_irfs)
 
-fevd_pre_1 <- fevd(pre_model, n.ahead = 1)
-fevd_pre_8 <- fevd(pre_model, n.ahead = 8)
-fevd_pre_20 <- fevd(pre_model, n.ahead = 20)
+fevd_pre <- fevd(pre_model, n.ahead=20)
+inf <- fevd_pre$inflation * 100
+gr <- fevd_pre$growth * 100
+ffr <- fevd_pre$quarterly_rate * 100
+print("Numbers below are Inflation, Growth, FFR (Percentage Points) for pre-1979")
+print("Inflation FEVD")
+cat("1 period ahead", inf[1,], "\n")
+cat("8 periods ahead", inf[8,], "\n")
+cat("20 periods ahead", inf[20,], "\n")
+print("Growth Rate FEVD")
+cat("1 period ahead", gr[1,], "\n")
+cat("8 periods ahead", gr[8,], "\n")
+cat("20 periods ahead", gr[20,], "\n")
+print("FFR FEVD")
+cat("1 period ahead", ffr[1,], "\n")
+cat("8 periods ahead", ffr[8,], "\n")
+cat("20 periods ahead", ffr[20,], "\n")
 
 #post 1979
 post_model <- VAR(post_dat, p=4, type="none")
@@ -86,9 +137,24 @@ b_mat <- cbind(c(NA,NA,NA), c(0,NA,NA), c(0,0,NA))
 post_model <- SVAR(post_model, Bmat=b_mat)
 
 post_irfs <- irf(post_model, n.ahead=20)
+plot(post_irfs)
 
-fevd_post_1 <- fevd(post_model, n.ahead = 1)
-fevd_post_8 <- fevd(post_model, n.ahead = 8)
-fevd_post_20 <- fevd(post_model, n.ahead = 20)
+fevd_post <- fevd(post_model, n.ahead=20)
+inf <- fevd_post$inflation * 100
+gr <- fevd_post$growth * 100
+ffr <- fevd_post$quarterly_rate * 100
+print("Numbers below are Inflation, Growth, FFR (Percentage Points) for post-1979")
+print("Inflation FEVD")
+cat("1 period ahead", inf[1,], "\n")
+cat("8 periods ahead", inf[8,], "\n")
+cat("20 periods ahead", inf[20,], "\n")
+print("Growth Rate FEVD")
+cat("1 period ahead", gr[1,], "\n")
+cat("8 periods ahead", gr[8,], "\n")
+cat("20 periods ahead", gr[20,], "\n")
+print("FFR FEVD")
+cat("1 period ahead", ffr[1,], "\n")
+cat("8 periods ahead", ffr[8,], "\n")
+cat("20 periods ahead", ffr[20,], "\n")
 
   
