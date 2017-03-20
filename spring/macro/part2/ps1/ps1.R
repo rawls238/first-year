@@ -37,11 +37,6 @@ for (i in seq(1, nrow(fed_funds[2]))) {
   cur_rate_sum <- cur_rate_sum + fed_funds[i, 2]
 }
 
-gen_model <- function(dat) {
-  b_model <- VAR(dat, p=4, type="none")
-  return(BQ(b_model))
-}
-  
 # question B
 b_dat <- cbind(inflation, growth, quarterly_rate)
 b_model <- VAR(b_dat, p=4, type="none")
