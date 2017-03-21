@@ -42,7 +42,7 @@ b_dat <- cbind(inflation, growth, quarterly_rate)
 b_model <- VAR(b_dat, p=4, type="none")
 b_mat <- cbind(c(NA,NA,NA), c(0,NA,NA), c(0,0,NA))
 b_model <- SVAR(b_model, Bmat=b_mat)
-
+print(b_model)
 
 b_irfs <- irf(b_model, n.ahead=20)
 plot(b_irfs)
@@ -68,10 +68,11 @@ cat("20 periods ahead", ffr[20,], "\n")
   
   
 # question C
-dat <- cbind(inflation, growth, quarterly_pmi, quarterly_rate)
-c_model <- VAR(dat, p=4, type="none")
+c_dat <- cbind(inflation, growth, quarterly_pmi, quarterly_rate)
+c_model <- VAR(c_dat, p=4, type="none")
 b_mat <- cbind(c(NA,NA,NA,NA), c(0,NA,NA,NA), c(0,0,NA,NA), c(0,0,0,NA))
 c_model <- SVAR(c_model, Bmat=b_mat)
+print(c_model)
 
 c_irfs <- irf(c_model, n.ahead=20)
 plot(c_irfs)
@@ -106,9 +107,10 @@ pre_dat <- b_dat[1:cutoff_point,]
 post_dat <- b_dat[(cutoff_point+1):nrow(b_dat),]
 
 #pre 1979
-pre_model <- VAR(b_dat, p=4, type="none")
+pre_model <- VAR(pre_dat, p=4, type="none")
 b_mat <- cbind(c(NA,NA,NA), c(0,NA,NA), c(0,0,NA))
 pre_model <- SVAR(pre_model, Bmat=b_mat)
+print(pre_model)
 
 pre_irfs <- irf(pre_model, n.ahead=20)
 plot(pre_irfs)
@@ -135,6 +137,7 @@ cat("20 periods ahead", ffr[20,], "\n")
 post_model <- VAR(post_dat, p=4, type="none")
 b_mat <- cbind(c(NA,NA,NA), c(0,NA,NA), c(0,0,NA))
 post_model <- SVAR(post_model, Bmat=b_mat)
+print(post_model)
 
 post_irfs <- irf(post_model, n.ahead=20)
 plot(post_irfs)
