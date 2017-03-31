@@ -2,7 +2,7 @@
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
-\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\margl1440\margr1440\vieww15900\viewh12240\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\qc\partightenfactor0
 
 \f0\b\fs96 \cf0 Problem Set 1\
@@ -18,18 +18,22 @@
 ii) \
 
 \b0 Estimated VAR\
-               		inflation  	growth 	quarterly_rate\
-inflation         		1.0146  	0.00000         0.0000\
-growth            	0.8643  	2.87569         0.0000\
-quarterly_rate    	0.1332 	-0.00933         0.8372\
+              	 	inflation 	growth       quarterly_rate\
+inflation         		1.0090 	0.0000         0.0000\
+growth           	-0.2229 	2.8261         0.0000\
+quarterly_rate    	0.1892 	0.1234         0.8249\
 \
 \
 
-\b iii)
-\b0 \
- \
+\b iii)\
 \
-This seems to suggest that when there is an increase in the FFR there is a short-run adverse effect on the growth of the economy but no noticeable effect on price level (inflation).\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b0 \cf0 {{\NeXTGraphic Pasted Graphic.tiff \width14200 \height9200
+}¬}\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0  \
+This seems to suggest that when there is an increase in the FFR there is a short-run adverse effect on the growth of the economy. However, puzzlingly there is an initial increase in inflation which is unexpected considering that we would generally expect contractionary monetary policy to reign in inflation.\
 \
 
 \b iv)
@@ -37,20 +41,19 @@ This seems to suggest that when there is an increase in the FFR there is a short
 [1] "Numbers below are Inflation, Growth, FFR (Percentage Points)"\
 [1] "Inflation FEVD"\
 1 period ahead 100 0 0 \
-8 periods ahead 88.86755 6.704864 4.427585 \
-20 periods ahead 71.01994 13.42098 15.55908 \
+8 periods ahead 94.11642 3.29329 2.590294 \
+20 periods ahead 90.79261 2.728973 6.478412 \
 [1] "Growth Rate FEVD"\
-1 period ahead 8.285187 91.71481 0 \
-8 periods ahead 10.88433 66.56945 22.54623 \
-20 periods ahead 20.45223 60.63756 18.91021 \
+1 period ahead 0.6182391 99.38176 0 \
+8 periods ahead 5.150406 78.88505 15.96454 \
+20 periods ahead 7.010365 77.37483 15.61481 \
 [1] "FFR FEVD"\
-1 period ahead 2.467855 0.01211066 97.52003 \
-8 periods ahead 24.47616 21.40084 54.123 \
-20 periods ahead 32.52603 39.1877 28.28626 \
+1 period ahead 4.894795 2.08286 93.02235 \
+8 periods ahead 22.47597 30.34885 47.17518 \
+20 periods ahead 34.10721 31.38068 34.5121\
 \
 \
-Looking at the FFR FEVD, we can see that in the short-run most of the error in the forecast of the Federal Funds rate is attributed to the FFR itself however as go farther out into the forecast\
-the error becomes more and more attributed to growth shocks in the recursive VAR.\
+Looking at the FFR FEVD, we can see that in the short-run most of the error in the forecast of the Federal Funds rate is attributed to the FFR itself, growth, and inflation equally. For inflation and growth FEVD, the FFR only explains a small percentage of the error in the forecast for both of them.\
 \
 
 \b C)\
@@ -59,17 +62,24 @@ the error becomes more and more attributed to growth shocks in the recursive VAR
 
 \b ii)
 \b0 \
-               		inflation  	growth    quarterly_pmi   quarterly_rate\
-inflation         		1.0195 	0.00000         0.000           0.00\
-growth            	0.7946 	2.82002         0.000           0.00\
-quarterly_pmi     	0.1335 	0.70286         2.899           0.00\
-quarterly_rate    	0.1413 	0.02611         0.124           0.78\
+               		inflation 	growth     quarterly_pmi   quarterly_rate\
+inflation         		0.9883 	0.00000         0.000         0.0000\
+growth           	-0.2439 	2.75530         0.000         0.0000\
+quarterly_pmi     	0.6743 	1.71324         2.715         0.0000\
+quarterly_rate    	0.1660 	0.07497         0.194         0.7584\
 \
 
 \b iii)
 \b0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic Pasted Graphic 4.tiff \width14020 \height9200
+}¬}\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
 \
-\
+Growth still has a contractionary response to the shock to FFR. However, inflation does not rise initially as it did in part (b). This seems to accord\
+with our standard theory of how inflation ought to react to contractionary monetary policy. Thus adding PMI seems to have \'93fixed\'94 the incorrect inflation IRF we saw in part B. The issue in part B is also known as the price puzzle and adding PMI in our specification seems to resolve the \'93price puzzle.\'94\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
 \
 
 \b iv)
@@ -77,47 +87,46 @@ quarterly_rate    	0.1413 	0.02611         0.124           0.78\
 [1] "Numbers below are Inflation, Growth, PMI, FFR (Percentage Points) including PMI"\
 [1] "Inflation FEVD"\
 1 period ahead 100 0 0 0 \
-8 periods ahead 92.68281 2.351704 1.098674 3.866817 \
-20 periods ahead 75.98158 1.801426 1.78331 20.43369 \
+8 periods ahead 80.44635 1.605438 14.55146 3.396749 \
+20 periods ahead 74.98429 1.491176 11.26539 12.25915 \
 [1] "Growth Rate FEVD"\
-1 period ahead 7.355521 92.64448 0 0 \
-8 periods ahead 9.044388 68.18264 1.001842 21.77113 \
-20 periods ahead 8.899064 59.23138 4.74501 27.12454 \
+1 period ahead 0.7773779 99.22262 0 0 \
+8 periods ahead 4.252697 73.43702 9.478311 12.83197 \
+20 periods ahead 5.383837 71.80633 9.995835 12.814 \
 [1] "PMI FEVD"\
-1 period ahead 0.1998224 5.541402 94.25878 0 \
-8 periods ahead 7.344019 15.71859 36.68155 40.25585 \
-20 periods ahead 9.057047 13.09115 42.23051 35.62129 \
+1 period ahead 4.225712 27.28203 68.49226 0 \
+8 periods ahead 4.403565 23.44906 47.6663 24.48108 \
+20 periods ahead 5.566977 24.63983 47.58941 22.20379 \
 [1] "FFR FEVD"\
-1 period ahead 3.098749 0.1057928 2.388069 94.40739 \
-8 periods ahead 25.45807 24.18981 6.440017 43.9121 \
-20 periods ahead 36.46144 26.91428 6.776046 29.84824\
+1 period ahead 4.26556 0.8700223 5.827048 89.03737 \
+8 periods ahead 20.19537 18.63405 30.51023 30.66035 \
+20 periods ahead 31.70839 17.72686 28.85085 21.7139\
 \
-\
-\
+The FFR now explains more of the forecast error for inflation than it did in the specification without PMI. As well, PMI also explains the same amount of the forecast error as FFR thus making inflation explain less of its own FEVD than in B. In the decomposition for FFR, compare to part B, less of the forecast error is explained by FFR itself than previously and more of it is explained by PMI now.\
 \
 
 \b D.\
 
 \b0 \
 
-\b ii)\
+\b i)\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
 \b0 \cf0 \ul \ulc0 Pre-1979 VAR\ulnone \
-               		inflation  	growth 	quarterly_rate\
-inflation         		1.2374  	0.0000         0.0000\
-growth            	0.8010  	3.5657         0.0000\
-quarterly_rate    	0.2039 	-0.0211         0.6314\
+              		inflation  	growth 	quarterly_rate\
+inflation         		1.1768 	0.00000         0.0000\
+growth           	-0.2205 	3.17551         0.0000\
+quarterly_rate    	0.1841 	0.04767         0.6678\
 \
 \ul Post-1979 VAR\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 \ulnone               	 	inflation 	growth 	quarterly_rate\
-inflation         		0.6899 	0.0000         0.0000\
-growth            	0.6206 	2.1984         0.0000\
-quarterly_rate    	0.1194 	0.1224         0.7467\
+\cf0 \ulnone               	 	inflation  	growth 	quarterly_rate\
+inflation         		0.7594 	0.0000         0.0000\
+growth            	0.2175 	2.2208         0.0000\
+quarterly_rate    	0.2477 	0.2232         0.6924\
 \
 
-\b iii)\
+\b ii)\
 
 \b0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
@@ -126,7 +135,12 @@ quarterly_rate    	0.1194 	0.1224         0.7467\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
 \b0 \cf0 \
-\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic Pasted Graphic 9.tiff \width14020 \height9200
+}¬}\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
 \
 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
@@ -134,53 +148,56 @@ quarterly_rate    	0.1194 	0.1224         0.7467\
 \b \cf0 \ul \ulc0 post-1979
 \b0 \ulnone \
 \
-\
-\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic Pasted Graphic 8.tiff \width14020 \height9200
+}¬}\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
 \
 \
 The post-1979 IRFs show that the main response to the FFR shock is for growth to decrease in the short-run.\
-The pre-1979 IRFs show that growth negatively responds to the FFR more weakly than in the post-1979 shock and inflation has some response to the shock. However, the confidence bands for both inflation and growth\
-show that the shocks do not have a statistically significant non-zero effect.\
+The pre-1979 IRFs show that growth negatively responds to the FFR more weakly than in the post-1979 shock and inflation has a positive response to the contractionary policy. This illustrates the price puzzle described earlier much more vividly, though with this subsample there is arguably an omitted variables bias issue due to the high inflation of the time period.\
 \
-The results in part B are more in line with the post-1979 IRFs, thus showing that the VAR estimated in part B is more in-line with the Volcker-type of monetary policy as opposed to the pre-Volcker. This means that the conclusions\
-we drew in part B were mainly conclusions about the effects of post-Volcker monetary policy.\
+The results in part B are to some degree in the middle between the extremes of the pre-1979 and post-1979. In the pre-1979 period we see a large increase in inflation after contractionary policy whereas in the post-1979 period we see a muted effect. The results in part B lie in the middle where there is an increase in inflation but it is only a slight increase. Importantly this shows the sensitivity of the results to the subsample that we analyze.\
 \
 \
-\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
-\b \cf0 iv)
+\b iv)
 \b0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 \cf0 \ul \ulc0 [1] "Numbers below are Inflation, Growth, FFR (Percentage Points) for pre-1979"\ulnone \
 [1] "Inflation FEVD"\
 1 period ahead 100 0 0 \
-8 periods ahead 78.02239 13.34314 8.634471 \
-20 periods ahead 51.96153 40.75236 7.286105 \
+8 periods ahead 56.8881 13.89765 29.21425 \
+20 periods ahead 60.11946 15.02796 24.85258 \
 [1] "Growth Rate FEVD"\
-1 period ahead 4.803726 95.19627 0 \
-8 periods ahead 6.462248 86.021 7.516753 \
-20 periods ahead 6.085957 84.61889 9.295152 \
+1 period ahead 0.4800017 99.52 0 \
+8 periods ahead 6.137682 70.50506 23.35726 \
+20 periods ahead 7.781559 68.57417 23.64427 \
 [1] "FFR FEVD"\
-1 period ahead 9.429593 0.1010188 90.46939 \
-8 periods ahead 27.41108 34.29324 38.29568 \
-20 periods ahead 16.17033 60.57985 23.24982 \
+1 period ahead 7.031542 0.4713295 92.49713 \
+8 periods ahead 20.58732 22.33876 57.07391 \
+20 periods ahead 27.71332 20.96134 51.32534 \
 \ul \
 [1] "Numbers below are Inflation, Growth, FFR (Percentage Points) for post-1979"\ulnone \
 [1] "Inflation FEVD"\
 1 period ahead 100 0 0 \
-8 periods ahead 63.66021 17.21803 19.12176 \
-20 periods ahead 41.6984 34.57869 23.72292 \
+8 periods ahead 89.47399 7.804057 2.721952 \
+20 periods ahead 85.85047 7.608886 6.540647 \
 [1] "Growth Rate FEVD"\
-1 period ahead 7.381207 92.61879 0 \
-8 periods ahead 4.979838 68.74086 26.2793 \
-20 periods ahead 4.652098 73.07655 22.27135 \
+1 period ahead 0.9501392 99.04986 0 \
+8 periods ahead 6.349245 80.45423 13.19653 \
+20 periods ahead 6.552905 79.81108 13.63602 \
 [1] "FFR FEVD"\
-1 period ahead 2.429895 2.551855 95.01825 \
-8 periods ahead 26.85311 34.98767 38.15921 \
-20 periods ahead 17.0922 55.22314 27.68466 \
+1 period ahead 10.38607 8.434526 81.1794 \
+8 periods ahead 49.12862 33.7102 17.16118 \
+20 periods ahead 53.60111 34.07319 12.3257\
 \
+In the post-1979 FEVD for FFR, approximately half of the forecast error is explained by inflation, whereas in pre-1979 most of it is explained by FFR itself.\
 \
-With respect to the FEVD for the FFR, the post-1979 seems to be more qualitatively in line with the results from part b where 20 periods ahead the forecast error is mainly attributed to growth shocks\
-but pre-1979 we see that forecast error in the FFR is substantially more attributed to inflation than it was in the post-1979 period (approximately 6 times more). Thus the conclusions we can draw from this are different\
-depending on if we look at pre or post 1979 data.}
+In the pre-1979 FEVD for inflation, only a bit more than half of the forecast error decomposition for inflation is explained by inflation itself while in the post-1979 almost all of it is explained by inflation.\
+\
+Compared to part B, the inflation FEVD seems more in line with that from post-1979 and the FFR FEVD seems more in line with that from pre-1979. \
+\
+}

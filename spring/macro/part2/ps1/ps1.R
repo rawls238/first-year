@@ -1,45 +1,37 @@
 library(vars)
 
-gdp <- read.csv("/Users/garidor/Desktop/first-year/spring/macro/part2/ps1/GDP.csv")[2]
-gdp_deflator <- read.csv("/Users/garidor/Desktop/first-year/spring/macro/part2/ps1/GDPDEF.csv")[2]
-fed_funds <- read.csv("/Users/garidor/Desktop/first-year/spring/macro/part2/ps1/FEDFUNDS.csv")
-pmi <- read.csv("/Users/garidor/Desktop/first-year/spring/macro/part2/ps1/ISM-MAN_PMI.csv")
-pmi <- pmi[order(nrow(pmi):1),]
+data <- read.csv("/Users/garidor/Desktop/first-year/spring/macro/part2/ps1/ps1_data.csv")
+
+gdp <- data[,3][3:194]
+gdp <- as.numeric(as.character(gdp))
+gdp_deflator <- data[,2][3:194]
+gdp_deflator <- as.numeric(as.character(gdp_deflator))
+fed_funds <- data[,6]
+fed_funds <- fed_funds[3:length(fed_funds)]
+fed_funds <- as.numeric(as.character(fed_funds))
+pmi <- data[,7]
+pmi <- pmi[3:length(pmi)]
+pmi <- as.numeric(as.character(pmi))
+
 
 inflation <- c()
 growth <- c()
-for(i in seq(2, nrow(gdp))) {
-  inflation <- c(inflation, 400*log(gdp_deflator[i,]/gdp_deflator[i-1,]))
-  growth <- c(growth, 400 * log(gdp[i,] / gdp[i-1,]))
+for(i in seq(1, length(gdp))) {
+  inflation <- c(inflation, 400*log(gdp_deflator[i]/gdp_deflator[i-1]))
+  growth <- c(growth, 400 * log(gdp[i] / gdp[i-1]))
 }
 
-# oh boy
-cur_year <- as.numeric(unlist(strsplit(toString(fed_funds[1, 1]), '-'))[1])
-cur_rate_sum <- 0
-cur_pmi_sum <- 0
-num_periods <- 0
 quarterly_rate <- c()
 quarterly_pmi <- c()
-for (i in seq(1, nrow(fed_funds[2]))) {
-  date <- unlist(strsplit(toString(fed_funds[i, 1]), '-'))
-  month <- as.numeric(date[2])
-  year <- as.numeric(date[1])
-  if (month == 4 || month == 7 || month == 10 || year > cur_year) {
-    quarterly_rate <- c(quarterly_rate, cur_rate_sum / num_periods)
-    quarterly_pmi <- c(quarterly_pmi, cur_pmi_sum / num_periods)
-    cur_year <- year
-    num_periods <- 0
-    cur_rate_sum <- 0
-    cur_pmi_sum <- 0
-  }
-  num_periods <- num_periods + 1
-  cur_pmi_sum <- cur_pmi_sum + pmi[i, 2]
-  cur_rate_sum <- cur_rate_sum + fed_funds[i, 2]
+for (i in seq(2, 192)) {
+  b <- (i-1) * 3
+  quarterly_pmi <- c(quarterly_pmi, (pmi[b+1] + pmi[b+2] + pmi[b+3]) / 3)
+  quarterly_rate <- c(quarterly_rate, (fed_funds[b+1] + fed_funds[b+2] + fed_funds[b+3]) / 3)
 }
 
 # question B
 b_dat <- cbind(inflation, growth, quarterly_rate)
-b_model <- VAR(b_dat, p=4, type="none")
+b_model <- VAR(b_dat, p=4)
 b_mat <- cbind(c(NA,NA,NA), c(0,NA,NA), c(0,0,NA))
 b_model <- SVAR(b_model, Bmat=b_mat)
 print(b_model)
@@ -69,7 +61,7 @@ cat("20 periods ahead", ffr[20,], "\n")
   
 # question C
 c_dat <- cbind(inflation, growth, quarterly_pmi, quarterly_rate)
-c_model <- VAR(c_dat, p=4, type="none")
+c_model <- VAR(c_dat, p=4)
 b_mat <- cbind(c(NA,NA,NA,NA), c(0,NA,NA,NA), c(0,0,NA,NA), c(0,0,0,NA))
 c_model <- SVAR(c_model, Bmat=b_mat)
 print(c_model)
@@ -102,12 +94,12 @@ cat("20 periods ahead", ffr[20,], "\n")
 
 
 #question D
-cutoff_point <- 79
+cutoff_point <- 78
 pre_dat <- b_dat[1:cutoff_point,]
 post_dat <- b_dat[(cutoff_point+1):nrow(b_dat),]
 
 #pre 1979
-pre_model <- VAR(pre_dat, p=4, type="none")
+pre_model <- VAR(pre_dat, p=4)
 b_mat <- cbind(c(NA,NA,NA), c(0,NA,NA), c(0,0,NA))
 pre_model <- SVAR(pre_model, Bmat=b_mat)
 print(pre_model)
@@ -134,7 +126,7 @@ cat("8 periods ahead", ffr[8,], "\n")
 cat("20 periods ahead", ffr[20,], "\n")
 
 #post 1979
-post_model <- VAR(post_dat, p=4, type="none")
+post_model <- VAR(post_dat, p=4)
 b_mat <- cbind(c(NA,NA,NA), c(0,NA,NA), c(0,0,NA))
 post_model <- SVAR(post_model, Bmat=b_mat)
 print(post_model)
