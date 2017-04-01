@@ -1,4 +1,14 @@
+---
+title: Problem Set 8
+author: Guy Aridor
+---
+
+```{r}
 library(gmm)
+
+GROWTH <- 1
+STOCK_RETURNS <- 2
+RETURNS <- 3
 
 processFile <- function(filepath) {
   con = file(filepath, "r")
@@ -21,100 +31,115 @@ processFile <- function(filepath) {
 capmMomentCondition <- function(dat, X) {
   forward <- X[2:nrow(X),]
   X <- X[1:(nrow(X)-1), ]
-  z <- cbind(X[,1], X[,3])
-  return((dat[1] * (forward[,1]^(dat[2]-1)) * forward[,3] - 1) * z)
+  z <- cbind(X[,GROWTH], X[,RETURNS])
+  return((dat[1] * (forward[,GROWTH]^(dat[2]-1)) * forward[,RETURNS] - 1) * z)
 }
 
 capmMomentConditionWithOneLag <- function(dat, X) {
   forward <- X[3:nrow(X),]
-  laggedGrowth <- X[1:(nrow(X)-2),1] 
+  laggedGrowth <- X[1:(nrow(X)-2),GROWTH] 
   X <- X[2:(nrow(X)-1),]
-  z <- cbind(X[,1], X[,3], laggedGrowth)
-  return((dat[1] * (forward[,1]^(dat[2]-1)) * forward[,3] - 1) * z)
+  z <- cbind(X[,GROWTH], X[,RETURNS], laggedGrowth)
+  return((dat[1] * (forward[,GROWTH]^(dat[2]-1)) * forward[,RETURNS] - 1) * z)
 }
 
 capmMomentConditionWithTwoLags <- function(dat, X) {
   forward <- X[4:nrow(X),]
-  laggedGrowth <- X[1:(nrow(X)-3),2]
+  oneLagGrowth <- X[2:(nrow(X)-2),GROWTH]
+  twoLagGrowth <- X[1:(nrow(X)-3),GROWTH]
   X <- X[3:(nrow(X)-1),]
-  z <- cbind(X[,1], X[,3], laggedGrowth)
-  return((dat[1] * (forward[,1]^(dat[2]-1)) * forward[,3] - 1) * z)
+  z <- cbind(X[,GROWTH], X[,RETURNS], oneLagGrowth, twoLagGrowth)
+  return((dat[1] * (forward[,GROWTH]^(dat[2]-1)) * forward[,RETURNS] - 1) * z)
 }
 
 filename <- "/Users/garidor/Desktop/first-year/spring/metrics/ps8/capm-data.txt"
 data <- processFile(filename)
+```
 
-cat("No lags", "\n")
-identGmm <- gmm(capmMomentCondition,data,t0=c(.99,2.0),vcov="iid",wmatrix="ident",type="iterative")
-optGmm <- gmm(capmMomentCondition,data,t0=c(.99,2.0),vcov="iid",wmatrix="optimal",type="twoStep")
-elRes <- gel(capmMomentCondition,data,tet=c(.99,2.0),type="EL")
-print(summary(identGmm))
-print(summary(optGmm))
-print(summary(elRes))
+```{r}
+identGmm <- gmm(capmMomentCondition,data,t0=c(.99,20.0),vcov="iid",wmatrix="ident",type="iterative")
+optGmm <- gmm(capmMomentCondition,data,t0=c(.99,20.0),vcov="iid",wmatrix="optimal",type="twoStep")
+elRes <- gel(capmMomentCondition,data,tet=c(.99,20.0),type="EL")
 
+summary(identGmm)
+summary(optGmm)
+summary(elRes)
+```
 
-cat("One Lag", "\n")
+```{r}
 identGmmOneLag <- gmm(capmMomentConditionWithOneLag,data,t0=c(.99,2.0),vcov="iid",wmatrix="ident",type="iterative")
 optGmmOneLag <- gmm(capmMomentConditionWithOneLag,data,t0=c(.99,2.0),vcov="iid",wmatrix="optimal",type="twoStep")
-elResOneLag <- gel(capmMomentConditionWithOneLag,data,tet=c(.99,20.0),type="EL")
-print(summary(identGmmOneLag))
-print(summary(optGmmOneLag))
-print(summary(elResOneLag))
+elResOneLag <- gel(capmMomentConditionWithOneLag,data,tet=c(.99,3.0),type="EL")
 
-cat("Two lags", "\n")
+summary(identGmmOneLag)
+summary(optGmmOneLag)
+summary(elResOneLag)
+```
+
+```{r}
 identGmmTwoLag <- gmm(capmMomentConditionWithTwoLags,data,t0=c(.99,2.0),vcov="iid",wmatrix="ident",type="iterative")
 optGmmTwoLag <- gmm(capmMomentConditionWithTwoLags,data,t0=c(.99,2.0),vcov="iid",wmatrix="optimal",type="twoStep")
-elResTwoLag <- gel(capmMomentConditionWithTwoLags,data,tet=c(.99,2.0),type="EL")
-print(summary(identGmmTwoLag))
-print(summary(optGmmTwoLag))
-print(summary(elResTwoLag))
+elResTwoLag <- gel(capmMomentConditionWithTwoLags,data,tet=c(.99,1.0),type="EL")
 
 
+summary(identGmmTwoLag)
+summary(optGmmTwoLag)
+summary(elResTwoLag)
+```
+
+
+```{r}
 capmMomentCondition <- function(dat, X) {
   forward <- X[2:nrow(X),]
   X <- X[1:(nrow(X)-1), ]
-  z <- cbind(X[,1], X[,2])
-  return((dat[1] * (forward[,1]^(dat[2]-1)) * forward[,3] - 1) * z)
+  z <- cbind(X[,GROWTH], X[,STOCK_RETURNS])
+  return((dat[1] * (forward[,GROWTH]^(dat[2]-1)) * forward[,STOCK_RETURNS] - 1) * z)
 }
 
 capmMomentConditionWithOneLag <- function(dat, X) {
   forward <- X[3:nrow(X),]
-  laggedGrowth <- X[1:(nrow(X)-2),1] 
+  laggedGrowth <- X[1:(nrow(X)-2),GROWTH] 
   X <- X[2:(nrow(X)-1),]
-  z <- cbind(X[,1], X[,2], laggedGrowth)
-  return((dat[1] * (forward[,1]^(dat[2]-1)) * forward[,3] - 1) * z)
+  z <- cbind(X[,GROWTH], X[,STOCK_RETURNS], laggedGrowth)
+  return((dat[1] * (forward[,GROWTH]^(dat[2]-1)) * forward[,STOCK_RETURNS] - 1) * z)
 }
 
 capmMomentConditionWithTwoLags <- function(dat, X) {
   forward <- X[4:nrow(X),]
-  laggedGrowth <- X[1:(nrow(X)-3),2]
+  oneLagGrowth <- X[2:(nrow(X)-2),GROWTH]
+  twoLagGrowth <- X[1:(nrow(X)-3),GROWTH]
   X <- X[3:(nrow(X)-1),]
-  z <- cbind(X[,1], X[,2], laggedGrowth)
-  return((dat[1] * (forward[,1]^(dat[2]-1)) * forward[,3] - 1) * z)
+  z <- cbind(X[,GROWTH], X[,STOCK_RETURNS], oneLagGrowth, twoLagGrowth)
+  return((dat[1] * (forward[,GROWTH]^(dat[2]-1)) * forward[,STOCK_RETURNS] - 1) * z)
 }
+```
 
+Using stock market returns
 
-cat("No lags", "\n")
+```{r}
 identGmm <- gmm(capmMomentCondition,data,t0=c(.99,2.0),vcov="iid",wmatrix="ident",type="iterative")
 optGmm <- gmm(capmMomentCondition,data,t0=c(.99,2.0),vcov="iid",wmatrix="optimal",type="twoStep")
 elRes <- gel(capmMomentCondition,data,tet=c(.99,2.0),type="EL")
 print(summary(identGmm))
 print(summary(optGmm))
 print(summary(elRes))
+```
 
 
-cat("One Lag", "\n")
+```{r}
 identGmmOneLag <- gmm(capmMomentConditionWithOneLag,data,t0=c(.99,2.0),vcov="iid",wmatrix="ident",type="iterative")
 optGmmOneLag <- gmm(capmMomentConditionWithOneLag,data,t0=c(.99,2.0),vcov="iid",wmatrix="optimal",type="twoStep")
 elResOneLag <- gel(capmMomentConditionWithOneLag,data,tet=c(.99,2.0),type="EL")
 print(summary(identGmmOneLag))
 print(summary(optGmmOneLag))
 print(summary(elResOneLag))
+```
 
-cat("Two lags", "\n")
+```{r}
 identGmmTwoLag <- gmm(capmMomentConditionWithTwoLags,data,t0=c(.99,2.0),vcov="iid",wmatrix="ident",type="iterative")
 optGmmTwoLag <- gmm(capmMomentConditionWithTwoLags,data,t0=c(.99,2.0),vcov="iid",wmatrix="optimal",type="twoStep")
-elResTwoLag <- gel(capmMomentConditionWithTwoLags,data,tet=c(.99,2.0),type="EL")
+elResTwoLag <- gel(capmMomentConditionWithTwoLags,data,tet=c(.99,1.0),type="EL")
 print(summary(identGmmTwoLag))
 print(summary(optGmmTwoLag))
 print(summary(elResTwoLag))
+```
