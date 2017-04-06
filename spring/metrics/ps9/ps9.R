@@ -21,19 +21,26 @@ print(summary(ols_res))
 set.seed(1)
 n <- 200
 l_list <- c(1, 2, 3, 10, 20, 50, 150, 175, 200)
-gamma <- matrix(0, nrow = n, ncol = n) #????
-gamma[1,] <- rep(1, n)
 num_datasets <- 1000
+average_bias <- c()
 for(l in l_list) {
+  bias <- c()
   for (i in seq(1, num_datasets)) {
-    v <- rnorm(l)
-    eta <- rnorm(l)
+    gamma <- rep(1, l)
+    gamma[1] <- 1
+    v <- rnorm(n)
+    eta <- rnorm(n)
     u <- v + eta
     Z <- matrix(rnorm(n * l), n, l)
-    x <- t(Z) %*% gamma + v
-    y <- u
+    x <- Z %*% gamma + v
+    y <- as.matrix(u)
+    x <- as.matrix(x)
     ols <- lm(y ~ x)
-    nodata <- data.frame(x= numeric(0), y= numeric(0), z = numeric(0))
-    tsls_est <- tsls(y ~ x, instruments=Z)
+    ols_est <- coef(ols)['x']
+    P <- Z %*% solve(t(Z) %*% Z) %*% t(Z)
+    tsls_est <- solve(t(x) %*% P %*% x) %*% t(x) %*% P %*% y
+    bias <- c(bias, tsls_est - ols_est)
   }
+  average_bias <- c(average_bias, mean(bias))
 }
+plot(x=l_list,y=average_bias)
