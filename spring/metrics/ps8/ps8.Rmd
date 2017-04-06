@@ -42,7 +42,9 @@ capmMomentConditionWithOneLag <- function(dat, X) {
   z <- cbind(X[,GROWTH], X[,RETURNS], laggedGrowth)
   return((dat[1] * (forward[,GROWTH]^(dat[2]-1)) * forward[,RETURNS] - 1) * z)
 }
+```
 
+```{r}
 capmMomentConditionWithTwoLags <- function(dat, X) {
   forward <- X[4:nrow(X),]
   oneLagGrowth <- X[2:(nrow(X)-2),GROWTH]
@@ -57,9 +59,9 @@ data <- processFile(filename)
 ```
 
 ```{r}
-identGmm <- gmm(capmMomentCondition,data,t0=c(.99,20.0),vcov="iid",wmatrix="ident",type="iterative")
-optGmm <- gmm(capmMomentCondition,data,t0=c(.99,20.0),vcov="iid",wmatrix="optimal",type="twoStep")
-elRes <- gel(capmMomentCondition,data,tet=c(.99,20.0),type="EL")
+identGmm <- gmm(capmMomentCondition,data,t0=c(.99,1.0),vcov="iid",wmatrix="ident",type="iterative")
+optGmm <- gmm(capmMomentCondition,data,t0=c(.99,1.0),vcov="iid",wmatrix="optimal",type="twoStep")
+elRes <- gel(capmMomentCondition,data,tet=c(.99,1.0),type="EL")
 
 summary(identGmm)
 summary(optGmm)
@@ -67,9 +69,9 @@ summary(elRes)
 ```
 
 ```{r}
-identGmmOneLag <- gmm(capmMomentConditionWithOneLag,data,t0=c(.99,2.0),vcov="iid",wmatrix="ident",type="iterative")
-optGmmOneLag <- gmm(capmMomentConditionWithOneLag,data,t0=c(.99,2.0),vcov="iid",wmatrix="optimal",type="twoStep")
-elResOneLag <- gel(capmMomentConditionWithOneLag,data,tet=c(.99,3.0),type="EL")
+identGmmOneLag <- gmm(capmMomentConditionWithOneLag,data,t0=c(.99,1.0),vcov="iid",wmatrix="ident",type="iterative")
+optGmmOneLag <- gmm(capmMomentConditionWithOneLag,data,t0=c(.99,1.0),vcov="iid",wmatrix="optimal",type="twoStep")
+elResOneLag <- gel(capmMomentConditionWithOneLag,data,tet=c(.99,1.0),type="EL")
 
 summary(identGmmOneLag)
 summary(optGmmOneLag)
@@ -77,8 +79,8 @@ summary(elResOneLag)
 ```
 
 ```{r}
-identGmmTwoLag <- gmm(capmMomentConditionWithTwoLags,data,t0=c(.99,2.0),vcov="iid",wmatrix="ident",type="iterative")
-optGmmTwoLag <- gmm(capmMomentConditionWithTwoLags,data,t0=c(.99,2.0),vcov="iid",wmatrix="optimal",type="twoStep")
+identGmmTwoLag <- gmm(capmMomentConditionWithTwoLags,data,t0=c(.99,1.0),vcov="iid",wmatrix="ident",type="iterative")
+optGmmTwoLag <- gmm(capmMomentConditionWithTwoLags,data,t0=c(.99,1.0),vcov="iid",wmatrix="optimal",type="twoStep")
 elResTwoLag <- gel(capmMomentConditionWithTwoLags,data,tet=c(.99,1.0),type="EL")
 
 
@@ -117,9 +119,9 @@ capmMomentConditionWithTwoLags <- function(dat, X) {
 Using stock market returns
 
 ```{r}
-identGmm <- gmm(capmMomentCondition,data,t0=c(.99,2.0),vcov="iid",wmatrix="ident",type="iterative")
-optGmm <- gmm(capmMomentCondition,data,t0=c(.99,2.0),vcov="iid",wmatrix="optimal",type="twoStep")
-elRes <- gel(capmMomentCondition,data,tet=c(.99,2.0),type="EL")
+identGmm <- gmm(capmMomentCondition,data,t0=c(.99,1.0),vcov="iid",wmatrix="ident",type="iterative")
+optGmm <- gmm(capmMomentCondition,data,t0=c(.99,1.0),vcov="iid",wmatrix="optimal",type="twoStep")
+elRes <- gel(capmMomentCondition,data,tet=c(.99,1.0),type="EL")
 print(summary(identGmm))
 print(summary(optGmm))
 print(summary(elRes))
@@ -127,17 +129,17 @@ print(summary(elRes))
 
 
 ```{r}
-identGmmOneLag <- gmm(capmMomentConditionWithOneLag,data,t0=c(.99,2.0),vcov="iid",wmatrix="ident",type="iterative")
-optGmmOneLag <- gmm(capmMomentConditionWithOneLag,data,t0=c(.99,2.0),vcov="iid",wmatrix="optimal",type="twoStep")
-elResOneLag <- gel(capmMomentConditionWithOneLag,data,tet=c(.99,2.0),type="EL")
+identGmmOneLag <- gmm(capmMomentConditionWithOneLag,data,t0=c(.99,1.0),vcov="iid",wmatrix="ident",type="iterative")
+optGmmOneLag <- gmm(capmMomentConditionWithOneLag,data,t0=c(.99,1.0),vcov="iid",wmatrix="optimal",type="twoStep")
+elResOneLag <- gel(capmMomentConditionWithOneLag,data,tet=c(.99,1.0),type="EL")
 print(summary(identGmmOneLag))
 print(summary(optGmmOneLag))
 print(summary(elResOneLag))
 ```
 
 ```{r}
-identGmmTwoLag <- gmm(capmMomentConditionWithTwoLags,data,t0=c(.99,2.0),vcov="iid",wmatrix="ident",type="iterative")
-optGmmTwoLag <- gmm(capmMomentConditionWithTwoLags,data,t0=c(.99,2.0),vcov="iid",wmatrix="optimal",type="twoStep")
+identGmmTwoLag <- gmm(capmMomentConditionWithTwoLags,data,t0=c(.99,1.0),vcov="iid",wmatrix="ident",type="iterative")
+optGmmTwoLag <- gmm(capmMomentConditionWithTwoLags,data,t0=c(.99,1.0),vcov="iid",wmatrix="optimal",type="twoStep")
 elResTwoLag <- gel(capmMomentConditionWithTwoLags,data,tet=c(.99,1.0),type="EL")
 print(summary(identGmmTwoLag))
 print(summary(optGmmTwoLag))
