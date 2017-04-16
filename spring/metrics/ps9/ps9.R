@@ -16,8 +16,8 @@ diff <- three_kids - two_kids
 percent_change <- 100 * (abs(diff) / two_kids)
 
 ols_res <- lm(weeksm1 ~ morekids, data = data)
-print(summary(t))
-print(summary(ols_res))
+#print(summary(t))
+#print(summary(ols_res))
 
 
 set.seed(1)
@@ -29,7 +29,7 @@ for(l in l_list) {
   ols_est_list <- c()
   tsls_est_list <- c()
   for (i in seq(1, num_datasets)) {
-    gamma <- rep(1, l)
+    gamma <- rep(0, l)
     gamma[1] <- 1
     v <- rnorm(n)
     eta <- rnorm(n)

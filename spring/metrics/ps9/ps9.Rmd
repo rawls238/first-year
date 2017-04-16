@@ -3,26 +3,106 @@
   author: Guy Aridor
 ---
     
-1) 
-a) i)  The research question that Angrist and Evans wish to answer deals with understanding the relationship between fertility and labor supply. Namely they wish to understand the causal link between fertility to the work effort of both men and women. To do this they will consider the marginal effect of an additional child on the person's labor force decision.
+##Problem 1
+**a) i)**  The research question that Angrist and Evans wish to answer deals with understanding the relationship between fertility and labor supply. Namely they wish to understand the causal link between fertility to the work effort of both men and women. To do this they will consider the marginal effect of an additional child on the person's labor force decision.
 
-ii) The authors consider two instruments.
+**ii)** The authors consider two instruments.
 
 The first instrument they consider is a "sibling sex mix" instrument in families of two or more children. Thus the instrument they use is a dummy variable that is 1 if the second child matches the sex of the first child and 0 if it does not.
 
 The second instrument considers using twins to construct the instruments. Thus the instrument they use is simply a dummy variable that is 1 if the mother has twins and 0 if she does not.
 
-iii) For the first instrument they justify its exogeneity by arguing that sex mix is virtually randomly assigned. They argue that it is a valid instrument since parents of same-sex siblings are more likely to go on to have an additional child.
+**iii)** For the first instrument they justify its exogeneity by arguing that sex mix is virtually randomly assigned. They argue that it is a valid instrument since parents of same-sex siblings are more likely to go on to have an additional child.
 
 For the second instrument the exogeneity of the instrument rests on the assumption that all women are equally likely to have twins. However, they note that this is not necessarily the case as twinning probabilities can be correlated with observed characteristics of the mother. However this is okay since if all these demographic characteristics are observed then these factors can be controlled for in 2SLS. The validity of the instrument is derived from the fact that there is a relationship between having twins and having more children.
 
-iv) Their conclusions are that once we add the instruments it confirms that OLS estimates exaggerate the extent to which additional children leads to a reduction in female labor supply. They also show that the effects of children on labor supply are almost absent among college-educated women and women whose husbands have high wages. They also show that labor-market behavior of married men is insensitive to the number of children.
+**iv)** Their conclusions are that once we add the instruments it confirms that OLS estimates exaggerate the extent to which additional children leads to a reduction in female labor supply. They also show that the effects of children on labor supply are almost absent among college-educated women and women whose husbands have high wages. They also show that labor-market behavior of married men is insensitive to the number of children.
 
+**b)**
 ```{r}
 library(sem)
-
+library(foreign)
 data <- read.dta("/Users/garidor/Desktop/first-year/spring/metrics/ps9/fertility.dta")
-
+ols <- lm(morekids ~ samesex, data = data)
+print(summary(ols))
 ```
 
+Having two children of the same sex increases the likelihood of having more children. Looking at the reported standard errors and reported t-statistics from the regression the effect is significant.
+
+
+**c)**
+```{r}
+t <- tsls(weeksm1 ~ morekids, instruments=~samesex, data = data)
+summary(t)
+```
+
+The effect of fertility on labor supply is relatively large since the estimate is over a month and a half reduction in weeks worked:
+```{r}
+coef(t)['morekids']
+```
+
+**d)**
+```{r}
+weekly_earning <- 835.92
+intercept <- coef(t)['(Intercept)']
+res <- coef(t)['morekids']
+two_kids <- intercept * weekly_earning
+three_kids <- (intercept + res) * weekly_earning
+diff <- three_kids - two_kids
+percent_change <- 100 * (abs(diff) / two_kids)
+```
+
+The difference is 
+```{r}
+diff
+```
+and the percent change is
+```{r}
+percent_change
+```
+
+**e)**
+```{r}
+ols_res <- lm(weeksm1 ~ morekids, data = data)
+print(summary(ols_res))
+```
+The estimates between the two differ much because the standard errors for 2SLS are much larger than those of OLS. The effect is more negative for 2SLS but the standard errors for it are very large. As a result, as expected, the OLS estimator is more precise than the 2SLS estimator
+
+
+## Problem 2
+```{r}
+set.seed(1)
+n <- 200
+l_list <- c(1, 2, 3, 10, 20, 50, 150, 175, 200)
+num_datasets <- 1000
+tsls_bias <- c()
+ols_bias <- c()
+for(l in l_list) {
+  ols_est_list <- c()
+  tsls_est_list <- c()
+  for (i in seq(1, num_datasets)) {
+    gamma <- rep(0, l)
+    gamma[1] <- 1
+    v <- rnorm(n)
+    eta <- rnorm(n)
+    u <- v + eta
+    Z <- matrix(rnorm(n * l), n, l)
+    x <- Z %*% gamma + v
+    y <- as.matrix(u)
+    x <- as.matrix(x)
+    ols <-  solve(t(x) %*% x) %*% t(x) %*% y
+    ols_est_list <- c(ols_est_list, ols)
+    P <- Z %*% solve(t(Z) %*% Z) %*% t(Z)
+    tsls_est <- solve(t(x) %*% P %*% x) %*% t(x) %*% P %*% y
+    tsls_est_list <- c(tsls_est_list, tsls_est)
+  }
+  tsls_bias <- c(tsls_bias, mean(tsls_est_list))
+  ols_bias <- c(ols_bias, mean(ols_est_list))
+}
+plot(x=l_list,y=tsls_bias, type='b', lty=1,lwd=1, xlab="Number of instruments", ylab="Bias", ylim=range( c(min(tsls_bias) - .1, max(ols_bias) + .2)))
+lines(l_list,ols_bias, type='b', lty=3,lwd=3)
+legend("topleft",legend=c('2SLS bias', 'OLS bias'),lty=c(1,3),bg="white",lwd=2)
+```
+
+The OLS bias is approximately constant at 0.5. The bias of 2SLS increases as we increase the number of instruments and as the number of instruments tends to the number of data points we have that the bias of 2SLS is the same as that of OLS.
   
