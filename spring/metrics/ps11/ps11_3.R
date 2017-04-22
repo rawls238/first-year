@@ -29,8 +29,8 @@ nonparametric_bootstrap <- function(sample, B, n, betas, cl) {
   m <- parLapply(cl, 1:B, function(i, data, n, betas) {
     s <- data[sample(nrow(data),n,replace=TRUE),]
     new_model <- lm(lwage1 ~ educ + marr + nonwhite + covered + exper, data=s)
-    new_model <- coeftest(new_model)
-    t <- (new_model[,1] - betas) / new_model[,2]
+    errs <- sqrt(diag(vcovHC(new_model)))
+    t <- (coef(new_model) - betas) / errs
     return(t)
   }, data = sample, n = n, betas = betas)
   m <- matrix(unlist(m), ncol=length(betas), nrow=B)
@@ -40,18 +40,18 @@ nonparametric_bootstrap <- function(sample, B, n, betas, cl) {
   return(cv)
 }
 
-wild_bootstrap <- function(sample, B, n, true_betas, sample_beta, sample_residuals, cl) {
+wild_bootstrap <- function(sample, B, n, sample_beta, sample_residuals, cl) {
   ones <- rep(1,n)
-  m <- parLapply(cl, 1:B, function(i, data, n, true_betas, sample_betas, u, ones) {
+  m <- parLapply(cl, 1:B, function(i, data, n, sample_betas, u, ones) {
     u_star <- wild_sample(u)
     x_star <- cbind(ones, data['educ'], data['marr'], data['nonwhite'], data['covered'], data['exper'])
     data$ystar <- as.matrix(x_star) %*% sample_betas + u_star
     new_model <- lm(ystar ~ educ + marr + nonwhite + covered + exper, data=data)
-    model_summary <- coeftest(new_model)
-    t <- (model_summary[,1] - true_betas) / model_summary[,2]
+    errs <- sqrt(diag(vcovHC(new_model)))
+    t <- (coef(new_model) - sample_betas) / errs
     return(t)
-  }, data = sample, n = n, true_betas = true_betas, sample_betas=sample_beta, u=sample_residuals, ones=ones)
-  m <- matrix(unlist(m), ncol=length(true_betas), nrow=B)
+  }, data = sample, n = n, sample_betas=sample_beta, u=sample_residuals, ones=ones)
+  m <- matrix(unlist(m), ncol=length(sample_betas), nrow=B)
   cv <- apply(m, 2, function(col) {
     return(c(quantile(col, .05), quantile(col, .95), quantile(abs(col), .9)))
   })
@@ -59,18 +59,18 @@ wild_bootstrap <- function(sample, B, n, true_betas, sample_beta, sample_residua
 }
 
 reject_equivalent <- function(i, t_stat, cvs) {
-  return(t_stat[i] > cvs[2,i] || t_stat[i] < cvs[1,i])
+  return(t_stat[i] < cvs[2,i] && t_stat[i] > cvs[1,i])
 }
 
 reject_symmetric <- function(i, t_stat, cvs) {
-  return(abs(t_stat[i]) > cvs[3,i])
+  return(abs(t_stat[i]) < cvs[3,i])
 }
 
 data <- read.dta("/Users/garidor/Desktop/first-year/spring/metrics/ps11/USMenWages.dta")
 model <- lm(lwage1 ~ educ + marr + nonwhite + covered + exper, data=data)
 true_beta <- coef(model)
 n <- 500
-B <- 10
+B <- 1000
 num_iterations <- 500
 non_parametric_equivalent_reject_sum <- rep(0,length(true_beta))
 non_parametric_symmetric_reject_sum <- rep(0,length(true_beta))
@@ -85,8 +85,8 @@ for (i in seq(1, num_iterations)) {
   std_errors <- coeftest(sample_model)
   t_stat <- (sample_betas - true_beta) / std_errors[,2]
   clt_cv <- qnorm(.95)
-  non_parametric_cvs <- nonparametric_bootstrap(sample_data,B,n,true_beta, cl)
-  wild_cvs <- wild_bootstrap(sample_data,B,n,true_beta,as.matrix(sample_betas),u, cl)
+  non_parametric_cvs <- nonparametric_bootstrap(sample_data,B,n,as.matrix(sample_betas), cl)
+  wild_cvs <- wild_bootstrap(sample_data,B,n,as.matrix(sample_betas),u, cl)
   non_parametric_equivalent_reject <- unlist(lapply(1:6, reject_equivalent, t_stat = t_stat, cvs = non_parametric_cvs))
   non_parametric_equivalent_reject_sum <- non_parametric_equivalent_reject_sum + non_parametric_equivalent_reject
   non_parametric_symmetric_reject <- unlist(lapply(1:6, reject_symmetric, t_stat = t_stat, cvs = non_parametric_cvs))
@@ -95,23 +95,24 @@ for (i in seq(1, num_iterations)) {
   wild_equivalent_reject_sum <- wild_equivalent_reject_sum + wild_equivalent_reject
   wild_symmetric_reject <- unlist(lapply(1:6, reject_symmetric, t_stat = t_stat, cvs = wild_cvs))
   wild_symmetric_reject_sum <- wild_symmetric_reject_sum + wild_symmetric_reject
-  clt_reject <- abs(t_stat) > clt_cv
+  clt_reject <- abs(t_stat) < clt_cv
   clt_reject_sum <- clt_reject_sum + clt_reject
 }
 
-cov_se <- function(est, num_iterations) {
-  return(1.96 * sqrt((est / num_iterations) * (1 - (est / num_iterations)) / num_iterations))
+cov_t <- function(est, cov, num_iterations) {
+  return((est-cov)/sqrt(cov*(1-cov)/num_iterations))
 }
+cov <- .9
 clt_cov_est <- clt_reject_sum / num_iterations
-clt_ci <- c(clt_cov_est - cov_se(clt_cov_est, num_iterations), clt_cov_est + cov_se(clt_cov_est, num_iterations))
+clt_t <- cov_t(clt_cov_est, cov, num_iterations)
 wild_cov_sym_est <- wild_symmetric_reject_sum / num_iterations
-wild_sym_ci <- c(wild_cov_sym_est - cov_se(wild_cov_sym_est, num_iterations), wild_cov_sym_est + cov_se(wild_cov_sym_est, num_iterations))
+wild_sym_t <- cov_t(wild_cov_sym_est, cov, num_iterations)
 wild_cov_eq_est <- wild_equivalent_reject_sum / num_iterations
-wild_eq_ci <- c(wild_cov_eq_est - cov_se(wild_cov_eq_est, num_iterations), wild_cov_eq_est + cov_se(wild_cov_eq_est, num_iterations))
+wild_eq_t <- cov_t(wild_cov_eq_est, cov, num_iterations)
 
 np_cov_sym_est <- non_parametric_symmetric_reject_sum / num_iterations
-np_sym_ci <- c(np_cov_sym_est - cov_se(np_cov_sym_est, num_iterations), np_cov_sym_est + cov_se(np_cov_sym_est, num_iterations))
+np_sym_t <- cov_t(np_cov_sym_est, cov, num_iterations)
 np_cov_eq_est <- non_parametric_equivalent_reject_sum / num_iterations
-np_eq_ci <- c(np_cov_eq_est - cov_se(np_cov_eq_est, num_iterations), np_cov_eq_est + cov_se(np_cov_eq_est, num_iterations))
+np_eq_t <- cov_t(np_cov_eq_est, cov, num_iterations)
 
 stopCluster(cl)
