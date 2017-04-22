@@ -71,14 +71,14 @@ model <- lm(lwage1 ~ educ + marr + nonwhite + covered + exper, data=data)
 true_beta <- coef(model)
 n <- 500
 B <- 10
-num_iterations <- 5
+num_iterations <- 500
 non_parametric_equivalent_reject_sum <- rep(0,length(true_beta))
 non_parametric_symmetric_reject_sum <- rep(0,length(true_beta))
 wild_equivalent_reject_sum <- rep(0,length(true_beta))
 wild_symmetric_reject_sum <- rep(0,length(true_beta))
 clt_reject_sum <- rep(0,length(true_beta))
-for (i in seq(1, 500)) {
-  sample_data <- data[sample(nrow(data), 500),]
+for (i in seq(1, num_iterations)) {
+  sample_data <- data[sample(nrow(data), n),]
   sample_model <- lm(lwage1 ~ educ + marr + nonwhite + covered + exper, data=sample_data)
   u <- sample_model$residuals
   sample_betas <- coef(sample_model)
@@ -95,8 +95,23 @@ for (i in seq(1, 500)) {
   wild_equivalent_reject_sum <- wild_equivalent_reject_sum + wild_equivalent_reject
   wild_symmetric_reject <- unlist(lapply(1:6, reject_symmetric, t_stat = t_stat, cvs = wild_cvs))
   wild_symmetric_reject_sum <- wild_symmetric_reject_sum + wild_symmetric_reject
-  clt_reject <- t_stat > clt_cv
+  clt_reject <- abs(t_stat) > clt_cv
   clt_reject_sum <- clt_reject_sum + clt_reject
 }
+
+cov_se <- function(est, num_iterations) {
+  return(1.96 * sqrt((est / num_iterations) * (1 - (est / num_iterations)) / num_iterations))
+}
+clt_cov_est <- clt_reject_sum / num_iterations
+clt_ci <- c(clt_cov_est - cov_se(clt_cov_est, num_iterations), clt_cov_est + cov_se(clt_cov_est, num_iterations))
+wild_cov_sym_est <- wild_symmetric_reject_sum / num_iterations
+wild_sym_ci <- c(wild_cov_sym_est - cov_se(wild_cov_sym_est, num_iterations), wild_cov_sym_est + cov_se(wild_cov_sym_est, num_iterations))
+wild_cov_eq_est <- wild_equivalent_reject_sum / num_iterations
+wild_eq_ci <- c(wild_cov_eq_est - cov_se(wild_cov_eq_est, num_iterations), wild_cov_eq_est + cov_se(wild_cov_eq_est, num_iterations))
+
+np_cov_sym_est <- non_parametric_symmetric_reject_sum / num_iterations
+np_sym_ci <- c(np_cov_sym_est - cov_se(np_cov_sym_est, num_iterations), np_cov_sym_est + cov_se(np_cov_sym_est, num_iterations))
+np_cov_eq_est <- non_parametric_equivalent_reject_sum / num_iterations
+np_eq_ci <- c(np_cov_eq_est - cov_se(np_cov_eq_est, num_iterations), np_cov_eq_est + cov_se(np_cov_eq_est, num_iterations))
 
 stopCluster(cl)
