@@ -52,8 +52,8 @@ bootstrap_var_b <- var(d2[2,])
 clt_mean_b <- mean(d2[3,])
 clt_var_b <- var(d2[3,])
 
-a <- matrix(c(t_95_a, 0.00, clt_mean_a, clt_var_a, bootstrap_mean_a, bootstrap_var_a), ncol=3)colnames(a) <- c("t", "CLT", "Bootstrap")
-rownames(a) <- c("t", "CLT", "Bootstrap")
+a <- matrix(c(t_95_a, 0.00, clt_mean_a, clt_var_a, bootstrap_mean_a, bootstrap_var_a), ncol=3)
+colnames(a) <- c("t", "CLT", "Bootstrap")
 rownames(a) <- c("mean", "variance")
 
 b <- matrix(c(t_95_b, 0.00, clt_mean_b, clt_var_b, bootstrap_mean_b, bootstrap_var_b), ncol=3)
