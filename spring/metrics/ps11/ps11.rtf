@@ -11,15 +11,67 @@
 \b a)
 \b0 \
 \
-               t      CLT Bootstrap\
-mean     1.198199 1.644854  1.073078\
-variance 0.000000 0.000000  2.055192\
+                t       	CLT  		Bootstrap\
+mean     1.392061 	2.5771824 	1.36075925\
+variance 0.000000	0.4296518 	0.09943646\
+\
+Note that in this case the statistic we are computing is not asymptotically pivotal (the limiting distribution depends on E(x), thus here we should not be seeing any asymptotic refinement.\
+\
+Here we see that bootstrap has small variance centered around the t-stat that we get from the empirical distribution whereas the CLT has a vastly different estimate.\
 \
 \
 
 \b b)
 \b0 \
 \
-               t      CLT Bootstrap\
-mean     1.198199 1.644854  1.073078\
-variance 0.000000 0.000000  2.055192}
+                t      	CLT 		Bootstrap\
+mean     1.390799 	1.644854  	1.242657\
+variance 0.000000 	0.000000  	1.238941\
+\
+Note that in this case the statistic we are computing is asymptotically pivotal (the limiting distribution is N(0,1)).\
+\
+Here we see that bootstrap has a very large variance so its estimate isn\'92t as meaningful and the CLT is closer to the empirical t-stat than in the previous case.\
+\
+
+\b 3)
+\b0 \
+\
+a)\
+\
+               	\ul Estimate  \ulnone 		\ul Std. Error \ulnone    \
+(Intercept) 	0.05458040  		0.00604508 \
+educ         	0.10566041  		0.00042371\
+marr         	0.20761749  		0.00248706  \
+nonwhite    	-0.10557045  	0.00356353 \
+covered      	0.16091376  		0.00312819 \
+exper        	0.01068811  		0.00010138\
+\
+All of the coefficients seem to be statistically significant and most have positive effect on wage apart from being nonwhite.\
+\
+\
+
+\b Sample coverage
+\b0 \
+\
+              	CLT 		Wild Eq 	Wild Sym 	NP Eq 	NP Sym\
+(Intercept) 	0.886 	 	0.882   	0.886 		0.884  	0.886\
+educ        	0.862   	0.862    	0.862 		0.864  	0.862\
+marr        	0.876  	0.872    	0.874 		0.870  	0.870\
+nonwhite    	0.908   	0.902    	0.904 		0.900  	0.908\
+covered     	0.922  	0.920    	0.918 		0.912  	0.916\
+exper       	0.886   	0.890    	0.882	 	0.880  	0.888\
+\
+The Wild bootstrap seems to generate coverage closest to the nominal level but they all perform fairly well.\
+\
+\
+
+\b Fail to reject if coverage is 90% at 95% confidence interval
+\b0 \
+\
+              	CLT 		Wild Eq 	Wild Sym 	NP Eq 	NP Sym\
+(Intercept)  	TRUE    	TRUE     	TRUE  	TRUE   	TRUE\
+educ        	FALSE   	FALSE    	FALSE 	FALSE  	FALSE\
+marr         	TRUE    	TRUE    	FALSE 	FALSE  	FALSE\
+nonwhite     	TRUE    	TRUE     	TRUE  	TRUE   	TRUE\
+covered      	TRUE    	TRUE     	TRUE  	TRUE   	TRUE\
+exper        	TRUE    	TRUE     	TRUE  	TRUE   	TRUE}

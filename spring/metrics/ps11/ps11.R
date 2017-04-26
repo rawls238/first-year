@@ -21,11 +21,11 @@ bootstrap_1 <- function(row, B, n, q) {
 
 bootstrap_2 <- function(row, B, n, q) {
   v <- var(row)
-  t <- sqrt(n)*(mean(row) - 1) / v
+  t <- sqrt(n)*(mean(row) - 1) / sqrt(v)
   m <- unlist(lapply(1:B, function(i, data, n) { 
     s <- sample(data, n, replace=TRUE)
     v2 <- var(s)
-    return(sqrt(n)*(mean(s) - 1) / v2)
+    return(sqrt(n)*(mean(s) - 1) / sqrt(v2))
   }, data = row, n = n))
   bootstrap_est <- quantile(m, .95)
   return(c(t, bootstrap_est, q))

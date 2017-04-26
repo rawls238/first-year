@@ -115,4 +115,12 @@ np_sym_t <- cov_t(np_cov_sym_est, cov, num_iterations)
 np_cov_eq_est <- non_parametric_equivalent_reject_sum / num_iterations
 np_eq_t <- cov_t(np_cov_eq_est, cov, num_iterations)
 
+results <- matrix(c(clt_cov_est, wild_cov_eq_est, wild_cov_sym_est, np_cov_eq_est, np_cov_sym_est), ncol=5, nrow=6)
+colnames(results) <- c("CLT", "Wild Eq", "Wild Sym", "NP Eq", "NP Sym")
+rownames(results) <- c("(Intercept)", "educ", "marr", "nonwhite", "covered", "exper")
+
+t_results <- abs(results) < 1.96
+colnames(t_results) <- c("CLT", "Wild Eq", "Wild Sym", "NP Eq", "NP Sym")
+rownames(t_results) <- c("(Intercept)", "educ", "marr", "nonwhite", "covered", "exper")
+
 stopCluster(cl)
