@@ -14,7 +14,7 @@ bootstrap_1 <- function(row, B, n, q) {
     mean(s)
   }, data = row, n = n))
   bootstrap_est <- quantile(m, .95)
-  clt_est <- mean(row) + q * sqrt(v)
+  clt_est <- mean(row) + q * sqrt(v)/sqrt(n)
   return(c(t, bootstrap_est, clt_est))
 }
 
@@ -25,7 +25,7 @@ bootstrap_2 <- function(row, B, n, q) {
   m <- unlist(lapply(1:B, function(i, data, n) { 
     s <- sample(data, n, replace=TRUE)
     v2 <- var(s)
-    return(sqrt(n)*(mean(s) - 1) / sqrt(v2))
+    return(sqrt(n)*(mean(s) - mean(row)) / sqrt(v2))
   }, data = row, n = n))
   bootstrap_est <- quantile(m, .95)
   return(c(t, bootstrap_est, q))

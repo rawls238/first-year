@@ -15,10 +15,10 @@ def calc_equity_premium(p, q, sigma, rho, theta, b):
 
 df = pandas.read_excel('/Users/garidor/Desktop/first-year/spring/macro/part2/ps3/DataForPS3.xlsx')
 col = "% fall in real per capita GDP"
-b = df[col].values
+b = df[col].values / 100.0
 p = 0.017
 n = len(b)
-approx_num_observations = n/p
+approx_num_observations = 3500
 q = 0.4
 gamma = 0.025
 sigma = 0.02

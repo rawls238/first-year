@@ -12,25 +12,24 @@
 \b0 \
 \
                 t       	CLT  		Bootstrap\
-mean     1.392061 	2.5771824 	1.36075925\
-variance 0.000000	0.4296518 	0.09943646\
+mean     1.392061 	1.352152 	1.36075925\
+variance 0.000000	0.09666507	0.09943646\
 \
 Note that in this case the statistic we are computing is not asymptotically pivotal (the limiting distribution depends on E(x), thus here we should not be seeing any asymptotic refinement.\
 \
-Here we see that bootstrap has small variance centered around the t-stat that we get from the empirical distribution whereas the CLT has a vastly different estimate.\
-\
+Here we see that bootstrap and CLT estimate are approximately the same and thus we see what we would expect.\
 \
 
 \b b)
 \b0 \
 \
                 t      	CLT 		Bootstrap\
-mean     1.390799 	1.644854  	1.242657\
-variance 0.000000 	0.000000  	1.238941\
+mean     1.390799 	1.644854  	1.456867\
+variance 0.000000 	0.000000  	0.01293631\
 \
 Note that in this case the statistic we are computing is asymptotically pivotal (the limiting distribution is N(0,1)).\
 \
-Here we see that bootstrap has a very large variance so its estimate isn\'92t as meaningful and the CLT is closer to the empirical t-stat than in the previous case.\
+Here we see that the bootstrap does better than the CLT which is what we would expect given that the statistic is asymptotically pivotal.\
 \
 
 \b 3)
