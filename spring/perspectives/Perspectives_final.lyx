@@ -1,0 +1,613 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Perspectives Final Exam
+\end_layout
+
+\begin_layout Author
+Guy Aridor
+\end_layout
+
+\begin_layout Section*
+Question 2
+\end_layout
+
+\begin_layout Standard
+1) For instance, consider the case of the Great Recession where cutting
+ the interest rates did not really have the desired effect.
+ This was due to the fact that excess capacity was more of a problem than
+ aggregate demand and as a result cutting interest rates even further barely
+ stimulated aggregate demand and did not lead to a recovery due to the fact
+ that excess capacity was a bigger issue in the economy.
+ It could be argued that instead of focusing on interest rates, debt restructuri
+ng may be an effective way of restoring aggregate demand.
+ If households are credit constrained then changing interest rates matters
+ less than freeing the consumers of the debt that is preventing them from
+ being able to spend.
+ As well, if liquidity is concentrated in those that have a lower marginal
+ propensity to consume.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+2) There are several things that can be done, which have been done by the
+ Fed recently as it has hit the ZLB.
+ One is forward guidance which is setting market expectations in the long-run
+ regarding the path of interest rates thus changing the current marginal
+ rate of substitution between consumption in the current period.
+ Another is to change the reserve requirement which has rarely been used.
+ As well, under certain New Keynesian models we could argue that debt restructur
+ing could also be used as an effective way of restoring aggregate demand.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+3) If the Federal Reserve moves to negative interest rates, then utility
+ maximizing individuals will simply hoard cash since it will have a higher
+ interest rate (zero) than a negative interest rate.
+ As a result, lending will be lower since there will be no incentive to
+ lend, simply for individuals to hang onto cash.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+4) The fiscal multiplier is small if the marginal utility of consumption
+ is close to constant or there is a highly increasing marginal disutility
+ of producing output.
+ The fiscal multiplier can be high if we are near the zero-lower bound,
+ we have componetarity between public and private investmnent, the curvative
+ of our utility function is large, or if we have consumption-labor complementari
+ty.
+ Interestingly, if the government spends the money on completely useless
+ things that people would not normally buy then the multiplier is higher,
+ but if the government spends the money on things that people would otherwise
+ normally buy like healthcare or education, then the multiplier is smaller.
+ 
+\end_layout
+
+\begin_layout Section*
+Question 4
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+i) 
+\series default
+The average ability is nothing for 
+\begin_inset Formula $w<R_{L}$
+\end_inset
+
+since no one wants to supply labor
+\begin_inset Newline newline
+\end_inset
+
+The average ability is low ability for 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $R_{L}\leq$
+\end_inset
+
+w
+\begin_inset Formula $\leq R_{H}$
+\end_inset
+
+ since only low type supplies labor
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Newline newline
+\end_inset
+
+The average ability for w > 
+\begin_inset Formula $R_{H}$
+\end_inset
+
+is 
+\begin_inset Formula $\lambda$
+\end_inset
+
+proportion high type and 
+\begin_inset Formula $1-\lambda$
+\end_inset
+
+proportion low type 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\series bold
+ii)
+\series default
+ The supply curve is 0 for 
+\begin_inset Formula $w<R_{L}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+The supply curve is 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $a_{L}L_{L}$
+\end_inset
+
+for 
+\begin_inset Formula $R_{L}\leq$
+\end_inset
+
+w
+\begin_inset Formula $\leq R_{H}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Newline newline
+\end_inset
+
+The supply curve is 
+\begin_inset Formula $a_{H}L_{H}+a_{L}L_{L}$
+\end_inset
+
+for w > 
+\begin_inset Formula $R_{H}$
+\end_inset
+
+ 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+As a result the cost of an efficiency unit of labor as a function of wage
+ paid is:
+\begin_inset Newline newline
+\end_inset
+
+0 for 
+\begin_inset Formula $w<R_{L}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $a_{L}$
+\end_inset
+
+for 
+\begin_inset Formula $R_{L}\leq$
+\end_inset
+
+w
+\begin_inset Formula $\leq R_{H}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $(a_{H}L_{H}+a_{L}L_{L})/L$
+\end_inset
+
+ for w > 
+\begin_inset Formula $R_{H}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\series bold
+iii) 
+\series default
+Intuitively the average productivity is higher when the wage rate includes
+ the high type laborers and thus the marginal productivity of labor will
+ be higher.
+ As a result, the firm will demand less w > 
+\begin_inset Formula $R_{H}$
+\end_inset
+
+and at 
+\begin_inset Formula $R_{H}$
+\end_inset
+
+there will be a discrete horizontal jump in labor demanded (with 
+\begin_inset Formula $w$
+\end_inset
+
+ on the y axis and 
+\begin_inset Formula $L$
+\end_inset
+
+ on the x axis).
+ 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+When 
+\begin_inset Formula $w<R_{L}$
+\end_inset
+
+ the firm demands more labor since the marginal productivity of labor will
+ be higher than the cost of labor.
+ Thus the demand function is a decreasing function of wage with a discrete
+ jump at 
+\begin_inset Formula $R_{H}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Since there are discrete jumps in the labor supply and demand curves it
+ is possible that there is no equilibrium.
+ It is clear that there is no possible non-perverse separating equilibrium.
+ It is possible to have high types not work and low types work, but ideally
+ we would want a separating equilibrium where only the high types work and
+ the low types don't work.
+ However, the only possible incentive compatible equilibria are:
+\series bold
+
+\begin_inset Newline newline
+\end_inset
+
+
+\series default
+\bar under
+1)
+\bar default
+ Only low types work (
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $R_{L}\leq$
+\end_inset
+
+w
+\begin_inset Formula $\leq R_{H}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+)
+\begin_inset Newline newline
+\end_inset
+
+
+\bar under
+2)
+\bar default
+ Nobody works 
+\begin_inset Formula $\text{(w}$
+\end_inset
+
+<
+\begin_inset Formula $R_{L}$
+\end_inset
+
+)
+\begin_inset Newline newline
+\end_inset
+
+
+\bar under
+3)
+\bar default
+ Both work
+\series bold
+(
+\begin_inset Formula $w>R_{H})$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+iv) 
+\series default
+If all the firm cares about is minimizing the cost of labor then the firm
+ can simply set a
+\begin_inset Formula $w$
+\end_inset
+
+
+\begin_inset Formula $<R_{L}$
+\end_inset
+
+and neither the low type nor high type will supply any labor, thus making
+ the cost of labor 0.
+ At this wage, the equilibrium employment is to have full unemployment.
+\end_layout
+
+\begin_layout Section*
+Question 6
+\end_layout
+
+\begin_layout Standard
+The main differences in the assumptions between the two strands of New Keynesian
+ models deal with the types of rigidites.
+ While the former set of New Keynesian models focus on nominal rigidities,
+ the latter set of New Keynesian models focus more on real rigidities such
+ as markets not clearing due to imperfect information.
+ As well, the former set of New Keynesian models focus on exogenous demand
+ shocks, whereas the latter set focus on endogenous demand shocks.
+ To see which is more relevant we can see how well they predict large downturns
+ and match empirical data.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+It seems as though the latter strand of New Keynesian models does a better
+ job of predicting deep downturns such as the Great Depression and Great
+ Recession.
+ For instance, in the case of the Great Recession it would be hard to argue
+ that the shock to the housing market was exogenous and not endogenous.
+ As well, many critical aspects of what went on in the run up to the crisis
+ cannot be reconciled with rational expectations and thus point to 
+\begin_inset Quotes eld
+\end_inset
+
+real
+\begin_inset Quotes erd
+\end_inset
+
+ rigidities as opposed to nominal rigidities.
+ Some differences in policy:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+1) Rigidity New Keynesian models - monetary policy largely ineffective from
+ ZLB
+\begin_inset Newline newline
+\end_inset
+
+2) Deflationary New Keynesian models - access to credit, not just interest
+ rate, is what matters
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Debt matters even if Americans owe money to other Americans.
+ The reason for this is that if consumers are highly indebted then they
+ cannot spend money and as a result aggregate demand is depressed.
+ This matters on an aggregate level since this depressed aggregate demand
+ leads to low sales and as a result higher unemployment.
+ Due to this, it really does not matter who owes who what, it simply matters
+ if consumers are so indebted that they cannot actually spend money so that
+ there are perverse effects on aggregate demand.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+A balance sheet recession occurs when high indebtedness causes individuals
+ and firms to collectively focus on paying down debt instead of focusing
+ on spending or investing, causing economic growth to decline.
+ In traditional models these play no effect because the balance sheet of
+ the firm is not considered an endogenous variable in the firms optimizing
+ behavior since they only consider nominal rigidities and not real rigidities
+ such as dealing with risk averse firms facing the possibility of bankruptcy.
+ The Great Recession involved more than just balance sheet effects since
+ the net worth had real effects on the macroeconomic variables.
+ The shocks got amplified and had persistent effects, causing the balance
+ sheet effects to have a real impact on the economy.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+The economy might not be able to quickly revert to a full employment equilibrium
+ after the breaking of a housing bubble because household net worth would
+ crash with the housing bubble causing large amounts of indebtedness amongst
+ many households causing a consumption shock which would cause an aggregate
+ demand shock which would cause an employment shock.
+ There is not a full employment equilibrium anymore since labor demand has
+ a shock due to the chain of events described above and that causes an increase
+ in employment due to the no shirking condition
+\end_layout
+
+\end_body
+\end_document

@@ -1,0 +1,681 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Perspectives Problem Set 5
+\end_layout
+
+\begin_layout Author
+Guy Aridor
+\end_layout
+
+\begin_layout Section*
+Question 1
+\end_layout
+
+\begin_layout Standard
+1) 
+\begin_inset Quotes eld
+\end_inset
+
+Under-saving
+\begin_inset Quotes erd
+\end_inset
+
+ is defined, in the context of the permanent income hypothesis, by consuming
+ more than would normally be prescribed under consumption smoothing.
+ As a result, saving less and consuming more in one period (i.e.
+ during working years) leads to saving more and consuming less in later
+ periods (i.e.
+ retirement).
+ If we could design a lifetime study, we could look at if consumers saved
+ enough to be able to smooth consumption between when they retired and when
+ they were working.
+ Of course, this would take an exorbatant amount of time and as a result,
+ in a simple lab experiment we could test the preferences that lead to the
+ permanent income hypothesis by giving temporary and permanent increases
+ in income over periods and seeing the consumption vs savings rate.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+2) According to traditional economic theories this is not necessarily utility
+ maximizing behavior since it is imposed and not optimally chosen.
+ As a result, it is unlikely that all individuals would choose to be enrolled
+ in these plans at the same point from the standpoint of traditional theory.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+3) The empirical fact that a large fraction of employees choose to join
+ these automatic enrollment plans seems to contradict traditional economic
+ theory.
+ We can potentially look at this from a behavioral standpoint to explain
+ why people would voluntarily choose to limit their future choices.
+ One potential explanation is regarding conformity and that it is considered
+ the norm for people to automatically enroll and as a result people enroll.
+ This is somewhat similar to the 
+\begin_inset Quotes eld
+\end_inset
+
+status quo bias
+\begin_inset Quotes erd
+\end_inset
+
+ where the status quo here is to automatically enroll in the plans.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+4) The default matters, this is simply the status quo bias.
+ By setting the default choice we are 
+\begin_inset Quotes eld
+\end_inset
+
+nudging
+\begin_inset Quotes erd
+\end_inset
+
+ people to take the default choice since people feel that they need to have
+ an explanation as to why they are moving away from the status quo.
+ With respect to what this says about theories that deal with intertemporal
+ utility maximization, it seems to contradict the idea that these consumers
+ are doing intertemporal utility maximization.
+ If they were maximizing utility intertemporally then it would be clear
+ that they would ignore the default and optimize according to their own
+ utility function, however they seem to not be doing this by simply accepting
+ the default.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+5) This poses a paradox for standard theory since individuals, in order
+ to properly solve their intertemporal optimization problem, would not want
+ to artificially impose a fee to taking money from these accounts in order
+ to smooth consumption since they could simply save accordingly without
+ having to deal with the fee involved.
+ There would be no need to have this sort of account.
+ However, by imposing the fee it reminded people that they were attempting
+ to save and that this money was intended for saving for retirement instead
+ of current period consumption and as a result, since they were thinking
+ about saving it caused them to save more.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Question 3
+\end_layout
+
+\begin_layout Standard
+a) Firm wage and employment decision is given by
+\end_layout
+
+\begin_layout Standard
+In the case when 
+\begin_inset Formula $w<\bar{(w}$
+\end_inset
+
+
+\begin_inset Formula $+a$
+\end_inset
+
+
+\begin_inset Formula $-bu$
+\end_inset
+
+)
+\begin_inset Formula $e$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+the firm solves
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $max_{w,L}$
+\end_inset
+
+ 
+\begin_inset Formula $F(\frac{w}{w^{*}}L$
+\end_inset
+
+) 
+\begin_inset Formula $-$
+\end_inset
+
+
+\begin_inset Formula $wL$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+FOC:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $L:$
+\end_inset
+
+ 
+\begin_inset Formula $\frac{w}{w^{*}}F'(\frac{w}{w^{*}}L)=w$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $w:$
+\end_inset
+
+
+\begin_inset Formula $\frac{L}{w^{*}}$
+\end_inset
+
+
+\begin_inset Formula $F'(\frac{w}{w^{*}}\text{\ensuremath{L\text{)\ensuremath{=\ensuremath{L}}}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Thus we have 
+\begin_inset Formula $F'(\frac{w}{w^{*}}L)=w^{*}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the case when 
+\begin_inset Formula $w\geq\bar{(w}$
+\end_inset
+
+
+\begin_inset Formula $+a$
+\end_inset
+
+
+\begin_inset Formula $-bu$
+\end_inset
+
+)
+\begin_inset Formula $e$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+the firm solves
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $max_{w,L}$
+\end_inset
+
+ 
+\begin_inset Formula $F(L$
+\end_inset
+
+) 
+\begin_inset Formula $-$
+\end_inset
+
+
+\begin_inset Formula $wL$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+FOC:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $L:$
+\end_inset
+
+ 
+\begin_inset Formula $F'(L)=w$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $w:$
+\end_inset
+
+
+\begin_inset Formula $w=w^{*}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Thus we have 
+\begin_inset Formula $F'(L^{*})$
+\end_inset
+
+
+\begin_inset Formula $=w^{*}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+b) 
+\begin_inset Newline newline
+\end_inset
+
+When 
+\begin_inset Formula $w<\bar{(w}$
+\end_inset
+
+
+\begin_inset Formula $+a$
+\end_inset
+
+
+\begin_inset Formula $-bu$
+\end_inset
+
+)
+\begin_inset Formula $e$
+\end_inset
+
+ we have that every firm can demand 
+\begin_inset Formula $L^{s}$
+\end_inset
+
+and there is no unemployment.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+When 
+\begin_inset Formula $w\geq\bar{(w}$
+\end_inset
+
+
+\begin_inset Formula $+a$
+\end_inset
+
+
+\begin_inset Formula $-bu$
+\end_inset
+
+)
+\begin_inset Formula $e$
+\end_inset
+
+ since 
+\begin_inset Formula $\bar{w}$
+\end_inset
+
+
+\begin_inset Formula $=w^{*}$
+\end_inset
+
+we have that 
+\begin_inset Formula $a$
+\end_inset
+
+
+\begin_inset Formula $-bu$
+\end_inset
+
+
+\begin_inset Formula $=0$
+\end_inset
+
+.
+ As a result there must be no unemployment.
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Question 5
+\end_layout
+
+\begin_layout Standard
+a) The firm needs to pay back 
+\begin_inset Formula $(1+R)(a+b)$
+\end_inset
+
+
+\begin_inset Formula $=(1+R)$
+\end_inset
+
+ to the other firm and the bank.
+\begin_inset Newline newline
+\end_inset
+
+If the project is successful and the other firm pays back their loan then
+ the firm nets 
+\begin_inset Formula $X_{H}\text{+(1+R)a.}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+If the project is successful and the other firm does not pay back their
+ loan then the firm nets 
+\begin_inset Formula $X_{H}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+If the project is not successful and the other firm pays back their loan
+ then the firm nets 
+\begin_inset Formula $X_{L}\text{+(1+R)a.}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+If the project is not successful and the other firm does not pay back their
+ loan then the firm nets 
+\begin_inset Formula $X_{L}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+b) The firms will always go bankrupt if it is the case that 
+\begin_inset Formula $X_{t}+$
+\end_inset
+
+(1+R)a 
+\begin_inset Formula $<$
+\end_inset
+
+(1+R).
+ Thus the low outcome firm will go bankrupt if it is the case that 
+\begin_inset Formula $X_{H}$
+\end_inset
+
+ 
+\begin_inset Formula $\geq(1+R)$
+\end_inset
+
+ but 
+\begin_inset Formula $X_{L}+(1+R)a<(1+R)$
+\end_inset
+
+ or 
+\begin_inset Formula $X_{H}$
+\end_inset
+
+ 
+\begin_inset Formula $<(1+R)$
+\end_inset
+
+ and 
+\begin_inset Formula $X_{L}<(1+R)$
+\end_inset
+
+.
+ If the low outcome firm goes bankrupt then if 
+\begin_inset Formula $X_{H}$
+\end_inset
+
+ 
+\begin_inset Formula $<(1+R)$
+\end_inset
+
+ the other firm will go bankrupt.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+c) There are two cases:
+\begin_inset Newline newline
+\end_inset
+
+1) No matter the success of the project, neither firm bankrupts then it
+ must be that 
+\begin_inset Formula $R$
+\end_inset
+
+
+\begin_inset Formula $=\text{\ensuremath{r}}$
+\end_inset
+
+ 
+\begin_inset Newline newline
+\end_inset
+
+2) The lender recoups the investment only if the high state is realized.
+ Thus from each firm, the lender expects to receive 
+\begin_inset Formula $p(1+R)b$
+\end_inset
+
+and from the risk-free rate is 
+\begin_inset Formula $(1+r)b.$
+\end_inset
+
+Equating the b we get that 
+\begin_inset Formula $R=\frac{1+r-p}{r}$
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Thus R is bigger if the firm bankrupts if the low state is realized.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+d) Assume further that 
+\begin_inset Formula $rb$
+\end_inset
+
++(1+R)b
+\begin_inset Formula $<(1+R)$
+\end_inset
+
+ then depending on the values of 
+\begin_inset Formula $X_{H}$
+\end_inset
+
+we can have bankruptcy of one firm if the low state is realized, but not
+ bankruptcy for the other firm.
+ Or, both firms could be bankrupt.
+ If it is the case that 
+\begin_inset Formula $X_{H}\geq(1+R)$
+\end_inset
+
+ then there will be no bankruptcy but if 
+\begin_inset Formula $X_{H}<(1+R)$
+\end_inset
+
+ then there will be if the low state is realized.
+ However, if 
+\begin_inset Formula $X_{H}+(1+R)b\geq(1+R)$
+\end_inset
+
+ then if both firms have the high state then neither will go bankrupt.
+ In order to solve this the government could provide an ex-ante safety net
+ that would redistribute the profits from the firm that ends up realizing
+ in the high state to help the low state firm not bankrupt.
+\end_layout
+
+\begin_layout Section*
+Question 7
+\end_layout
+
+\begin_layout Standard
+a) Theoretically reducing the transactions costs reduces the frictions involved
+ in an employment contract.
+ Thus workers will be less likely to shirk since there is a higher probability
+ of firing due to the reduced transaction costs.
+ As a result, effort is higher and wages are higher and unemployment goes
+ down.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+b) The effect of this would be that these workers would be more likely to
+ be fired and we would have a more efficient labor market.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+c) Risk aversion changes the present discounted value of expected utility
+ of unemployment.
+ Risk averse individuals care about income not wage stability so with variable
+ employment wage should be procyclical.
+ This should thus impact wage but not unemployment.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+d) In the standard model, when the productivity decrease occurs wages will
+ adjust to reflect the new marginal productivity of labor and will stay
+ at this level for the rest of eternity.
+ The wage rigidities caused by the Shapiro-Stiglitz model will lead to the
+ wage falling less than in the competitive case.
+ If we still are assuming that wage adjustment is costly, this leads to
+ wage rigidity and even less of a decrease in wages when compared to the
+ competitive case!
+\end_layout
+
+\end_body
+\end_document
